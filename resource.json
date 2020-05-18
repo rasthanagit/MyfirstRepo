@@ -1,0 +1,19 @@
+{
+    "vsolution": {
+        "http": {
+            "credentialsId": "service-account",
+            "urls": {
+                "devOps": "https://github.com/imp-ress-ico/devops.git",
+                "vs-nodejs": "http://git.impressicocrm.com/vsolution/vs-nodejs.git"
+            }
+        },
+        "server": {
+            "serverParameters": {
+                "ip":"13.127.119.152",
+                "username":"ubuntu"
+            }
+        }
+    }    
+}
+
+"http://git.impressicocrm.com/devOps/devOps.git"
