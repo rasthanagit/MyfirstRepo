@@ -16,8 +16,37 @@ jobs:
         with:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Check if stack exists
+        id: check_stack
+        run: |
+          if aws cloudformation describe-stacks --stack-name parameter-store-prod --region us-east-2 2>/dev/null; then
+            echo "Stack exists"
+            echo "stack_exists=true" >> $GITHUB_OUTPUT
+            
+            echo "Current stack parameters:"
+            aws cloudformation describe-stacks \
+              --stack-name parameter-store-prod \
+              --region us-east-2 \
+              --query 'Stacks[0].Parameters' \
+              --output table
+          else
+            echo "Stack does not exist"
+            echo "stack_exists=false" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true
+      
       - name: Build
         run: sam build
+      
+      - name: Validate template
+        run: |
+          echo "Validating SAM template..."
+          sam validate --region us-east-2
+          
+          echo "Checking built template..."
+          cat .aws-sam/build/template.yaml
+      
       - name: Deploy
         env:
           COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
@@ -47,11 +76,6 @@ jobs:
           SNOWFLAKE_PASSWORD=$(echo "$SNOWFLAKE_PASSWORD" | tr -d '[:space:]')
           SNOWFLAKE_WAREHOUSE=$(echo "$SNOWFLAKE_WAREHOUSE" | tr -d '[:space:]')
           
-          echo "Cleaned secrets (showing lengths):"
-          echo "COGNITO_CLIENT_ID: ${#COGNITO_CLIENT_ID} bytes"
-          echo "COGNITO_USER_POOL_ID: ${#COGNITO_USER_POOL_ID} bytes"
-          echo "EMAIL_FROM_EMAIL: ${#EMAIL_FROM_EMAIL} bytes"
-          
           PARAMS="ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID}"
           PARAMS="${PARAMS} ParameterKey=CognitoUserPoolId,ParameterValue=${COGNITO_USER_POOL_ID}"
           PARAMS="${PARAMS} ParameterKey=EmailFromEmail,ParameterValue=${EMAIL_FROM_EMAIL}"
@@ -73,3 +97,35 @@ jobs:
             --no-confirm-changeset \
             --no-fail-on-empty-changeset \
             --parameter-overrides "${PARAMS}"
+      
+      - name: Get deployment error details
+        if: failure()
+        run: |
+          echo "=== Fetching CloudFormation Stack Events ==="
+          aws cloudformation describe-stack-events \
+            --stack-name parameter-store-prod \
+            --region us-east-2 \
+            --max-items 50 \
+            --output json | jq -r '.StackEvents[] | select(.Timestamp > (now - 600)) | "\(.Timestamp) | \(.ResourceType) | \(.ResourceStatus) | \(.ResourceStatusReason // "N/A")"'
+          
+          echo ""
+          echo "=== Listing Change Sets ==="
+          aws cloudformation list-change-sets \
+            --stack-name parameter-store-prod \
+            --region us-east-2 \
+            --output json | jq -r '.Summaries[]? | "\(.ChangeSetName) | \(.Status) | \(.StatusReason // "N/A")"'
+          
+          echo ""
+          echo "=== Describing Latest Failed Change Set ==="
+          LATEST_CS=$(aws cloudformation list-change-sets \
+            --stack-name parameter-store-prod \
+            --region us-east-2 \
+            --output json | jq -r '.Summaries[0].ChangeSetName // empty')
+          
+          if [ ! -z "$LATEST_CS" ]; then
+            aws cloudformation describe-change-set \
+              --change-set-name "$LATEST_CS" \
+              --stack-name parameter-store-prod \
+              --region us-east-2 \
+              --output json | jq '.StatusReason, .Changes'
+          fi
