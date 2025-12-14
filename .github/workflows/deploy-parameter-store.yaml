@@ -16,31 +16,21 @@ jobs:
         with:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: Create parameter overrides file
-        run: |
-          cat > params.json << 'EOF'
-          {
-            "Parameters": {
-              "COGNITO_CLIENT_ID": "${{ secrets.COGNITO_CLIENT_ID }}",
-              "COGNITO_USER_POOL_ID": "${{ secrets.COGNITO_USER_POOL_ID }}",
-              "EMAIL_FROM_EMAIL": "${{ secrets.EMAIL_FROM_EMAIL }}",
-              "CONTRACT_PORTAL_HMAC_SECRET": "${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}",
-              "HUBSPOT_API_KEY": "${{ secrets.HUBSPOT_API_KEY }}",
-              "DB_CONNECTION_STRING": "${{ secrets.DB_CONNECTION_STRING }}",
-              "SMTP_DETAILS": "${{ secrets.SMTP_DETAILS }}",
-              "SNS_PROJECT": "${{ secrets.SNS_PROJECT }}",
-              "SNS_PUSH_NOTIFICATION": "${{ secrets.SNS_PUSH_NOTIFICATION }}",
-              "SNOWFLAKE_USERNAME": "${{ secrets.SNOWFLAKE_USERNAME }}",
-              "SNOWFLAKE_PASSWORD": "${{ secrets.SNOWFLAKE_PASSWORD }}",
-              "SNOWFLAKE_WAREHOUSE": "${{ secrets.SNOWFLAKE_WAREHOUSE }}"
-            }
-          }
-          EOF
       - name: Build
         run: sam build
       - name: Deploy
+        env:
+          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
+          COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
+          EMAIL_FROM_EMAIL: ${{ secrets.EMAIL_FROM_EMAIL }}
+          CONTRACT_PORTAL_HMAC_SECRET: ${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}
+          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+          SMTP_DETAILS: ${{ secrets.SMTP_DETAILS }}
+          SNS_PROJECT: ${{ secrets.SNS_PROJECT }}
+          SNS_PUSH_NOTIFICATION: ${{ secrets.SNS_PUSH_NOTIFICATION }}
+          SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         run: |
-          sam deploy \
-            --config-file samconfig.toml \
-            --config-env prod \
-            --parameter-overrides $(jq -r '.Parameters | to_entries | map("\(.key)=\(.value)") | join(" ")' params.json)
+          sam deploy --config-file samconfig.toml --config-env prod --parameter-overrides COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID} COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID} EMAIL_FROM_EMAIL=${EMAIL_FROM_EMAIL} CONTRACT_PORTAL_HMAC_SECRET=${CONTRACT_PORTAL_HMAC_SECRET} HUBSPOT_API_KEY=${HUBSPOT_API_KEY} DB_CONNECTION_STRING=${DB_CONNECTION_STRING} SMTP_DETAILS=${SMTP_DETAILS} SNS_PROJECT=${SNS_PROJECT} SNS_PUSH_NOTIFICATION=${SNS_PUSH_NOTIFICATION} SNOWFLAKE_USERNAME=${SNOWFLAKE_USERNAME} SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD} SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE}
