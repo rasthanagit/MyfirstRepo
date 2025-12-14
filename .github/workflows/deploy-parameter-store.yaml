@@ -1,6 +1,11 @@
 name: Deploy Parameter Store
 on:
   workflow_dispatch:
+    inputs:
+      test_mode:
+        description: 'Test with minimal parameters'
+        required: false
+        default: 'false'
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
 jobs:
@@ -16,7 +21,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: Validate Secrets Format
+      - name: Validate Secrets
         env:
           COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
           COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
@@ -31,70 +36,49 @@ jobs:
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         run: |
-          echo "Checking secrets..."
+          echo "Checking all secrets for issues..."
           
-          # Function to check secret
-          check_secret() {
-            local name=$1
-            local value=$2
-            local length=${#value}
+          # Check each secret
+          for secret_name in COGNITO_CLIENT_ID COGNITO_USER_POOL_ID EMAIL_FROM_EMAIL CONTRACT_PORTAL_HMAC_SECRET HUBSPOT_API_KEY DB_CONNECTION_STRING SMTP_DETAILS SNS_PROJECT SNS_PUSH_NOTIFICATION SNOWFLAKE_USERNAME SNOWFLAKE_PASSWORD SNOWFLAKE_WAREHOUSE; do
+            eval secret_value=\$$secret_name
+            length=${#secret_value}
             
             echo "---"
-            echo "Secret: $name"
-            echo "Length: $length bytes"
+            echo "$secret_name: ${length} bytes"
             
-            # Check if empty
-            if [ -z "$value" ]; then
-              echo "❌ ERROR: Secret is EMPTY"
-              return 1
+            if [ -z "$secret_value" ]; then
+              echo "  ❌ EMPTY!"
+            elif [ $length -gt 4096 ]; then
+              echo "  ❌ TOO LARGE (>4KB)!"
+            else
+              # Check for problematic characters
+              if printf '%s' "$secret_value" | grep -qP '[\x00-\x08\x0B\x0C\x0E-\x1F]'; then
+                echo "  ⚠️  Contains control characters"
+              fi
+              if printf '%s' "$secret_value" | grep -q $'\n'; then
+                echo "  ⚠️  Contains newlines"
+              fi
+              echo "  ✅ OK"
             fi
-            
-            # Check size (4KB = 4096 bytes limit for SSM)
-            if [ $length -gt 4096 ]; then
-              echo "❌ ERROR: Secret exceeds 4KB limit (SSM SecureString limit)"
-              return 1
-            fi
-            
-            # Check for newlines
-            if echo "$value" | grep -q $'\n'; then
-              echo "⚠️  WARNING: Secret contains newlines"
-            fi
-            
-            # Check for tabs
-            if echo "$value" | grep -q $'\t'; then
-              echo "⚠️  WARNING: Secret contains tabs"
-            fi
-            
-            # Check for leading/trailing whitespace
-            if [[ "$value" != "${value#"${value%%[![:space:]]*}"}" ]] || [[ "$value" != "${value%"${value##*[![:space:]]}"}" ]]; then
-              echo "⚠️  WARNING: Secret has leading or trailing whitespace"
-            fi
-            
-            # Show first and last 10 chars (for debugging)
-            echo "First 10 chars: ${value:0:10}..."
-            echo "Last 10 chars: ...${value: -10}"
-            
-            echo "✅ Secret format looks OK"
-          }
-          
-          check_secret "COGNITO_CLIENT_ID" "$COGNITO_CLIENT_ID"
-          check_secret "COGNITO_USER_POOL_ID" "$COGNITO_USER_POOL_ID"
-          check_secret "EMAIL_FROM_EMAIL" "$EMAIL_FROM_EMAIL"
-          check_secret "CONTRACT_PORTAL_HMAC_SECRET" "$CONTRACT_PORTAL_HMAC_SECRET"
-          check_secret "HUBSPOT_API_KEY" "$HUBSPOT_API_KEY"
-          check_secret "DB_CONNECTION_STRING" "$DB_CONNECTION_STRING"
-          check_secret "SMTP_DETAILS" "$SMTP_DETAILS"
-          check_secret "SNS_PROJECT" "$SNS_PROJECT"
-          check_secret "SNS_PUSH_NOTIFICATION" "$SNS_PUSH_NOTIFICATION"
-          check_secret "SNOWFLAKE_USERNAME" "$SNOWFLAKE_USERNAME"
-          check_secret "SNOWFLAKE_PASSWORD" "$SNOWFLAKE_PASSWORD"
-          check_secret "SNOWFLAKE_WAREHOUSE" "$SNOWFLAKE_WAREHOUSE"
-          
-          echo "---"
-          echo "Secret validation complete"
+          done
       - name: Build
         run: sam build
-      - name: Deploy
+      - name: Test Deploy (One parameter at a time)
+        if: github.event.inputs.test_mode == 'true'
+        env:
+          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
+        run: |
+          echo "Testing with just COGNITO_CLIENT_ID..."
+          sam deploy \
+            --stack-name parameter-store-prod-test \
+            --region us-east-2 \
+            --capabilities CAPABILITY_IAM \
+            --resolve-s3 \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset \
+            --parameter-overrides "ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID} ParameterKey=CognitoUserPoolId,ParameterValue=test ParameterKey=EmailFromEmail,ParameterValue=test@test.com ParameterKey=ContractPortalHmacSecret,ParameterValue=test ParameterKey=HubspotApiKey,ParameterValue=test ParameterKey=DbConnectionString,ParameterValue=test ParameterKey=SmtpDetails,ParameterValue=test ParameterKey=SnsProject,ParameterValue=test ParameterKey=SnsPushNotification,ParameterValue=test ParameterKey=SnowflakeUsername,ParameterValue=test ParameterKey=SnowflakePassword,ParameterValue=test ParameterKey=SnowflakeWarehouse,ParameterValue=test"
+      - name: Deploy (Full)
+        if: github.event.inputs.test_mode != 'true'
         env:
           COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
           COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
@@ -109,6 +93,20 @@ jobs:
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         run: |
+          # Trim whitespace from all secrets
+          COGNITO_CLIENT_ID=$(echo "$COGNITO_CLIENT_ID" | xargs)
+          COGNITO_USER_POOL_ID=$(echo "$COGNITO_USER_POOL_ID" | xargs)
+          EMAIL_FROM_EMAIL=$(echo "$EMAIL_FROM_EMAIL" | xargs)
+          CONTRACT_PORTAL_HMAC_SECRET=$(echo "$CONTRACT_PORTAL_HMAC_SECRET" | xargs)
+          HUBSPOT_API_KEY=$(echo "$HUBSPOT_API_KEY" | xargs)
+          DB_CONNECTION_STRING=$(echo "$DB_CONNECTION_STRING" | xargs)
+          SMTP_DETAILS=$(echo "$SMTP_DETAILS" | xargs)
+          SNS_PROJECT=$(echo "$SNS_PROJECT" | xargs)
+          SNS_PUSH_NOTIFICATION=$(echo "$SNS_PUSH_NOTIFICATION" | xargs)
+          SNOWFLAKE_USERNAME=$(echo "$SNOWFLAKE_USERNAME" | xargs)
+          SNOWFLAKE_PASSWORD=$(echo "$SNOWFLAKE_PASSWORD" | xargs)
+          SNOWFLAKE_WAREHOUSE=$(echo "$SNOWFLAKE_WAREHOUSE" | xargs)
+          
           PARAMS="ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID}"
           PARAMS="${PARAMS} ParameterKey=CognitoUserPoolId,ParameterValue=${COGNITO_USER_POOL_ID}"
           PARAMS="${PARAMS} ParameterKey=EmailFromEmail,ParameterValue=${EMAIL_FROM_EMAIL}"
