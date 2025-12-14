@@ -16,65 +16,36 @@ jobs:
         with:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: Create parameters file
-        run: |
-          cat > parameters.json << EOF
-          [
-            {
-              "ParameterKey": "CognitoClientId",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.COGNITO_CLIENT_ID }}" '$val')
-            },
-            {
-              "ParameterKey": "CognitoUserPoolId",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.COGNITO_USER_POOL_ID }}" '$val')
-            },
-            {
-              "ParameterKey": "EmailFromEmail",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.EMAIL_FROM_EMAIL }}" '$val')
-            },
-            {
-              "ParameterKey": "ContractPortalHmacSecret",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}" '$val')
-            },
-            {
-              "ParameterKey": "HubspotApiKey",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.HUBSPOT_API_KEY }}" '$val')
-            },
-            {
-              "ParameterKey": "DbConnectionString",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.DB_CONNECTION_STRING }}" '$val')
-            },
-            {
-              "ParameterKey": "SmtpDetails",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.SMTP_DETAILS }}" '$val')
-            },
-            {
-              "ParameterKey": "SnsProject",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.SNS_PROJECT }}" '$val')
-            },
-            {
-              "ParameterKey": "SnsPushNotification",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.SNS_PUSH_NOTIFICATION }}" '$val')
-            },
-            {
-              "ParameterKey": "SnowflakeUsername",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.SNOWFLAKE_USERNAME }}" '$val')
-            },
-            {
-              "ParameterKey": "SnowflakePassword",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.SNOWFLAKE_PASSWORD }}" '$val')
-            },
-            {
-              "ParameterKey": "SnowflakeWarehouse",
-              "ParameterValue": $(jq -n --arg val "${{ secrets.SNOWFLAKE_WAREHOUSE }}" '$val')
-            }
-          ]
-          EOF
-          cat parameters.json
       - name: Build
         run: sam build
       - name: Deploy
+        env:
+          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
+          COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
+          EMAIL_FROM_EMAIL: ${{ secrets.EMAIL_FROM_EMAIL }}
+          CONTRACT_PORTAL_HMAC_SECRET: ${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}
+          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+          SMTP_DETAILS: ${{ secrets.SMTP_DETAILS }}
+          SNS_PROJECT: ${{ secrets.SNS_PROJECT }}
+          SNS_PUSH_NOTIFICATION: ${{ secrets.SNS_PUSH_NOTIFICATION }}
+          SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         run: |
+          PARAMS="ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID}"
+          PARAMS="${PARAMS} ParameterKey=CognitoUserPoolId,ParameterValue=${COGNITO_USER_POOL_ID}"
+          PARAMS="${PARAMS} ParameterKey=EmailFromEmail,ParameterValue=${EMAIL_FROM_EMAIL}"
+          PARAMS="${PARAMS} ParameterKey=ContractPortalHmacSecret,ParameterValue=${CONTRACT_PORTAL_HMAC_SECRET}"
+          PARAMS="${PARAMS} ParameterKey=HubspotApiKey,ParameterValue=${HUBSPOT_API_KEY}"
+          PARAMS="${PARAMS} ParameterKey=DbConnectionString,ParameterValue=${DB_CONNECTION_STRING}"
+          PARAMS="${PARAMS} ParameterKey=SmtpDetails,ParameterValue=${SMTP_DETAILS}"
+          PARAMS="${PARAMS} ParameterKey=SnsProject,ParameterValue=${SNS_PROJECT}"
+          PARAMS="${PARAMS} ParameterKey=SnsPushNotification,ParameterValue=${SNS_PUSH_NOTIFICATION}"
+          PARAMS="${PARAMS} ParameterKey=SnowflakeUsername,ParameterValue=${SNOWFLAKE_USERNAME}"
+          PARAMS="${PARAMS} ParameterKey=SnowflakePassword,ParameterValue=${SNOWFLAKE_PASSWORD}"
+          PARAMS="${PARAMS} ParameterKey=SnowflakeWarehouse,ParameterValue=${SNOWFLAKE_WAREHOUSE}"
+          
           sam deploy \
             --stack-name parameter-store-prod \
             --region us-east-2 \
@@ -82,4 +53,4 @@ jobs:
             --resolve-s3 \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset \
-            --parameter-overrides file://parameters.json
+            --parameter-overrides "${PARAMS}"
