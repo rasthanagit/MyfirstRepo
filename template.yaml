@@ -6,40 +6,40 @@ Parameters:
   # =====================
   # Secure Parameters
   # =====================
-  COGNITO_CLIENT_ID:
+  CognitoClientId:
     Type: String
     NoEcho: true
-  COGNITO_USER_POOL_ID:
+  CognitoUserPoolId:
     Type: String
     NoEcho: true
-  EMAIL_FROM_EMAIL:
+  EmailFromEmail:
     Type: String
     NoEcho: true
-  CONTRACT_PORTAL_HMAC_SECRET:
+  ContractPortalHmacSecret:
     Type: String
     NoEcho: true
-  HUBSPOT_API_KEY:
+  HubspotApiKey:
     Type: String
     NoEcho: true
-  DB_CONNECTION_STRING:
+  DbConnectionString:
     Type: String
     NoEcho: true
-  SMTP_DETAILS:
+  SmtpDetails:
     Type: String
     NoEcho: true
-  SNS_PROJECT:
+  SnsProject:
     Type: String
     NoEcho: true
-  SNS_PUSH_NOTIFICATION:
+  SnsPushNotification:
     Type: String
     NoEcho: true
-  SNOWFLAKE_PASSWORD:
+  SnowflakePassword:
     Type: String
     NoEcho: true
-  SNOWFLAKE_USERNAME:
+  SnowflakeUsername:
     Type: String
     NoEcho: true
-  SNOWFLAKE_WAREHOUSE:
+  SnowflakeWarehouse:
     Type: String
     NoEcho: true
 
@@ -48,19 +48,19 @@ Resources:
   # =====================
   # COGNITO
   # =====================
-  CognitoClientId:
+  CognitoClientIdParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /COGNITO/CLIENT_ID
       Type: SecureString
-      Value: !Ref COGNITO_CLIENT_ID
+      Value: !Ref CognitoClientId
 
-  CognitoUserPoolId:
+  CognitoUserPoolIdParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /COGNITO/USER_POOL_ID
       Type: SecureString
-      Value: !Ref COGNITO_USER_POOL_ID
+      Value: !Ref CognitoUserPoolId
 
   # =====================
   # DOCUSIGN (STRING)
@@ -101,7 +101,7 @@ Resources:
     Properties:
       Name: /EMAIL/FROM_EMAIL
       Type: SecureString
-      Value: !Ref EMAIL_FROM_EMAIL
+      Value: !Ref EmailFromEmail
 
   # =====================
   # CONTRACT
@@ -111,7 +111,7 @@ Resources:
     Properties:
       Name: CONTRACT_PORTAL_HMAC_SECRET
       Type: SecureString
-      Value: !Ref CONTRACT_PORTAL_HMAC_SECRET
+      Value: !Ref ContractPortalHmacSecret
 
   ContractApiUrl:
     Type: AWS::SSM::Parameter
@@ -123,12 +123,12 @@ Resources:
   # =====================
   # HUBSPOT
   # =====================
-  HubspotApiKey:
+  HubspotApiKeyParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /HUBSPOT/API_KEY
       Type: SecureString
-      Value: !Ref HUBSPOT_API_KEY
+      Value: !Ref HubspotApiKey
 
   # =====================
   # DATABASE
@@ -138,58 +138,58 @@ Resources:
     Properties:
       Name: DB_CONNECTION_STRING
       Type: SecureString
-      Value: !Ref DB_CONNECTION_STRING
+      Value: !Ref DbConnectionString
 
   # =====================
   # SMTP
   # =====================
-  SmtpDetails:
+  SmtpDetailsParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: SMTP_DETAILS
       Type: SecureString
-      Value: !Ref SMTP_DETAILS
+      Value: !Ref SmtpDetails
 
   # =====================
   # SNS
   # =====================
-  SnsProject:
+  SnsProjectParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /SNS_TOPIC/PROJECT
       Type: SecureString
-      Value: !Ref SNS_PROJECT
+      Value: !Ref SnsProject
 
   SnsPush:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /SNS_TOPIC/SNS_PUSH_NOTIFICATION
       Type: SecureString
-      Value: !Ref SNS_PUSH_NOTIFICATION
+      Value: !Ref SnsPushNotification
 
   # =====================
   # SNOWFLAKE
   # =====================
-  SnowflakeUsername:
+  SnowflakeUsernameParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /SNOWFLAKE/USERNAME
       Type: SecureString
-      Value: !Ref SNOWFLAKE_USERNAME
+      Value: !Ref SnowflakeUsername
 
-  SnowflakePassword:
+  SnowflakePasswordParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /SNOWFLAKE/PASSWORD
       Type: SecureString
-      Value: !Ref SNOWFLAKE_PASSWORD
+      Value: !Ref SnowflakePassword
 
-  SnowflakeWarehouse:
+  SnowflakeWarehouseParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /SNOWFLAKE/WAREHOUSE
       Type: SecureString
-      Value: !Ref SNOWFLAKE_WAREHOUSE
+      Value: !Ref SnowflakeWarehouse
 
 Outputs:
   Status:
