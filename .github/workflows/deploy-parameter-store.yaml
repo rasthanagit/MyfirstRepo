@@ -1,0 +1,45 @@
+name: Deploy Parameter Store
+
+on:
+  workflow_dispatch:
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Build
+        run: sam build
+
+      - name: Deploy
+        run: |
+          sam deploy \
+            --config-file samconfig.toml \
+            --config-env prod \
+            --parameter-overrides \
+              COGNITO_CLIENT_ID="${{ secrets.COGNITO_CLIENT_ID }}" \
+              COGNITO_USER_POOL_ID="${{ secrets.COGNITO_USER_POOL_ID }}" \
+              EMAIL_FROM_EMAIL="${{ secrets.EMAIL_FROM_EMAIL }}" \
+              CONTRACT_PORTAL_HMAC_SECRET="${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}" \
+              HUBSPOT_API_KEY="${{ secrets.HUBSPOT_API_KEY }}" \
+              DB_CONNECTION_STRING="${{ secrets.DB_CONNECTION_STRING }}" \
+              SMTP_DETAILS="${{ secrets.SMTP_DETAILS }}" \
+              SNS_PROJECT="${{ secrets.SNS_PROJECT }}" \
+              SNS_PUSH_NOTIFICATION="${{ secrets.SNS_PUSH_NOTIFICATION }}" \
+              SNOWFLAKE_USERNAME="${{ secrets.SNOWFLAKE_USERNAME }}" \
+              SNOWFLAKE_PASSWORD="${{ secrets.SNOWFLAKE_PASSWORD }}" \
+              SNOWFLAKE_WAREHOUSE="${{ secrets.SNOWFLAKE_WAREHOUSE }}"

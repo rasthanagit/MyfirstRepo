@@ -1,0 +1,8 @@
+version = 0.1
+
+[prod.deploy]
+region = "us-east-2"
+stack_name = "parameter-store-prod"
+capabilities = "CAPABILITY_IAM"
+resolve_s3 = true
+confirm_changeset = false
