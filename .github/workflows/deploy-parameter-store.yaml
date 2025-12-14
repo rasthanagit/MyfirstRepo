@@ -53,4 +53,13 @@ jobs:
             --resolve-s3 \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset \
-            --parameter-overrides "${PARAMS}"
+            --parameter-overrides "${PARAMS}" || {
+              echo "Deployment failed. Fetching CloudFormation events..."
+              aws cloudformation describe-stack-events \
+                --stack-name parameter-store-prod \
+                --region us-east-2 \
+                --max-items 10 \
+                --query 'StackEvents[?ResourceStatus==`FAILED` || contains(ResourceStatusReason, `validation`)].[Timestamp,ResourceType,ResourceStatus,ResourceStatusReason]' \
+                --output table
+              exit 1
+            }
