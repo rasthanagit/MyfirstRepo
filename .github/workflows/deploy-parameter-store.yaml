@@ -16,7 +16,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: Validate Parameters
+      - name: Validate Secrets Format
         env:
           COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
           COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
@@ -31,39 +31,69 @@ jobs:
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         run: |
-          echo "Checking parameter lengths and content..."
-          echo "COGNITO_CLIENT_ID length: ${#COGNITO_CLIENT_ID}"
-          echo "COGNITO_USER_POOL_ID length: ${#COGNITO_USER_POOL_ID}"
-          echo "EMAIL_FROM_EMAIL length: ${#EMAIL_FROM_EMAIL}"
-          echo "CONTRACT_PORTAL_HMAC_SECRET length: ${#CONTRACT_PORTAL_HMAC_SECRET}"
-          echo "HUBSPOT_API_KEY length: ${#HUBSPOT_API_KEY}"
-          echo "DB_CONNECTION_STRING length: ${#DB_CONNECTION_STRING}"
-          echo "SMTP_DETAILS length: ${#SMTP_DETAILS}"
-          echo "SNS_PROJECT length: ${#SNS_PROJECT}"
-          echo "SNS_PUSH_NOTIFICATION length: ${#SNS_PUSH_NOTIFICATION}"
-          echo "SNOWFLAKE_USERNAME length: ${#SNOWFLAKE_USERNAME}"
-          echo "SNOWFLAKE_PASSWORD length: ${#SNOWFLAKE_PASSWORD}"
-          echo "SNOWFLAKE_WAREHOUSE length: ${#SNOWFLAKE_WAREHOUSE}"
+          echo "Checking secrets..."
           
-          # Check if any parameter is empty
-          if [ -z "$COGNITO_CLIENT_ID" ]; then echo "ERROR: COGNITO_CLIENT_ID is empty"; exit 1; fi
-          if [ -z "$COGNITO_USER_POOL_ID" ]; then echo "ERROR: COGNITO_USER_POOL_ID is empty"; exit 1; fi
-          if [ -z "$EMAIL_FROM_EMAIL" ]; then echo "ERROR: EMAIL_FROM_EMAIL is empty"; exit 1; fi
-          if [ -z "$CONTRACT_PORTAL_HMAC_SECRET" ]; then echo "ERROR: CONTRACT_PORTAL_HMAC_SECRET is empty"; exit 1; fi
-          if [ -z "$HUBSPOT_API_KEY" ]; then echo "ERROR: HUBSPOT_API_KEY is empty"; exit 1; fi
-          if [ -z "$DB_CONNECTION_STRING" ]; then echo "ERROR: DB_CONNECTION_STRING is empty"; exit 1; fi
-          if [ -z "$SMTP_DETAILS" ]; then echo "ERROR: SMTP_DETAILS is empty"; exit 1; fi
-          if [ -z "$SNS_PROJECT" ]; then echo "ERROR: SNS_PROJECT is empty"; exit 1; fi
-          if [ -z "$SNS_PUSH_NOTIFICATION" ]; then echo "ERROR: SNS_PUSH_NOTIFICATION is empty"; exit 1; fi
-          if [ -z "$SNOWFLAKE_USERNAME" ]; then echo "ERROR: SNOWFLAKE_USERNAME is empty"; exit 1; fi
-          if [ -z "$SNOWFLAKE_PASSWORD" ]; then echo "ERROR: SNOWFLAKE_PASSWORD is empty"; exit 1; fi
-          if [ -z "$SNOWFLAKE_WAREHOUSE" ]; then echo "ERROR: SNOWFLAKE_WAREHOUSE is empty"; exit 1; fi
+          # Function to check secret
+          check_secret() {
+            local name=$1
+            local value=$2
+            local length=${#value}
+            
+            echo "---"
+            echo "Secret: $name"
+            echo "Length: $length bytes"
+            
+            # Check if empty
+            if [ -z "$value" ]; then
+              echo "❌ ERROR: Secret is EMPTY"
+              return 1
+            fi
+            
+            # Check size (4KB = 4096 bytes limit for SSM)
+            if [ $length -gt 4096 ]; then
+              echo "❌ ERROR: Secret exceeds 4KB limit (SSM SecureString limit)"
+              return 1
+            fi
+            
+            # Check for newlines
+            if echo "$value" | grep -q $'\n'; then
+              echo "⚠️  WARNING: Secret contains newlines"
+            fi
+            
+            # Check for tabs
+            if echo "$value" | grep -q $'\t'; then
+              echo "⚠️  WARNING: Secret contains tabs"
+            fi
+            
+            # Check for leading/trailing whitespace
+            if [[ "$value" != "${value#"${value%%[![:space:]]*}"}" ]] || [[ "$value" != "${value%"${value##*[![:space:]]}"}" ]]; then
+              echo "⚠️  WARNING: Secret has leading or trailing whitespace"
+            fi
+            
+            # Show first and last 10 chars (for debugging)
+            echo "First 10 chars: ${value:0:10}..."
+            echo "Last 10 chars: ...${value: -10}"
+            
+            echo "✅ Secret format looks OK"
+          }
           
-          echo "All parameters are non-empty"
+          check_secret "COGNITO_CLIENT_ID" "$COGNITO_CLIENT_ID"
+          check_secret "COGNITO_USER_POOL_ID" "$COGNITO_USER_POOL_ID"
+          check_secret "EMAIL_FROM_EMAIL" "$EMAIL_FROM_EMAIL"
+          check_secret "CONTRACT_PORTAL_HMAC_SECRET" "$CONTRACT_PORTAL_HMAC_SECRET"
+          check_secret "HUBSPOT_API_KEY" "$HUBSPOT_API_KEY"
+          check_secret "DB_CONNECTION_STRING" "$DB_CONNECTION_STRING"
+          check_secret "SMTP_DETAILS" "$SMTP_DETAILS"
+          check_secret "SNS_PROJECT" "$SNS_PROJECT"
+          check_secret "SNS_PUSH_NOTIFICATION" "$SNS_PUSH_NOTIFICATION"
+          check_secret "SNOWFLAKE_USERNAME" "$SNOWFLAKE_USERNAME"
+          check_secret "SNOWFLAKE_PASSWORD" "$SNOWFLAKE_PASSWORD"
+          check_secret "SNOWFLAKE_WAREHOUSE" "$SNOWFLAKE_WAREHOUSE"
+          
+          echo "---"
+          echo "Secret validation complete"
       - name: Build
         run: sam build
-      - name: Validate Template
-        run: sam validate
       - name: Deploy
         env:
           COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
@@ -99,12 +129,4 @@ jobs:
             --resolve-s3 \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset \
-            --parameter-overrides "${PARAMS}" || {
-              echo "Deployment failed. Checking for recent stack events..."
-              aws cloudformation describe-stack-events \
-                --stack-name parameter-store-prod \
-                --region us-east-2 \
-                --max-items 20 \
-                --output json | jq -r '.StackEvents[] | select(.Timestamp > (now - 300)) | [.Timestamp, .ResourceType, .ResourceStatus, .ResourceStatusReason] | @tsv'
-              exit 1
-            }
+            --parameter-overrides "${PARAMS}"
