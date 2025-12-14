@@ -34,8 +34,10 @@ jobs:
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         run: |
           sam deploy \
-            --config-file samconfig.toml \
-            --config-env prod \
+            --stack-name parameter-store-prod \
+            --region us-east-2 \
+            --capabilities CAPABILITY_IAM \
+            --resolve-s3 \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset \
             --parameter-overrides "ParameterKey=COGNITO_CLIENT_ID,ParameterValue=${COGNITO_CLIENT_ID} ParameterKey=COGNITO_USER_POOL_ID,ParameterValue=${COGNITO_USER_POOL_ID} ParameterKey=EMAIL_FROM_EMAIL,ParameterValue=${EMAIL_FROM_EMAIL} ParameterKey=CONTRACT_PORTAL_HMAC_SECRET,ParameterValue=${CONTRACT_PORTAL_HMAC_SECRET} ParameterKey=HUBSPOT_API_KEY,ParameterValue=${HUBSPOT_API_KEY} ParameterKey=DB_CONNECTION_STRING,ParameterValue=${DB_CONNECTION_STRING} ParameterKey=SMTP_DETAILS,ParameterValue=${SMTP_DETAILS} ParameterKey=SNS_PROJECT,ParameterValue=${SNS_PROJECT} ParameterKey=SNS_PUSH_NOTIFICATION,ParameterValue=${SNS_PUSH_NOTIFICATION} ParameterKey=SNOWFLAKE_USERNAME,ParameterValue=${SNOWFLAKE_USERNAME} ParameterKey=SNOWFLAKE_PASSWORD,ParameterValue=${SNOWFLAKE_PASSWORD} ParameterKey=SNOWFLAKE_WAREHOUSE,ParameterValue=${SNOWFLAKE_WAREHOUSE}"
