@@ -1,11 +1,6 @@
 name: Deploy Parameter Store
 on:
   workflow_dispatch:
-    inputs:
-      test_mode:
-        description: 'Test with minimal parameters'
-        required: false
-        default: 'false'
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
 jobs:
@@ -21,64 +16,9 @@ jobs:
         with:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: Validate Secrets
-        env:
-          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
-          COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
-          EMAIL_FROM_EMAIL: ${{ secrets.EMAIL_FROM_EMAIL }}
-          CONTRACT_PORTAL_HMAC_SECRET: ${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}
-          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
-          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
-          SMTP_DETAILS: ${{ secrets.SMTP_DETAILS }}
-          SNS_PROJECT: ${{ secrets.SNS_PROJECT }}
-          SNS_PUSH_NOTIFICATION: ${{ secrets.SNS_PUSH_NOTIFICATION }}
-          SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-        run: |
-          echo "Checking all secrets for issues..."
-          
-          # Check each secret
-          for secret_name in COGNITO_CLIENT_ID COGNITO_USER_POOL_ID EMAIL_FROM_EMAIL CONTRACT_PORTAL_HMAC_SECRET HUBSPOT_API_KEY DB_CONNECTION_STRING SMTP_DETAILS SNS_PROJECT SNS_PUSH_NOTIFICATION SNOWFLAKE_USERNAME SNOWFLAKE_PASSWORD SNOWFLAKE_WAREHOUSE; do
-            eval secret_value=\$$secret_name
-            length=${#secret_value}
-            
-            echo "---"
-            echo "$secret_name: ${length} bytes"
-            
-            if [ -z "$secret_value" ]; then
-              echo "  ❌ EMPTY!"
-            elif [ $length -gt 4096 ]; then
-              echo "  ❌ TOO LARGE (>4KB)!"
-            else
-              # Check for problematic characters
-              if printf '%s' "$secret_value" | grep -qP '[\x00-\x08\x0B\x0C\x0E-\x1F]'; then
-                echo "  ⚠️  Contains control characters"
-              fi
-              if printf '%s' "$secret_value" | grep -q $'\n'; then
-                echo "  ⚠️  Contains newlines"
-              fi
-              echo "  ✅ OK"
-            fi
-          done
       - name: Build
         run: sam build
-      - name: Test Deploy (One parameter at a time)
-        if: github.event.inputs.test_mode == 'true'
-        env:
-          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
-        run: |
-          echo "Testing with just COGNITO_CLIENT_ID..."
-          sam deploy \
-            --stack-name parameter-store-prod-test \
-            --region us-east-2 \
-            --capabilities CAPABILITY_IAM \
-            --resolve-s3 \
-            --no-confirm-changeset \
-            --no-fail-on-empty-changeset \
-            --parameter-overrides "ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID} ParameterKey=CognitoUserPoolId,ParameterValue=test ParameterKey=EmailFromEmail,ParameterValue=test@test.com ParameterKey=ContractPortalHmacSecret,ParameterValue=test ParameterKey=HubspotApiKey,ParameterValue=test ParameterKey=DbConnectionString,ParameterValue=test ParameterKey=SmtpDetails,ParameterValue=test ParameterKey=SnsProject,ParameterValue=test ParameterKey=SnsPushNotification,ParameterValue=test ParameterKey=SnowflakeUsername,ParameterValue=test ParameterKey=SnowflakePassword,ParameterValue=test ParameterKey=SnowflakeWarehouse,ParameterValue=test"
-      - name: Deploy (Full)
-        if: github.event.inputs.test_mode != 'true'
+      - name: Deploy
         env:
           COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
           COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
@@ -93,19 +33,24 @@ jobs:
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         run: |
-          # Trim whitespace from all secrets
-          COGNITO_CLIENT_ID=$(echo "$COGNITO_CLIENT_ID" | xargs)
-          COGNITO_USER_POOL_ID=$(echo "$COGNITO_USER_POOL_ID" | xargs)
-          EMAIL_FROM_EMAIL=$(echo "$EMAIL_FROM_EMAIL" | xargs)
-          CONTRACT_PORTAL_HMAC_SECRET=$(echo "$CONTRACT_PORTAL_HMAC_SECRET" | xargs)
-          HUBSPOT_API_KEY=$(echo "$HUBSPOT_API_KEY" | xargs)
-          DB_CONNECTION_STRING=$(echo "$DB_CONNECTION_STRING" | xargs)
-          SMTP_DETAILS=$(echo "$SMTP_DETAILS" | xargs)
-          SNS_PROJECT=$(echo "$SNS_PROJECT" | xargs)
-          SNS_PUSH_NOTIFICATION=$(echo "$SNS_PUSH_NOTIFICATION" | xargs)
-          SNOWFLAKE_USERNAME=$(echo "$SNOWFLAKE_USERNAME" | xargs)
-          SNOWFLAKE_PASSWORD=$(echo "$SNOWFLAKE_PASSWORD" | xargs)
-          SNOWFLAKE_WAREHOUSE=$(echo "$SNOWFLAKE_WAREHOUSE" | xargs)
+          # Strip ALL whitespace including newlines, tabs, etc from secrets
+          COGNITO_CLIENT_ID=$(echo "$COGNITO_CLIENT_ID" | tr -d '[:space:]')
+          COGNITO_USER_POOL_ID=$(echo "$COGNITO_USER_POOL_ID" | tr -d '[:space:]')
+          EMAIL_FROM_EMAIL=$(echo "$EMAIL_FROM_EMAIL" | tr -d '[:space:]')
+          CONTRACT_PORTAL_HMAC_SECRET=$(echo "$CONTRACT_PORTAL_HMAC_SECRET" | tr -d '[:space:]')
+          HUBSPOT_API_KEY=$(echo "$HUBSPOT_API_KEY" | tr -d '[:space:]')
+          DB_CONNECTION_STRING=$(echo "$DB_CONNECTION_STRING" | tr -d '[:space:]')
+          SMTP_DETAILS=$(echo "$SMTP_DETAILS" | tr -d '[:space:]')
+          SNS_PROJECT=$(echo "$SNS_PROJECT" | tr -d '[:space:]')
+          SNS_PUSH_NOTIFICATION=$(echo "$SNS_PUSH_NOTIFICATION" | tr -d '[:space:]')
+          SNOWFLAKE_USERNAME=$(echo "$SNOWFLAKE_USERNAME" | tr -d '[:space:]')
+          SNOWFLAKE_PASSWORD=$(echo "$SNOWFLAKE_PASSWORD" | tr -d '[:space:]')
+          SNOWFLAKE_WAREHOUSE=$(echo "$SNOWFLAKE_WAREHOUSE" | tr -d '[:space:]')
+          
+          echo "Cleaned secrets (showing lengths):"
+          echo "COGNITO_CLIENT_ID: ${#COGNITO_CLIENT_ID} bytes"
+          echo "COGNITO_USER_POOL_ID: ${#COGNITO_USER_POOL_ID} bytes"
+          echo "EMAIL_FROM_EMAIL: ${#EMAIL_FROM_EMAIL} bytes"
           
           PARAMS="ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID}"
           PARAMS="${PARAMS} ParameterKey=CognitoUserPoolId,ParameterValue=${COGNITO_USER_POOL_ID}"
