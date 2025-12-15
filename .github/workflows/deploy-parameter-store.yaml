@@ -17,35 +17,36 @@ jobs:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
       
-      - name: Check if stack exists
-        id: check_stack
+      - name: Delete stuck stack if in REVIEW_IN_PROGRESS
         run: |
-          if aws cloudformation describe-stacks --stack-name parameter-store-prod --region us-east-2 2>/dev/null; then
-            echo "Stack exists"
-            echo "stack_exists=true" >> $GITHUB_OUTPUT
-            
-            echo "Current stack parameters:"
-            aws cloudformation describe-stacks \
+          STACK_STATUS=$(aws cloudformation describe-stacks \
+            --stack-name parameter-store-prod \
+            --region us-east-2 \
+            --query 'Stacks[0].StackStatus' \
+            --output text 2>/dev/null || echo "DOES_NOT_EXIST")
+          
+          echo "Current stack status: $STACK_STATUS"
+          
+          if [ "$STACK_STATUS" == "REVIEW_IN_PROGRESS" ]; then
+            echo "Stack is stuck in REVIEW_IN_PROGRESS. Deleting it..."
+            aws cloudformation delete-stack \
               --stack-name parameter-store-prod \
-              --region us-east-2 \
-              --query 'Stacks[0].Parameters' \
-              --output table
+              --region us-east-2
+            
+            echo "Waiting for stack deletion to complete..."
+            aws cloudformation wait stack-delete-complete \
+              --stack-name parameter-store-prod \
+              --region us-east-2
+            
+            echo "Stack deleted successfully"
+          elif [ "$STACK_STATUS" == "DOES_NOT_EXIST" ]; then
+            echo "Stack does not exist, proceeding with deployment"
           else
-            echo "Stack does not exist"
-            echo "stack_exists=false" >> $GITHUB_OUTPUT
+            echo "Stack status is $STACK_STATUS, proceeding with deployment"
           fi
-        continue-on-error: true
       
       - name: Build
         run: sam build
-      
-      - name: Validate template
-        run: |
-          echo "Validating SAM template..."
-          sam validate --region us-east-2
-          
-          echo "Checking built template..."
-          cat .aws-sam/build/template.yaml
       
       - name: Deploy
         env:
@@ -62,7 +63,7 @@ jobs:
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         run: |
-          # Strip ALL whitespace including newlines, tabs, etc from secrets
+          # Strip newlines and whitespace from secrets
           COGNITO_CLIENT_ID=$(echo "$COGNITO_CLIENT_ID" | tr -d '[:space:]')
           COGNITO_USER_POOL_ID=$(echo "$COGNITO_USER_POOL_ID" | tr -d '[:space:]')
           EMAIL_FROM_EMAIL=$(echo "$EMAIL_FROM_EMAIL" | tr -d '[:space:]')
@@ -97,35 +98,3 @@ jobs:
             --no-confirm-changeset \
             --no-fail-on-empty-changeset \
             --parameter-overrides "${PARAMS}"
-      
-      - name: Get deployment error details
-        if: failure()
-        run: |
-          echo "=== Fetching CloudFormation Stack Events ==="
-          aws cloudformation describe-stack-events \
-            --stack-name parameter-store-prod \
-            --region us-east-2 \
-            --max-items 50 \
-            --output json | jq -r '.StackEvents[] | select(.Timestamp > (now - 600)) | "\(.Timestamp) | \(.ResourceType) | \(.ResourceStatus) | \(.ResourceStatusReason // "N/A")"'
-          
-          echo ""
-          echo "=== Listing Change Sets ==="
-          aws cloudformation list-change-sets \
-            --stack-name parameter-store-prod \
-            --region us-east-2 \
-            --output json | jq -r '.Summaries[]? | "\(.ChangeSetName) | \(.Status) | \(.StatusReason // "N/A")"'
-          
-          echo ""
-          echo "=== Describing Latest Failed Change Set ==="
-          LATEST_CS=$(aws cloudformation list-change-sets \
-            --stack-name parameter-store-prod \
-            --region us-east-2 \
-            --output json | jq -r '.Summaries[0].ChangeSetName // empty')
-          
-          if [ ! -z "$LATEST_CS" ]; then
-            aws cloudformation describe-change-set \
-              --change-set-name "$LATEST_CS" \
-              --stack-name parameter-store-prod \
-              --region us-east-2 \
-              --output json | jq '.StatusReason, .Changes'
-          fi
