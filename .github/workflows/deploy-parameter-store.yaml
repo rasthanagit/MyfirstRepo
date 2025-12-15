@@ -77,7 +77,7 @@ jobs:
           #SNOWFLAKE_PASSWORD=$(echo "$SNOWFLAKE_PASSWORD" | tr -d '[:space:]')
           #SNOWFLAKE_WAREHOUSE=$(echo "$SNOWFLAKE_WAREHOUSE" | tr -d '[:space:]')
           
-          PARAMS="${PARAMS} ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID}"
+          PARAMS="ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID}"
           #PARAMS="${PARAMS} ParameterKey=CognitoUserPoolId,ParameterValue=${COGNITO_USER_POOL_ID}"
           #PARAMS="${PARAMS} ParameterKey=EmailFromEmail,ParameterValue=${EMAIL_FROM_EMAIL}"
           #PARAMS="${PARAMS} ParameterKey=ContractPortalHmacSecret,ParameterValue=${CONTRACT_PORTAL_HMAC_SECRET}"
