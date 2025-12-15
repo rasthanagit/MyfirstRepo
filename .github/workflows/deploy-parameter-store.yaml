@@ -17,80 +17,15 @@ jobs:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
       
-      - name: Delete stuck stack if in REVIEW_IN_PROGRESS
-        run: |
-          STACK_STATUS=$(aws cloudformation describe-stacks \
-            --stack-name parameter-store-prod \
-            --region us-east-2 \
-            --query 'Stacks[0].StackStatus' \
-            --output text 2>/dev/null || echo "DOES_NOT_EXIST")
-          
-          echo "Current stack status: $STACK_STATUS"
-          
-          if [ "$STACK_STATUS" == "REVIEW_IN_PROGRESS" ]; then
-            echo "Stack is stuck in REVIEW_IN_PROGRESS. Deleting it..."
-            aws cloudformation delete-stack \
-              --stack-name parameter-store-prod \
-              --region us-east-2
-            
-            echo "Waiting for stack deletion to complete..."
-            aws cloudformation wait stack-delete-complete \
-              --stack-name parameter-store-prod \
-              --region us-east-2
-            
-            echo "Stack deleted successfully"
-          elif [ "$STACK_STATUS" == "DOES_NOT_EXIST" ]; then
-            echo "Stack does not exist, proceeding with deployment"
-          else
-            echo "Stack status is $STACK_STATUS, proceeding with deployment"
-          fi
-      
       - name: Build
         run: sam build
       
-      - name: Validate Secret
-        env:
-          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
-        run: |
-          # Clean the secret
-          COGNITO_CLIENT_ID=$(echo "$COGNITO_CLIENT_ID" | tr -d '[:space:]')
-          
-          echo "=== Secret Validation ==="
-          echo "COGNITO_CLIENT_ID length: ${#COGNITO_CLIENT_ID} characters"
-          
-          if [ ${#COGNITO_CLIENT_ID} -gt 0 ]; then
-            echo "First 10 chars: ${COGNITO_CLIENT_ID:0:10}..."
-            echo "Last 5 chars: ...${COGNITO_CLIENT_ID: -5}"
-          fi
-          
-          if [ -z "$COGNITO_CLIENT_ID" ]; then
-            echo "❌ ERROR: Secret is empty after cleaning!"
-            exit 1
-          fi
-          
-          if [ ${#COGNITO_CLIENT_ID} -lt 10 ]; then
-            echo "⚠️  WARNING: Secret seems too short (${#COGNITO_CLIENT_ID} chars)"
-          fi
-          
-          echo "✅ Secret validation passed"
-      
       - name: Deploy
-        env:
-          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
         run: |
-          # Strip newlines and whitespace from secrets
-          COGNITO_CLIENT_ID=$(echo "$COGNITO_CLIENT_ID" | tr -d '[:space:]')
-          
-          # Initialize PARAMS correctly (this was missing before!)
-          PARAMS="ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID}"
-          
-          echo "Deploying with parameters: ${PARAMS}"
-          
           sam deploy \
             --stack-name parameter-store-prod \
             --region us-east-2 \
             --capabilities CAPABILITY_IAM \
             --resolve-s3 \
             --no-confirm-changeset \
-            --no-fail-on-empty-changeset \
-            --parameter-overrides "${PARAMS}"
+            --no-fail-on-empty-changeset
