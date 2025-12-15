@@ -52,7 +52,7 @@ Resources:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /COGNITO/CLIENT_ID
-      Type: SecureString
+      Type: String
       Value: !Ref CognitoClientId
 
   # CognitoUserPoolIdParam:
