@@ -51,44 +51,44 @@ jobs:
       - name: Deploy
         env:
           COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
-          COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
-          EMAIL_FROM_EMAIL: ${{ secrets.EMAIL_FROM_EMAIL }}
-          CONTRACT_PORTAL_HMAC_SECRET: ${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}
-          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
-          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
-          SMTP_DETAILS: ${{ secrets.SMTP_DETAILS }}
-          SNS_PROJECT: ${{ secrets.SNS_PROJECT }}
-          SNS_PUSH_NOTIFICATION: ${{ secrets.SNS_PUSH_NOTIFICATION }}
-          SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+            #COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
+            #EMAIL_FROM_EMAIL: ${{ secrets.EMAIL_FROM_EMAIL }}
+            #CONTRACT_PORTAL_HMAC_SECRET: ${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}
+            #HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
+            #DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+            #SMTP_DETAILS: ${{ secrets.SMTP_DETAILS }}
+            #SNS_PROJECT: ${{ secrets.SNS_PROJECT }}
+            #SNS_PUSH_NOTIFICATION: ${{ secrets.SNS_PUSH_NOTIFICATION }}
+            #SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
+            #SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+            #SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         run: |
           # Strip newlines and whitespace from secrets
           COGNITO_CLIENT_ID=$(echo "$COGNITO_CLIENT_ID" | tr -d '[:space:]')
-          COGNITO_USER_POOL_ID=$(echo "$COGNITO_USER_POOL_ID" | tr -d '[:space:]')
-          EMAIL_FROM_EMAIL=$(echo "$EMAIL_FROM_EMAIL" | tr -d '[:space:]')
-          CONTRACT_PORTAL_HMAC_SECRET=$(echo "$CONTRACT_PORTAL_HMAC_SECRET" | tr -d '[:space:]')
-          HUBSPOT_API_KEY=$(echo "$HUBSPOT_API_KEY" | tr -d '[:space:]')
-          DB_CONNECTION_STRING=$(echo "$DB_CONNECTION_STRING" | tr -d '[:space:]')
-          SMTP_DETAILS=$(echo "$SMTP_DETAILS" | tr -d '[:space:]')
-          SNS_PROJECT=$(echo "$SNS_PROJECT" | tr -d '[:space:]')
-          SNS_PUSH_NOTIFICATION=$(echo "$SNS_PUSH_NOTIFICATION" | tr -d '[:space:]')
-          SNOWFLAKE_USERNAME=$(echo "$SNOWFLAKE_USERNAME" | tr -d '[:space:]')
-          SNOWFLAKE_PASSWORD=$(echo "$SNOWFLAKE_PASSWORD" | tr -d '[:space:]')
-          SNOWFLAKE_WAREHOUSE=$(echo "$SNOWFLAKE_WAREHOUSE" | tr -d '[:space:]')
+          #COGNITO_USER_POOL_ID=$(echo "$COGNITO_USER_POOL_ID" | tr -d '[:space:]')
+          #EMAIL_FROM_EMAIL=$(echo "$EMAIL_FROM_EMAIL" | tr -d '[:space:]')
+          #CONTRACT_PORTAL_HMAC_SECRET=$(echo "$CONTRACT_PORTAL_HMAC_SECRET" | tr -d '[:space:]')
+          #HUBSPOT_API_KEY=$(echo "$HUBSPOT_API_KEY" | tr -d '[:space:]')
+          #DB_CONNECTION_STRING=$(echo "$DB_CONNECTION_STRING" | tr -d '[:space:]')
+          #SMTP_DETAILS=$(echo "$SMTP_DETAILS" | tr -d '[:space:]')
+          #SNS_PROJECT=$(echo "$SNS_PROJECT" | tr -d '[:space:]')
+          #SNS_PUSH_NOTIFICATION=$(echo "$SNS_PUSH_NOTIFICATION" | tr -d '[:space:]')
+          #SNOWFLAKE_USERNAME=$(echo "$SNOWFLAKE_USERNAME" | tr -d '[:space:]')
+          #SNOWFLAKE_PASSWORD=$(echo "$SNOWFLAKE_PASSWORD" | tr -d '[:space:]')
+          #SNOWFLAKE_WAREHOUSE=$(echo "$SNOWFLAKE_WAREHOUSE" | tr -d '[:space:]')
           
-          PARAMS="ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID}"
-          PARAMS="${PARAMS} ParameterKey=CognitoUserPoolId,ParameterValue=${COGNITO_USER_POOL_ID}"
-          PARAMS="${PARAMS} ParameterKey=EmailFromEmail,ParameterValue=${EMAIL_FROM_EMAIL}"
-          PARAMS="${PARAMS} ParameterKey=ContractPortalHmacSecret,ParameterValue=${CONTRACT_PORTAL_HMAC_SECRET}"
-          PARAMS="${PARAMS} ParameterKey=HubspotApiKey,ParameterValue=${HUBSPOT_API_KEY}"
-          PARAMS="${PARAMS} ParameterKey=DbConnectionString,ParameterValue=${DB_CONNECTION_STRING}"
-          PARAMS="${PARAMS} ParameterKey=SmtpDetails,ParameterValue=${SMTP_DETAILS}"
-          PARAMS="${PARAMS} ParameterKey=SnsProject,ParameterValue=${SNS_PROJECT}"
-          PARAMS="${PARAMS} ParameterKey=SnsPushNotification,ParameterValue=${SNS_PUSH_NOTIFICATION}"
-          PARAMS="${PARAMS} ParameterKey=SnowflakeUsername,ParameterValue=${SNOWFLAKE_USERNAME}"
-          PARAMS="${PARAMS} ParameterKey=SnowflakePassword,ParameterValue=${SNOWFLAKE_PASSWORD}"
-          PARAMS="${PARAMS} ParameterKey=SnowflakeWarehouse,ParameterValue=${SNOWFLAKE_WAREHOUSE}"
+          PARAMS="${PARAMS} ParameterKey=CognitoClientId,ParameterValue=${COGNITO_CLIENT_ID}"
+          #PARAMS="${PARAMS} ParameterKey=CognitoUserPoolId,ParameterValue=${COGNITO_USER_POOL_ID}"
+          #PARAMS="${PARAMS} ParameterKey=EmailFromEmail,ParameterValue=${EMAIL_FROM_EMAIL}"
+          #PARAMS="${PARAMS} ParameterKey=ContractPortalHmacSecret,ParameterValue=${CONTRACT_PORTAL_HMAC_SECRET}"
+          #PARAMS="${PARAMS} ParameterKey=HubspotApiKey,ParameterValue=${HUBSPOT_API_KEY}"
+          #PARAMS="${PARAMS} ParameterKey=DbConnectionString,ParameterValue=${DB_CONNECTION_STRING}"
+          #PARAMS="${PARAMS} ParameterKey=SmtpDetails,ParameterValue=${SMTP_DETAILS}"
+          #PARAMS="${PARAMS} ParameterKey=SnsProject,ParameterValue=${SNS_PROJECT}"
+          #PARAMS="${PARAMS} ParameterKey=SnsPushNotification,ParameterValue=${SNS_PUSH_NOTIFICATION}"
+          #PARAMS="${PARAMS} ParameterKey=SnowflakeUsername,ParameterValue=${SNOWFLAKE_USERNAME}"
+          #PARAMS="${PARAMS} ParameterKey=SnowflakePassword,ParameterValue=${SNOWFLAKE_PASSWORD}"
+          #PARAMS="${PARAMS} ParameterKey=SnowflakeWarehouse,ParameterValue=${SNOWFLAKE_WAREHOUSE}"
           
           sam deploy \
             --stack-name parameter-store-prod \
