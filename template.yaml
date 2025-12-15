@@ -9,39 +9,39 @@ Parameters:
   CognitoClientId:
     Type: String
     NoEcho: true
-  CognitoUserPoolId:
-    Type: String
-    NoEcho: true
-  EmailFromEmail:
-    Type: String
-    NoEcho: true
-  ContractPortalHmacSecret:
-    Type: String
-    NoEcho: true
-  HubspotApiKey:
-    Type: String
-    NoEcho: true
-  DbConnectionString:
-    Type: String
-    NoEcho: true
-  SmtpDetails:
-    Type: String
-    NoEcho: true
-  SnsProject:
-    Type: String
-    NoEcho: true
-  SnsPushNotification:
-    Type: String
-    NoEcho: true
-  SnowflakePassword:
-    Type: String
-    NoEcho: true
-  SnowflakeUsername:
-    Type: String
-    NoEcho: true
-  SnowflakeWarehouse:
-    Type: String
-    NoEcho: true
+  # CognitoUserPoolId:
+  #   Type: String
+  #   NoEcho: true
+  # EmailFromEmail:
+  #   Type: String
+  #   NoEcho: true
+  # ContractPortalHmacSecret:
+  #   Type: String
+  #   NoEcho: true
+  # HubspotApiKey:
+  #   Type: String
+  #   NoEcho: true
+  # DbConnectionString:
+  #   Type: String
+  #   NoEcho: true
+  # SmtpDetails:
+  #   Type: String
+  #   NoEcho: true
+  # SnsProject:
+  #   Type: String
+  #   NoEcho: true
+  # SnsPushNotification:
+  #   Type: String
+  #   NoEcho: true
+  # SnowflakePassword:
+  #   Type: String
+  #   NoEcho: true
+  # SnowflakeUsername:
+  #   Type: String
+  #   NoEcho: true
+  # SnowflakeWarehouse:
+  #   Type: String
+  #   NoEcho: true
 
 Resources:
 
@@ -55,141 +55,141 @@ Resources:
       Type: SecureString
       Value: !Ref CognitoClientId
 
-  CognitoUserPoolIdParam:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /COGNITO/USER_POOL_ID
-      Type: SecureString
-      Value: !Ref CognitoUserPoolId
+  # CognitoUserPoolIdParam:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /COGNITO/USER_POOL_ID
+  #     Type: SecureString
+  #     Value: !Ref CognitoUserPoolId
 
-  # =====================
-  # DOCUSIGN (STRING)
-  # =====================
-  DocusignAccountId:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /DOCUSIGN/ACCOUNT_ID
-      Type: String
-      Value: "2351e7ea-8e50-4625-a872-58f7ea89beb1"
+  # # =====================
+  # # DOCUSIGN (STRING)
+  # # =====================
+  # DocusignAccountId:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /DOCUSIGN/ACCOUNT_ID
+  #     Type: String
+  #     Value: "2351e7ea-8e50-4625-a872-58f7ea89beb1"
 
-  DocusignAuthDomain:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /DOCUSIGN/AUTH_DOMAIN
-      Type: String
-      Value: "account.docusign.com"
+  # DocusignAuthDomain:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /DOCUSIGN/AUTH_DOMAIN
+  #     Type: String
+  #     Value: "account.docusign.com"
 
-  DocusignBasePath:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /DOCUSIGN/BASE_PATH
-      Type: String
-      Value: "https://na4.docusign.net/restapi"
+  # DocusignBasePath:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /DOCUSIGN/BASE_PATH
+  #     Type: String
+  #     Value: "https://na4.docusign.net/restapi"
 
-  DocusignIntegrationKey:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /DOCUSIGN/INTEGRATION_KEY
-      Type: String
-      Value: "6fccc78b-0b80-4eea-99d3-feb70b102ab8"
+  # DocusignIntegrationKey:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /DOCUSIGN/INTEGRATION_KEY
+  #     Type: String
+  #     Value: "6fccc78b-0b80-4eea-99d3-feb70b102ab8"
 
-  # =====================
-  # EMAIL
-  # =====================
-  FromEmail:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /EMAIL/FROM_EMAIL
-      Type: SecureString
-      Value: !Ref EmailFromEmail
+  # # =====================
+  # # EMAIL
+  # # =====================
+  # FromEmail:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /EMAIL/FROM_EMAIL
+  #     Type: SecureString
+  #     Value: !Ref EmailFromEmail
 
-  # =====================
-  # CONTRACT
-  # =====================
-  ContractPortalSecret:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: CONTRACT_PORTAL_HMAC_SECRET
-      Type: SecureString
-      Value: !Ref ContractPortalHmacSecret
+  # # =====================
+  # # CONTRACT
+  # # =====================
+  # ContractPortalSecret:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: CONTRACT_PORTAL_HMAC_SECRET
+  #     Type: SecureString
+  #     Value: !Ref ContractPortalHmacSecret
 
-  ContractApiUrl:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: CONTRACT_API_URL
-      Type: String
-      Value: "https://api-prod.gunnerroofing.com/project/send-contract?id="
+  # ContractApiUrl:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: CONTRACT_API_URL
+  #     Type: String
+  #     Value: "https://api-prod.gunnerroofing.com/project/send-contract?id="
 
-  # =====================
-  # HUBSPOT
-  # =====================
-  HubspotApiKeyParam:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /HUBSPOT/API_KEY
-      Type: SecureString
-      Value: !Ref HubspotApiKey
+  # # =====================
+  # # HUBSPOT
+  # # =====================
+  # HubspotApiKeyParam:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /HUBSPOT/API_KEY
+  #     Type: SecureString
+  #     Value: !Ref HubspotApiKey
 
-  # =====================
-  # DATABASE
-  # =====================
-  DbConnection:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: DB_CONNECTION_STRING
-      Type: SecureString
-      Value: !Ref DbConnectionString
+  # # =====================
+  # # DATABASE
+  # # =====================
+  # DbConnection:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: DB_CONNECTION_STRING
+  #     Type: SecureString
+  #     Value: !Ref DbConnectionString
 
-  # =====================
-  # SMTP
-  # =====================
-  SmtpDetailsParam:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: SMTP_DETAILS
-      Type: SecureString
-      Value: !Ref SmtpDetails
+  # # =====================
+  # # SMTP
+  # # =====================
+  # SmtpDetailsParam:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: SMTP_DETAILS
+  #     Type: SecureString
+  #     Value: !Ref SmtpDetails
 
-  # =====================
-  # SNS
-  # =====================
-  SnsProjectParam:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /SNS_TOPIC/PROJECT
-      Type: SecureString
-      Value: !Ref SnsProject
+  # # =====================
+  # # SNS
+  # # =====================
+  # SnsProjectParam:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /SNS_TOPIC/PROJECT
+  #     Type: SecureString
+  #     Value: !Ref SnsProject
 
-  SnsPush:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /SNS_TOPIC/SNS_PUSH_NOTIFICATION
-      Type: SecureString
-      Value: !Ref SnsPushNotification
+  # SnsPush:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /SNS_TOPIC/SNS_PUSH_NOTIFICATION
+  #     Type: SecureString
+  #     Value: !Ref SnsPushNotification
 
-  # =====================
-  # SNOWFLAKE
-  # =====================
-  SnowflakeUsernameParam:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /SNOWFLAKE/USERNAME
-      Type: SecureString
-      Value: !Ref SnowflakeUsername
+  # # =====================
+  # # SNOWFLAKE
+  # # =====================
+  # SnowflakeUsernameParam:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /SNOWFLAKE/USERNAME
+  #     Type: SecureString
+  #     Value: !Ref SnowflakeUsername
 
-  SnowflakePasswordParam:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /SNOWFLAKE/PASSWORD
-      Type: SecureString
-      Value: !Ref SnowflakePassword
+  # SnowflakePasswordParam:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /SNOWFLAKE/PASSWORD
+  #     Type: SecureString
+  #     Value: !Ref SnowflakePassword
 
-  SnowflakeWarehouseParam:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /SNOWFLAKE/WAREHOUSE
-      Type: SecureString
-      Value: !Ref SnowflakeWarehouse
+  # SnowflakeWarehouseParam:
+  #   Type: AWS::SSM::Parameter
+  #   Properties:
+  #     Name: /SNOWFLAKE/WAREHOUSE
+  #     Type: SecureString
+  #     Value: !Ref SnowflakeWarehouse
 
 Outputs:
   Status:
