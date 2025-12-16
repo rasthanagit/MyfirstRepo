@@ -1,0 +1,31 @@
+name: Deploy Parameter Store
+on:
+  workflow_dispatch:
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Build
+        run: sam build
+      
+      - name: Deploy
+        run: |
+          sam deploy \
+            --stack-name parameter-store-prod \
+            --region us-east-2 \
+            --capabilities CAPABILITY_IAM \
+            --resolve-s3 \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset

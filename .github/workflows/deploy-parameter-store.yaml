@@ -1,31 +1,49 @@
 name: Deploy Parameter Store
+
 on:
-  workflow_dispatch:
+  workflow_dispatch: 
+
 env:
-  AWS_REGION: ${{ vars.AWS_REGION }}
+  AWS_REGION: us-east-2
+  STACK_NAME: parameter-store-prod
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      
-      - name: Build
-        run: sam build
-      
-      - name: Deploy
+
+      - name: Deploy Parameter Store via CloudFormation
         run: |
-          sam deploy \
-            --stack-name parameter-store-prod \
-            --region us-east-2 \
-            --capabilities CAPABILITY_IAM \
-            --resolve-s3 \
-            --no-confirm-changeset \
-            --no-fail-on-empty-changeset
+          aws cloudformation deploy \
+            --template-file template.yaml \
+            --stack-name ${{ env.STACK_NAME }} \
+            --region ${{ env.AWS_REGION }} \
+            --capabilities CAPABILITY_NAMED_IAM \
+            --parameter-overrides \
+              CognitoClientId=${{ secrets.COGNITO_CLIENT_ID }} \
+              CognitoUserPoolId=${{ secrets.COGNITO_USER_POOL_ID }} \
+              EmailFromEmail=${{ secrets.EMAIL_FROM_EMAIL }} \
+              ContractPortalHmacSecret=${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }} \
+              HubspotApiKey=${{ secrets.HUBSPOT_API_KEY }} \
+              DbConnectionString=${{ secrets.DB_CONNECTION_STRING }} \
+              SmtpDetails=${{ secrets.SMTP_DETAILS }} \
+              SnsProject=${{ secrets.SNS_PROJECT }} \
+              SnsPushNotification=${{ secrets.SNS_PUSH_NOTIFICATION }} \
+              SnowflakeUsername=${{ secrets.SNOWFLAKE_USERNAME }} \
+              SnowflakePassword=${{ secrets.SNOWFLAKE_PASSWORD }} \
+              SnowflakeWarehouse=${{ secrets.SNOWFLAKE_WAREHOUSE }}
+
+      - name: Deployment Complete
+        run: echo "✅ Parameter Store deployment completed successfully!"
