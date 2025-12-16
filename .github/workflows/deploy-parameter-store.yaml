@@ -24,6 +24,15 @@ jobs:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Check GitHub Secrets
+        run: |
+          echo "SNS_PROJECT: '${{ secrets.SNS_PROJECT }}'"
+          echo "SNS_PUSH_NOTIFICATION: '${{ secrets.SNS_PUSH_NOTIFICATION }}'"
+          echo "SNOWFLAKE_USERNAME: '${{ secrets.SNOWFLAKE_USERNAME }}'"
+          echo "SNOWFLAKE_PASSWORD: '${{ secrets.SNOWFLAKE_PASSWORD }}'"
+          echo "SNOWFLAKE_WAREHOUSE: '${{ secrets.SNOWFLAKE_WAREHOUSE }}'"
+          echo "SMTP_DETAILS: '${{ secrets.SMTP_DETAILS }}'"
+
       - name: Deploy Parameter Store via CloudFormation
         run: |
           aws cloudformation deploy \
