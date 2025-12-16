@@ -46,7 +46,7 @@ Resources:
   CognitoClientIdParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /COGNITO/CLIENT_ID
+      Name: /COGNITO/CLIENTID
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref CognitoClientId
@@ -54,7 +54,7 @@ Resources:
   CognitoUserPoolIdParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /COGNITO/USER_POOL_ID
+      Name: /COGNITO/USERPOOLID
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref CognitoUserPoolId
@@ -62,7 +62,7 @@ Resources:
   FromEmailParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /EMAIL/FROM_EMAIL
+      Name: /EMAIL/FROMEMAIL
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref EmailFromEmail
@@ -70,7 +70,7 @@ Resources:
   ContractPortalSecretParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /CONTRACT_PORTAL/HMAC_SECRET
+      Name: /CONTRACT/PORTALHMACSECRET
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref ContractPortalHmacSecret
@@ -78,7 +78,7 @@ Resources:
   HubspotApiKeyParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /HUBSPOT/API_KEY
+      Name: /HUBSPOT/APIKEY
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref HubspotApiKey
@@ -86,7 +86,7 @@ Resources:
   DbConnectionParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /DATABASE/CONNECTION_STRING
+      Name: /DB/CONNECTIONSTRING
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref DbConnectionString
@@ -102,7 +102,7 @@ Resources:
   SnsProjectParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /SNS_TOPIC/PROJECT
+      Name: /SNSTOPIC/PROJECT
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref SnsProject
@@ -110,7 +110,7 @@ Resources:
   SnsPushParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /SNS_TOPIC/SNS_PUSH_NOTIFICATION
+      Name: /SNSTOPIC/SNSPUSHNOTIFICATION
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref SnsPushNotification
@@ -142,35 +142,35 @@ Resources:
   DocusignAccountId:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /DOCUSIGN/ACCOUNT_ID
+      Name: /DOCUSIGN/ACCOUNTID
       Type: String
       Value: "2351e7ea-8e50-4625-a872-58f7ea89beb1"
 
   DocusignAuthDomain:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /DOCUSIGN/AUTH_DOMAIN
+      Name: /DOCUSIGN/AUTHDOMAIN
       Type: String
       Value: "account.docusign.com"
 
   DocusignBasePath:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /DOCUSIGN/BASE_PATH
+      Name: /DOCUSIGN/BASEPATH
       Type: String
       Value: "https://na4.docusign.net/restapi"
 
   DocusignIntegrationKey:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /DOCUSIGN/INTEGRATION_KEY
+      Name: /DOCUSIGN/INTEGRATIONKEY
       Type: String
       Value: "6fccc78b-0b80-4eea-99d3-feb70b102ab8"
 
   ContractApiUrl:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /CONTRACT/API_URL
+      Name: /CONTRACT/APIURL
       Type: String
       Value: "https://api-prod.gunnerroofing.com/project/send-contract?id="
 
