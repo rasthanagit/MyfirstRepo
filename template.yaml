@@ -48,6 +48,7 @@ Resources:
     Properties:
       Name: /COGNITO/CLIENT_ID
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref CognitoClientId
 
   CognitoUserPoolIdParam:
@@ -55,6 +56,7 @@ Resources:
     Properties:
       Name: /COGNITO/USER_POOL_ID
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref CognitoUserPoolId
 
   FromEmailParam:
@@ -62,6 +64,7 @@ Resources:
     Properties:
       Name: /EMAIL/FROM_EMAIL
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref EmailFromEmail
 
   ContractPortalSecretParam:
@@ -69,6 +72,7 @@ Resources:
     Properties:
       Name: CONTRACT_PORTAL_HMAC_SECRET
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref ContractPortalHmacSecret
 
   HubspotApiKeyParam:
@@ -76,6 +80,7 @@ Resources:
     Properties:
       Name: /HUBSPOT/API_KEY
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref HubspotApiKey
 
   DbConnectionParam:
@@ -83,6 +88,7 @@ Resources:
     Properties:
       Name: DB_CONNECTION_STRING
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref DbConnectionString
 
   SmtpDetailsParam:
@@ -90,6 +96,7 @@ Resources:
     Properties:
       Name: SMTP_DETAILS
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SmtpDetails
 
   SnsProjectParam:
@@ -97,6 +104,7 @@ Resources:
     Properties:
       Name: /SNS_TOPIC/PROJECT
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SnsProject
 
   SnsPushParam:
@@ -104,6 +112,7 @@ Resources:
     Properties:
       Name: /SNS_TOPIC/SNS_PUSH_NOTIFICATION
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SnsPushNotification
 
   SnowflakeUsernameParam:
@@ -111,6 +120,7 @@ Resources:
     Properties:
       Name: /SNOWFLAKE/USERNAME
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SnowflakeUsername
 
   SnowflakePasswordParam:
@@ -118,6 +128,7 @@ Resources:
     Properties:
       Name: /SNOWFLAKE/PASSWORD
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SnowflakePassword
 
   SnowflakeWarehouseParam:
@@ -125,9 +136,9 @@ Resources:
     Properties:
       Name: /SNOWFLAKE/WAREHOUSE
       Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SnowflakeWarehouse
 
-  # String parameters (non-secret)
   DocusignAccountId:
     Type: AWS::SSM::Parameter
     Properties:
