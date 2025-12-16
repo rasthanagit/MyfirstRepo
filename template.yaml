@@ -70,7 +70,7 @@ Resources:
   ContractPortalSecretParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: CONTRACT_PORTAL_HMAC_SECRET
+      Name: /CONTRACT_PORTAL/HMAC_SECRET
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref ContractPortalHmacSecret
@@ -86,7 +86,7 @@ Resources:
   DbConnectionParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: DB_CONNECTION_STRING
+      Name: /DATABASE/CONNECTION_STRING
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref DbConnectionString
@@ -94,7 +94,7 @@ Resources:
   SmtpDetailsParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: SMTP_DETAILS
+      Name: /SMTP/DETAILS
       Type: SecureString
       KeyId: alias/aws/ssm
       Value: !Ref SmtpDetails
@@ -170,7 +170,7 @@ Resources:
   ContractApiUrl:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: CONTRACT_API_URL
+      Name: /CONTRACT/API_URL
       Type: String
       Value: "https://api-prod.gunnerroofing.com/project/send-contract?id="
 
