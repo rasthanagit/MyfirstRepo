@@ -1,0 +1,100 @@
+name: Deploy Parameter Store
+
+on:
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-2
+  STACK_NAME: parameter-store-prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Validate required secrets
+        env:
+          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
+          COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
+          EMAIL_FROM_EMAIL: ${{ secrets.EMAIL_FROM_EMAIL }}
+          CONTRACT_PORTAL_HMAC_SECRET: ${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}
+          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+          SMTP_DETAILS: ${{ secrets.SMTP_DETAILS }}
+          SNS_PROJECT: ${{ secrets.SNS_PROJECT }}
+          SNS_PUSH_NOTIFICATION: ${{ secrets.SNS_PUSH_NOTIFICATION }}
+          SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+        run: |
+          for var in \
+            COGNITO_CLIENT_ID \
+            COGNITO_USER_POOL_ID \
+            EMAIL_FROM_EMAIL \
+            CONTRACT_PORTAL_HMAC_SECRET \
+            HUBSPOT_API_KEY \
+            DB_CONNECTION_STRING \
+            SMTP_DETAILS \
+            SNS_PROJECT \
+            SNS_PUSH_NOTIFICATION \
+            SNOWFLAKE_USERNAME \
+            SNOWFLAKE_PASSWORD \
+            SNOWFLAKE_WAREHOUSE
+          do
+            if [ -z "${!var}" ]; then
+              echo "$var is EMPTY"
+              exit 1
+            else
+              echo "$var is SET"
+            fi
+          done
+
+      - name: Deploy Parameter Store via CloudFormation
+        env:
+          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
+          COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
+          EMAIL_FROM_EMAIL: ${{ secrets.EMAIL_FROM_EMAIL }}
+          CONTRACT_PORTAL_HMAC_SECRET: ${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}
+          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+          SMTP_DETAILS: ${{ secrets.SMTP_DETAILS }}
+          SNS_PROJECT: ${{ secrets.SNS_PROJECT }}
+          SNS_PUSH_NOTIFICATION: ${{ secrets.SNS_PUSH_NOTIFICATION }}
+          SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+        run: |
+          aws cloudformation deploy \
+            --debug \
+            --template-file template.yaml \
+            --stack-name "$STACK_NAME" \
+            --region "$AWS_REGION" \
+            --capabilities CAPABILITY_NAMED_IAM \
+            --parameter-overrides \
+              CognitoClientId="$COGNITO_CLIENT_ID" \
+              CognitoUserPoolId="$COGNITO_USER_POOL_ID" \
+              EmailFromEmail="$EMAIL_FROM_EMAIL" \
+              ContractPortalHmacSecret="$CONTRACT_PORTAL_HMAC_SECRET" \
+              HubspotApiKey="$HUBSPOT_API_KEY" \
+              DbConnectionString="$DB_CONNECTION_STRING" \
+              SmtpDetails="$SMTP_DETAILS" \
+              SnsProject="$SNS_PROJECT" \
+              SnsPushNotification="$SNS_PUSH_NOTIFICATION" \
+              SnowflakeUsername="$SNOWFLAKE_USERNAME" \
+              SnowflakePassword="$SNOWFLAKE_PASSWORD" \
+              SnowflakeWarehouse="$SNOWFLAKE_WAREHOUSE"
+
+      - name: Deployment Complete
+        run: echo "✅ Parameter Store deployment completed successfully!"

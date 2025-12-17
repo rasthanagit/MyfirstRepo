@@ -1,174 +1,176 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Parameter Store deployment using String parameters (CloudFormation-safe)
+Description: Parameter Store deployment for Strings and SecureStrings
 
 Parameters:
+  # SecureString parameters (secrets)
   CognitoClientId:
     Type: String
     NoEcho: true
-
   CognitoUserPoolId:
     Type: String
     NoEcho: true
-
   EmailFromEmail:
     Type: String
     NoEcho: true
-
   ContractPortalHmacSecret:
     Type: String
     NoEcho: true
-
   HubspotApiKey:
     Type: String
     NoEcho: true
-
   DbConnectionString:
     Type: String
     NoEcho: true
-
   SmtpDetails:
     Type: String
     NoEcho: true
-
   SnsProject:
     Type: String
     NoEcho: true
-
   SnsPushNotification:
     Type: String
     NoEcho: true
-
   SnowflakeUsername:
     Type: String
     NoEcho: true
-
   SnowflakePassword:
     Type: String
     NoEcho: true
-
   SnowflakeWarehouse:
     Type: String
     NoEcho: true
 
 Resources:
 
+  # SecureString Parameters
   CognitoClientIdParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /COGNITO/CLIENT_ID
-      Type: String
+      Name: /COGNITO/CLIENTID
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref CognitoClientId
 
   CognitoUserPoolIdParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /COGNITO/USER_POOL_ID
-      Type: String
+      Name: /COGNITO/USERPOOLID
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref CognitoUserPoolId
 
-  EmailFromParam:
+  FromEmailParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /EMAIL/FROM_EMAIL
-      Type: String
+      Name: /EMAIL/FROMEMAIL
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref EmailFromEmail
 
   ContractPortalSecretParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /CONTRACT/PORTAL_HMAC_SECRET
-      Type: String
+      Name: /CONTRACT/PORTALHMACSECRET
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref ContractPortalHmacSecret
 
   HubspotApiKeyParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /HUBSPOT/API_KEY
-      Type: String
+      Name: /HUBSPOT/APIKEY
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref HubspotApiKey
 
   DbConnectionParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /DB/CONNECTION_STRING
-      Type: String
+      Name: /DB/CONNECTIONSTRING
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref DbConnectionString
 
   SmtpDetailsParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /SMTP/DETAILS
-      Type: String
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SmtpDetails
 
   SnsProjectParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /SNS/PROJECT
-      Type: String
+      Name: /SNSTOPIC/PROJECT
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SnsProject
 
-  SnsPushNotificationParam:
+  SnsPushParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /SNS/PUSH_NOTIFICATION
-      Type: String
+      Name: /SNSTOPIC/SNSPUSHNOTIFICATION
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SnsPushNotification
 
   SnowflakeUsernameParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /SNOWFLAKE/USERNAME
-      Type: String
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SnowflakeUsername
 
   SnowflakePasswordParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /SNOWFLAKE/PASSWORD
-      Type: String
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SnowflakePassword
 
   SnowflakeWarehouseParam:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /SNOWFLAKE/WAREHOUSE
-      Type: String
+      Type: SecureString
+      KeyId: alias/aws/ssm
       Value: !Ref SnowflakeWarehouse
 
-  # Static non-secret params
   DocusignAccountId:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /DOCUSIGN/ACCOUNT_ID
+      Name: /DOCUSIGN/ACCOUNTID
       Type: String
       Value: "2351e7ea-8e50-4625-a872-58f7ea89beb1"
 
   DocusignAuthDomain:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /DOCUSIGN/AUTH_DOMAIN
+      Name: /DOCUSIGN/AUTHDOMAIN
       Type: String
       Value: "account.docusign.com"
 
   DocusignBasePath:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /DOCUSIGN/BASE_PATH
+      Name: /DOCUSIGN/BASEPATH
       Type: String
       Value: "https://na4.docusign.net/restapi"
 
   DocusignIntegrationKey:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /DOCUSIGN/INTEGRATION_KEY
+      Name: /DOCUSIGN/INTEGRATIONKEY
       Type: String
       Value: "6fccc78b-0b80-4eea-99d3-feb70b102ab8"
 
   ContractApiUrl:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: /CONTRACT/API_URL
+      Name: /CONTRACT/APIURL
       Type: String
       Value: "https://api-prod.gunnerroofing.com/project/send-contract?id="
 
