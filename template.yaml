@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Parameter Store deployment using String parameters (CloudFormation-safe)
+Description: Parameter Store deployment with SecureString via Custom Resource (single test)
 
 Parameters:
   CognitoClientId:
@@ -52,6 +52,9 @@ Parameters:
 
 Resources:
 
+  #############################################
+  # STANDARD STRING PARAMETERS
+  #############################################
   CognitoClientIdParam:
     Type: AWS::SSM::Parameter
     Properties:
@@ -72,13 +75,6 @@ Resources:
       Name: /EMAIL/FROM_EMAIL
       Type: String
       Value: !Ref EmailFromEmail
-
-  ContractPortalSecretParam:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /CONTRACT/PORTAL_HMAC_SECRET
-      Type: String
-      Value: !Ref ContractPortalHmacSecret
 
   HubspotApiKeyParam:
     Type: AWS::SSM::Parameter
@@ -136,7 +132,20 @@ Resources:
       Type: String
       Value: !Ref SnowflakeWarehouse
 
-  # Static non-secret params
+  #############################################
+  # 🔐 SINGLE SECURESTRING TEST
+  #############################################
+  ContractPortalSecretParam:
+    Type: Custom::SecureSSMParameter
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /CONTRACT/PORTAL_HMAC_SECRET
+      Type: SecureString
+      Value: !Ref ContractPortalHmacSecret
+
+  #############################################
+  # STATIC NON-SECRET PARAMETERS
+  #############################################
   DocusignAccountId:
     Type: AWS::SSM::Parameter
     Properties:
