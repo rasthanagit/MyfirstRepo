@@ -1,0 +1,186 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Parameter Store deployment with SecureString via Custom Resource (single test)
+
+Parameters:
+  CognitoClientId:
+    Type: String
+    NoEcho: true
+
+  CognitoUserPoolId:
+    Type: String
+    NoEcho: true
+
+  EmailFromEmail:
+    Type: String
+    NoEcho: true
+
+  ContractPortalHmacSecret:
+    Type: String
+    NoEcho: true
+
+  HubspotApiKey:
+    Type: String
+    NoEcho: true
+
+  DbConnectionString:
+    Type: String
+    NoEcho: true
+
+  SmtpDetails:
+    Type: String
+    NoEcho: true
+
+  SnsProject:
+    Type: String
+    NoEcho: true
+
+  SnsPushNotification:
+    Type: String
+    NoEcho: true
+
+  SnowflakeUsername:
+    Type: String
+    NoEcho: true
+
+  SnowflakePassword:
+    Type: String
+    NoEcho: true
+
+  SnowflakeWarehouse:
+    Type: String
+    NoEcho: true
+
+Resources:
+
+  #############################################
+  # STANDARD STRING PARAMETERS
+  #############################################
+  CognitoClientIdParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /COGNITO/CLIENT_ID
+      Type: String
+      Value: !Ref CognitoClientId
+
+  CognitoUserPoolIdParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /COGNITO/USER_POOL_ID
+      Type: String
+      Value: !Ref CognitoUserPoolId
+
+  EmailFromParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /EMAIL/FROM_EMAIL
+      Type: String
+      Value: !Ref EmailFromEmail
+
+  HubspotApiKeyParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /HUBSPOT/API_KEY
+      Type: String
+      Value: !Ref HubspotApiKey
+
+  DbConnectionParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /DB/CONNECTION_STRING
+      Type: String
+      Value: !Ref DbConnectionString
+
+  SmtpDetailsParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /SMTP/DETAILS
+      Type: String
+      Value: !Ref SmtpDetails
+
+  SnsProjectParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /SNS/PROJECT
+      Type: String
+      Value: !Ref SnsProject
+
+  SnsPushNotificationParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /SNS/PUSH_NOTIFICATION
+      Type: String
+      Value: !Ref SnsPushNotification
+
+  SnowflakeUsernameParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /SNOWFLAKE/USERNAME
+      Type: String
+      Value: !Ref SnowflakeUsername
+
+  SnowflakePasswordParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /SNOWFLAKE/PASSWORD
+      Type: String
+      Value: !Ref SnowflakePassword
+
+  SnowflakeWarehouseParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /SNOWFLAKE/WAREHOUSE
+      Type: String
+      Value: !Ref SnowflakeWarehouse
+
+  #############################################
+  # 🔐 SINGLE SECURESTRING TEST
+  #############################################
+  ContractPortalSecretParam:
+    Type: Custom::SecureSSMParameter
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /CONTRACT/PORTAL_HMAC_SECRET
+      Type: SecureString
+      Value: !Ref ContractPortalHmacSecret
+
+  #############################################
+  # STATIC NON-SECRET PARAMETERS
+  #############################################
+  DocusignAccountId:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /DOCUSIGN/ACCOUNT_ID
+      Type: String
+      Value: "2351e7ea-8e50-4625-a872-58f7ea89beb1"
+
+  DocusignAuthDomain:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /DOCUSIGN/AUTH_DOMAIN
+      Type: String
+      Value: "account.docusign.com"
+
+  DocusignBasePath:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /DOCUSIGN/BASE_PATH
+      Type: String
+      Value: "https://na4.docusign.net/restapi"
+
+  DocusignIntegrationKey:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /DOCUSIGN/INTEGRATION_KEY
+      Type: String
+      Value: "6fccc78b-0b80-4eea-99d3-feb70b102ab8"
+
+  ContractApiUrl:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /CONTRACT/API_URL
+      Type: String
+      Value: "https://api-prod.gunnerroofing.com/project/send-contract?id="
+
+Outputs:
+  Status:
+    Value: Parameter Store deployment successful
