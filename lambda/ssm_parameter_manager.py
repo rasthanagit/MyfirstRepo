@@ -1,4 +1,3 @@
-import os
 import json
 import boto3
 import urllib3
@@ -10,7 +9,7 @@ def send_response(event, context, status, data=None):
     response_body = {
         "Status": status,
         "Reason": f"See CloudWatch logs: {context.log_stream_name}",
-        "PhysicalResourceId": context.log_stream_name,
+        "PhysicalResourceId": event.get("PhysicalResourceId", context.log_stream_name),
         "StackId": event["StackId"],
         "RequestId": event["RequestId"],
         "LogicalResourceId": event["LogicalResourceId"],
@@ -26,28 +25,25 @@ def send_response(event, context, status, data=None):
 
 def handler(event, context):
     try:
-        if event["RequestType"] == "Delete":
-            send_response(event, context, "SUCCESS")
-            return
+        props = event["ResourceProperties"]
+        name = props["Name"]
+        value = props["Value"]
+        param_type = props.get("Type", "String")
 
-        params = event["ResourceProperties"]["Parameters"]
+        if event["RequestType"] in ["Create", "Update"]:
+            params = {
+                "Name": name,
+                "Value": value,
+                "Type": param_type,
+                "Overwrite": True
+            }
+            ssm.put_parameter(**params)
 
-        for p in params:
-            name = p["Name"]
-            param_type = p.get("Type", "String")
-            secret_name = p["SecretName"]
-
-            value = os.environ.get(secret_name)
-
-            if not value:
-                raise Exception(f"Missing secret: {secret_name}")
-
-            ssm.put_parameter(
-                Name=name,
-                Value=value,
-                Type=param_type,
-                Overwrite=True
-            )
+        elif event["RequestType"] == "Delete":
+            try:
+                ssm.delete_parameter(Name=name)
+            except ssm.exceptions.ParameterNotFound:
+                pass
 
         send_response(event, context, "SUCCESS")
 

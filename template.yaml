@@ -1,21 +1,33 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Parameter Store deployment Keys only
+Description: SecureString + String test using Custom Resource (NO impact on existing params)
+
+Parameters:
+  SecureStringSmokeTest:
+    Type: String
+    NoEcho: true
+
+  StringSmokeTest:
+    Type: String
+    Default: "dummy-string-smoke-test-value"
 
 Resources:
 
-  AppParameters:
-    Type: Custom::SSMParameterKeys
+  SmokeTestSecureParam:
+    Type: Custom::SecureSSMParameter
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:123456789012:function:ssm-parameter-manager
-      Parameters:
-        - Name: /DUMMY/APP/ENV
-          Type: String
-          SecretName: DUMMY_APP_ENV
+      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      Name: /TEST/SECURESTRING/SMOKE_TEST
+      Type: SecureString
+      Value: !Ref SecureStringSmokeTest
 
-        - Name: /DUMMY/DB/PASSWORD
-          Type: SecureString
-          SecretName: DUMMY_DB_PASSWORD
+  SmokeTestStringParam:
+    Type: Custom::SecureSSMParameter
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      Name: /TEST/STRING/SMOKE_TEST
+      Type: String
+      Value: !Ref StringSmokeTest
 
 Outputs:
   Status:
-    Value: Parameters created successfully
+    Value: SecureString and String smoke tests deployed successfully

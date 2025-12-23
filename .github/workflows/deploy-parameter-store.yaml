@@ -1,11 +1,11 @@
-name: Deploy Parameter Store (Proposed Approach)
+name: Deploy Parameter Store Smoke Test (SecureString + String)
 
 on:
   workflow_dispatch:
 
 env:
   AWS_REGION: us-east-2
-  STACK_NAME: parameter-store-proposed-demo
+  STACK_NAME: parameter-store-smoke-test 
 
 jobs:
   deploy:
@@ -15,22 +15,26 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Configure AWS credentials
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Deploy CloudFormation (keys only)
+      - name: Deploy CloudFormation stack (SecureString + String smoke test)
         env:
-          DUMMY_APP_ENV: ${{ secrets.DUMMY_APP_ENV }}
-          DUMMY_DB_PASSWORD: ${{ secrets.DUMMY_DB_PASSWORD }}
+          SECURESTRING_SMOKE_TEST: ${{ secrets.SSM_SECURESTRING_SMOKE_TEST }}
         run: |
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
             --region "$AWS_REGION" \
-            --capabilities CAPABILITY_NAMED_IAM
+            --capabilities CAPABILITY_NAMED_IAM \
+            --parameter-overrides \
+              SecureStringSmokeTest="$SECURESTRING_SMOKE_TEST"
+
+      - name: Deployment completed
+        run: echo "SecureString and String smoke test completed successfully"
