@@ -1,33 +1,66 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: SecureString + String test using Custom Resource (NO impact on existing params)
+Description: Env-based SecureString + String smoke test using Custom Resource
 
 Parameters:
-  SecureStringSmokeTest:
+  environment:
+    Type: String
+    AllowedValues:
+      - qa
+
+  SecureStringValue1:
     Type: String
     NoEcho: true
 
-  StringSmokeTest:
+  SecureStringValue2:
     Type: String
-    Default: "dummy-string-smoke-test-value"
+    NoEcho: true
+
+Mappings:
+  EnvMap:
+    qa:
+      StringValue1: "qa-string-value-1"
+      StringValue2: "qa-string-value-2"
 
 Resources:
 
-  SmokeTestSecureParam:
+  SecureParam1:
     Type: Custom::SecureSSMParameter
     Properties:
       ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
-      Name: /TEST/SECURESTRING/SMOKE_TEST
+      Name: /TEST/SECURESTRING/PARAM1
       Type: SecureString
-      Value: !Ref SecureStringSmokeTest
+      Value: !Ref SecureStringValue1
 
-  SmokeTestStringParam:
+  SecureParam2:
     Type: Custom::SecureSSMParameter
     Properties:
       ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
-      Name: /TEST/STRING/SMOKE_TEST
+      Name: /TEST/SECURESTRING/PARAM2
+      Type: SecureString
+      Value: !Ref SecureStringValue2
+
+  StringParam1:
+    Type: Custom::SecureSSMParameter
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /TEST/STRING/PARAM1
       Type: String
-      Value: !Ref StringSmokeTest
+      Value: !FindInMap
+        - EnvMap
+        - !Ref environment
+        - StringValue1
+
+  StringParam2:
+    Type: Custom::SecureSSMParameter
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /TEST/STRING/PARAM2
+      Type: String
+      Value: !FindInMap
+        - EnvMap
+        - !Ref environment
+        - StringValue2
 
 Outputs:
   Status:
-    Value: SecureString and String smoke tests deployed successfully
+    Value: SecureString and String parameters created successfully

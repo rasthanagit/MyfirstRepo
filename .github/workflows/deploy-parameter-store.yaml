@@ -1,11 +1,12 @@
-name: Deploy Parameter Store Smoke Test (SecureString + String)
+name: Deploy Parameter Store Smoke Test (SecureString + String using EnvMap)
 
 on:
   workflow_dispatch:
 
 env:
   AWS_REGION: us-east-2
-  STACK_NAME: parameter-store-smoke-test 
+  STACK_NAME: parameter-store-test
+  ENVIRONMENT: qa   # change later if you add more envs
 
 jobs:
   deploy:
@@ -24,9 +25,10 @@ jobs:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Deploy CloudFormation stack (SecureString + String smoke test)
+      - name: Deploy CloudFormation stack (SecureString + String)
         env:
-          SECURESTRING_SMOKE_TEST: ${{ secrets.SSM_SECURESTRING_SMOKE_TEST }}
+          SECURE_PARAM_1: ${{ secrets.SECURE_PARAM_1 }}
+          SECURE_PARAM_2: ${{ secrets.SECURE_PARAM_2 }}
         run: |
           aws cloudformation deploy \
             --template-file template.yaml \
@@ -34,7 +36,9 @@ jobs:
             --region "$AWS_REGION" \
             --capabilities CAPABILITY_NAMED_IAM \
             --parameter-overrides \
-              SecureStringSmokeTest="$SECURESTRING_SMOKE_TEST"
+              environment="$ENVIRONMENT" \
+              SecureStringValue1="$SECURE_PARAM_1" \
+              SecureStringValue2="$SECURE_PARAM_2"
 
       - name: Deployment completed
-        run: echo "SecureString and String smoke test completed successfully"
+        run: echo "SecureString and String parameters deployed successfully"
