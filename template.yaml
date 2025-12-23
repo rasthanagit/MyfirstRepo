@@ -15,7 +15,7 @@ Resources:
   SmokeTestSecureParam:
     Type: Custom::SecureSSMParameter
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /TEST/SECURESTRING/SMOKE_TEST
       Type: SecureString
       Value: !Ref SecureStringSmokeTest
@@ -23,7 +23,7 @@ Resources:
   SmokeTestStringParam:
     Type: Custom::SecureSSMParameter
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /TEST/STRING/SMOKE_TEST
       Type: String
       Value: !Ref StringSmokeTest
