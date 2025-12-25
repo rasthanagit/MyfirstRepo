@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Env-based SecureString + String smoke test using Custom Resource
+Description: Env-based parameters store using Custom Resource
 
 Parameters:
   environment:

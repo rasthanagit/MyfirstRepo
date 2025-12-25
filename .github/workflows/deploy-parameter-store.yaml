@@ -1,12 +1,22 @@
-name: Deploy Parameter Store Smoke Test (SecureString + String using EnvMap)
+name: Deploy Parameter Store
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment (dev | qa | stage | prod)"
+        required: true
+        type: choice
+        options:
+          - dev
+          - qa
+          - stage
+          - prod
 
 env:
-  AWS_REGION: us-east-2
+  AWS_REGION: ${{ secrets.AWS_REGION }}
   STACK_NAME: parameter-store-test
-  ENVIRONMENT: qa   # change later if you add more envs
+  ENVIRONMENT: ${{ inputs.environment }}
 
 jobs:
   deploy:
@@ -14,6 +24,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      env: ${{ inputs.environment }}
 
     steps:
       - name: Checkout repository
