@@ -79,7 +79,7 @@ jobs:
               environment="${DEPLOY_ENV}" \
               Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
               Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]' \
-              Param28REGIONValue="us-east-2" \
+              #Param28REGIONValue="us-east-2" \
               Param29SALESPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
               Param36GUNNERNONSERVICESTATEValue='["AK","HI","DC","CA","FL","TX"]'
 

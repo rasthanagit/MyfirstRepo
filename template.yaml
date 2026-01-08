@@ -31,10 +31,10 @@ Parameters:
     NoEcho: true
     Default: "none"
 
-  Param28REGIONValue:
-    Type: String
-    NoEcho: true
-    Default: "none"
+  # Param28REGIONValue:
+  #   Type: String
+  #   NoEcho: true
+  #   Default: "none"
 
   Param29SALESPORTALROLESValue:
     Type: String
@@ -71,13 +71,13 @@ Conditions:
               - Ref: Param22OPERATIONSPORTALROLESValue
               - none
   
-  DeployParam28REGION:
-    Fn::And:
-      - Condition: IsEnvScope
-      - Fn::Not:
-          - Fn::Equals:
-              - Ref: Param28REGIONValue
-              - none
+  # DeployParam28REGION:
+  #   Fn::And:
+  #     - Condition: IsEnvScope
+  #     - Fn::Not:
+  #         - Fn::Equals:
+  #             - Ref: Param28REGIONValue
+  #             - none
 
   DeployParam29SALESPORTALROLES:
     Fn::And:
@@ -113,13 +113,13 @@ Resources:
       Type: String
       Value: Param18HRPORTALROLESValue
   
-  Param28REGION:
-    Type: AWS::SSM::Parameter
-    Condition: DeployParam28REGION
-    Properties:
-      Name: REGION
-      Type: String
-      Value: Param28REGIONValue
+  # Param28REGION:
+  #   Type: AWS::SSM::Parameter
+  #   Condition: DeployParam28REGION
+  #   Properties:
+  #     Name: REGION
+  #     Type: String
+  #     Value: Param28REGIONValue
 
   Param29SALESPORTALROLES:
     Type: AWS::SSM::Parameter
