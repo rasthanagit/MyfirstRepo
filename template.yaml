@@ -31,11 +31,6 @@ Parameters:
     NoEcho: true
     Default: "none"
 
-  # Param28REGIONValue:
-  #   Type: String
-  #   NoEcho: true
-  #   Default: "none"
-
   Param29SALESPORTALROLESValue:
     Type: String
     NoEcho: true
@@ -45,7 +40,7 @@ Parameters:
     Type: String
     NoEcho: true
     Default: "none"
-    
+
 Conditions:
   IsCommonScope:
     Fn::Equals:
@@ -71,14 +66,6 @@ Conditions:
           - Fn::Equals:
               - Ref: Param22OPERATIONSPORTALROLESValue
               - none
-  
-  # DeployParam28REGION:
-  #   Fn::And:
-  #     - Condition: IsEnvScope
-  #     - Fn::Not:
-  #         - Fn::Equals:
-  #             - Ref: Param28REGIONValue
-  #             - none
 
   DeployParam29SALESPORTALROLES:
     Fn::And:
@@ -113,14 +100,6 @@ Resources:
       Name: HR_PORTAL_ROLES
       Type: String
       Value: Param18HRPORTALROLESValue
-  
-  # Param28REGION:
-  #   Type: AWS::SSM::Parameter
-  #   Condition: DeployParam28REGION
-  #   Properties:
-  #     Name: REGION
-  #     Type: String
-  #     Value: Param28REGIONValue
 
   Param29SALESPORTALROLES:
     Type: AWS::SSM::Parameter
@@ -131,13 +110,11 @@ Resources:
       Value: Param29SALESPORTALROLESValue
 
   Param36GUNNERNONSERVICESTATE:
-    Type: Custom::SecureSSMParameter
+    Type: AWS::SSM::Parameter
     Condition: DeployParam36GUNNERNONSERVICESTATE
     Properties:
-      ServiceToken: 
-        arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /GUNNER/NON_SERVICE_STATE
-      Type: SecureString
+      Type: String
       Value: Param36GUNNERNONSERVICESTATEValue
 
 Outputs:
