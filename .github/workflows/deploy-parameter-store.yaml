@@ -60,7 +60,7 @@ jobs:
           # 1. Handle Stack Name and Environment Input logic
           if [ "${{ github.event.inputs.scope }}" == "common" ]; then
             STACK_NAME="parameter-store-common"
-            DEPLOY_ENV="qa" # Fallback env for common stack
+            DEPLOY_ENV="qa"
           else
             STACK_NAME="parameter-store-${{ github.event.inputs.environment }}"
             DEPLOY_ENV="${{ github.event.inputs.environment }}"
@@ -76,4 +76,5 @@ jobs:
             --parameter-overrides \
               Scope="${{ github.event.inputs.scope }}" \
               environment="${DEPLOY_ENV}" \
-              Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]'
+              Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]',
+              Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]'

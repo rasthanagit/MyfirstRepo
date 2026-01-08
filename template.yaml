@@ -25,6 +25,11 @@ Parameters:
     Type: String
     NoEcho: true
     Default: "none"
+  
+  Param22OPERATIONSPORTALROLESValue:
+    Type: String
+    NoEcho: true
+    Default: "none"
 
 Conditions:
   IsCommonScope:
@@ -44,6 +49,14 @@ Conditions:
               - Ref: Param18HRPORTALROLESValue
               - none
 
+  DeployParam22OPERATIONSPORTALROLES:
+    Fn::And:
+      - Condition: IsEnvScope
+      - Fn::Not:
+          - Fn::Equals:
+              - Ref: Param22OPERATIONSPORTALROLESValue
+              - none
+
 Resources:
 
   Param18HRPORTALROLES:
@@ -55,6 +68,14 @@ Resources:
       Name: HR_PORTAL_ROLES
       Type: SecureString
       Value: !Ref Param18HRPORTALROLESValue
+  
+  Param22OPERATIONSPORTALROLES:
+    Type: AWS::SSM::Parameter
+    Condition: DeployParam22OPERATIONSPORTALROLES
+    Properties:
+      Name: OPERATIONS_PORTAL_ROLES
+      Type: String
+      Value: Param22OPERATIONSPORTALROLESValue
 
 Outputs:
   Status:
