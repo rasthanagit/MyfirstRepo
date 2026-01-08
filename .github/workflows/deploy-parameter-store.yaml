@@ -76,5 +76,5 @@ jobs:
             --parameter-overrides \
               Scope="${{ github.event.inputs.scope }}" \
               environment="${DEPLOY_ENV}" \
-              Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]',
+              Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
               Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]'
