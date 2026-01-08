@@ -74,6 +74,6 @@ jobs:
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset \
             --parameter-overrides \
-              Scope="${SCOPE}" \
-              Environment="${ENVIRONMENT}" \
+              Scope="${{ github.event.inputs.scope }}" \
+              environment="${DEPLOY_ENV}" \
               Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]'
