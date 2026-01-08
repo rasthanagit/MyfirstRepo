@@ -56,12 +56,8 @@ jobs:
         shell: bash
 
         run: |
-          python3 update_template.py
-          
-          # 2. Initialize parameters file
-          echo "[]" > params.json
 
-          # 3. Handle Stack Name and Environment Input logic
+          # 1. Handle Stack Name and Environment Input logic
           if [ "${{ github.event.inputs.scope }}" == "common" ]; then
             STACK_NAME="parameter-store-common"
             DEPLOY_ENV="qa" # Fallback env for common stack
@@ -70,7 +66,7 @@ jobs:
             DEPLOY_ENV="${{ github.event.inputs.environment }}"
           fi
 
-          # 3. Deploy
+          # 2. Deploy
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
