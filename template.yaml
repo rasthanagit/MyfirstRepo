@@ -75,7 +75,7 @@ Resources:
     Properties:
       Name: OPERATIONS_PORTAL_ROLES
       Type: String
-      Value: Param22OPERATIONSPORTALROLESValue
+      Value: !Ref Param22OPERATIONSPORTALROLESValue
 
 Outputs:
   Status:
