@@ -56,15 +56,19 @@ jobs:
         shell: bash  
 
         run: |
+
+          SCOPE="${{ github.event.inputs.scope }}"
+          DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
           
           # 1. Handle Stack Name and Environment Input logic
-          if [ "${{ github.event.inputs.scope }}" == "common" ]; then
+          if [ "$SCOPE" == "common" ]; then
             STACK_NAME="parameter-store-common"
-            DEPLOY_ENV="qa" # Fallback env for common stack
+            DEPLOY_ENV="qa"  # fallback for common
           else
-            STACK_NAME="parameter-store-${{ github.event.inputs.environment }}"
-            DEPLOY_ENV="${{ github.event.inputs.environment }}"
+            STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
+
+          echo "Deploying stack $STACK_NAME with scope $SCOPE and env $DEPLOY_ENV"
 
           # 6. Deploy the stack
 
@@ -75,8 +79,8 @@ jobs:
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset \
             --parameter-overrides \
-              Scope="${{ github.event.inputs.scope }}" \
-              environment="${DEPLOY_ENV}" \
+              Scope="$SCOPE" \
+              environment="$DEPLOY_ENV" \
               Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
               Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]' \
               Param29SALESPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
