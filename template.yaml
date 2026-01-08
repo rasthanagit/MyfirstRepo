@@ -54,7 +54,7 @@ Resources:
         arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: HR_PORTAL_ROLES
       Type: SecureString
-      Value: Param18HRPORTALROLESValue
+      Value: !Ref Param18HRPORTALROLESValue
 
 Outputs:
   Status:
