@@ -31,6 +31,20 @@ Parameters:
     NoEcho: true
     Default: "none"
 
+  Param28REGIONValue:
+    Type: String
+    NoEcho: true
+    Default: "none"
+
+  Param29SALESPORTALROLESValue:
+    Type: String
+    NoEcho: true
+    Default: "none"
+    
+  Param36GUNNERNONSERVICESTATEValue:
+    Type: String
+    NoEcho: true
+
 Conditions:
   IsCommonScope:
     Fn::Equals:
@@ -56,18 +70,32 @@ Conditions:
           - Fn::Equals:
               - Ref: Param22OPERATIONSPORTALROLESValue
               - none
+  
+  DeployParam28REGION:
+    Fn::And:
+      - Condition: IsEnvScope
+      - Fn::Not:
+          - Fn::Equals:
+              - Ref: Param28REGIONValue
+              - none
+
+  DeployParam29SALESPORTALROLES:
+    Fn::And:
+      - Condition: IsEnvScope
+      - Fn::Not:
+          - Fn::Equals:
+              - Ref: Param29SALESPORTALROLESValue
+              - none
+
+  DeployParam36GUNNERNONSERVICESTATE:
+    Fn::And:
+      - Condition: IsEnvScope
+      - Fn::Not:
+          - Fn::Equals:
+              - Ref: Param36GUNNERNONSERVICESTATEValue
+              - none
 
 Resources:
-
-  Param18HRPORTALROLES:
-    Type: Custom::SecureSSMParameter
-    Condition: DeployParam18HRPORTALROLES
-    Properties:
-      ServiceToken: 
-        arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
-      Name: HR_PORTAL_ROLES
-      Type: SecureString
-      Value: !Ref Param18HRPORTALROLESValue
   
   Param22OPERATIONSPORTALROLES:
     Type: AWS::SSM::Parameter
@@ -76,6 +104,40 @@ Resources:
       Name: OPERATIONS_PORTAL_ROLES
       Type: String
       Value: !Ref Param22OPERATIONSPORTALROLESValue
+  
+  Param18HRPORTALROLES:
+    Type: AWS::SSM::Parameter
+    Condition: DeployParam18HRPORTALROLES
+    Properties:
+      Name: HR_PORTAL_ROLES
+      Type: String
+      Value: Param18HRPORTALROLESValue
+  
+  Param28REGION:
+    Type: AWS::SSM::Parameter
+    Condition: DeployParam28REGION
+    Properties:
+      Name: REGION
+      Type: String
+      Value: Param28REGIONValue
+
+  Param29SALESPORTALROLES:
+    Type: AWS::SSM::Parameter
+    Condition: DeployParam29SALESPORTALROLES
+    Properties:
+      Name: SALES_PORTAL_ROLES
+      Type: String
+      Value: Param29SALESPORTALROLESValue
+
+  Param36GUNNERNONSERVICESTATE:
+    Type: Custom::SecureSSMParameter
+    Condition: DeployParam36GUNNERNONSERVICESTATE
+    Properties:
+      ServiceToken: 
+        arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      Name: /GUNNER/NON_SERVICE_STATE
+      Type: SecureString
+      Value: Param36GUNNERNONSERVICESTATEValue
 
 Outputs:
   Status:

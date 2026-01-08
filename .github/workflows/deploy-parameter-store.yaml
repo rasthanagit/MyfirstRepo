@@ -53,20 +53,21 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Build and Deploy Parameters
-        shell: bash
+        shell: bash  
 
         run: |
-
+          
           # 1. Handle Stack Name and Environment Input logic
           if [ "${{ github.event.inputs.scope }}" == "common" ]; then
             STACK_NAME="parameter-store-common"
-            DEPLOY_ENV="qa"
+            DEPLOY_ENV="qa" # Fallback env for common stack
           else
             STACK_NAME="parameter-store-${{ github.event.inputs.environment }}"
             DEPLOY_ENV="${{ github.event.inputs.environment }}"
           fi
 
-          # 2. Deploy
+          # 6. Deploy the stack
+
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
@@ -77,4 +78,10 @@ jobs:
               Scope="${{ github.event.inputs.scope }}" \
               environment="${DEPLOY_ENV}" \
               Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
-              Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]'
+              Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]' \
+              Param28REGIONValue="${AWS_REGION}" \
+              Param29SALESPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
+              Param36GUNNERNONSERVICESTATEValue='["AK","HI","DC","CA","FL","TX"]'
+
+
+
