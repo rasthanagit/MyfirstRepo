@@ -3,9 +3,16 @@ name: Deploy Parameter Store
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: "Environment (dev | qa | stage | prod)"
+      scope:
+        description: "Parameter scope (common | env)"
         required: true
+        type: choice
+        options:
+          - common
+          - env
+      environment:
+        description: "Environment (required if scope=env)"
+        required: false
         type: choice
         options:
           - dev
@@ -15,14 +22,12 @@ on:
 
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
-  STACK_NAME: parameter-store-test
-  ENVIRONMENT: ${{ inputs.environment }}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-    
+    environment: ${{ github.event.inputs.environment || 'qa' }}
+
     permissions:
       id-token: write
       contents: read
@@ -31,26 +36,48 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml ruamel.yaml
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Deploy CloudFormation stack (SecureString + String)
-        env:
-          SECURE_PARAM_1: ${{ secrets.SECURE_PARAM_1 }}
-          SECURE_PARAM_2: ${{ secrets.SECURE_PARAM_2 }}
+      - name: Build and Deploy Parameters
+        shell: bash
+
         run: |
+          python3 update_template.py
+          
+          # 2. Initialize parameters file
+          echo "[]" > params.json
+
+          # 3. Handle Stack Name and Environment Input logic
+          if [ "${{ github.event.inputs.scope }}" == "common" ]; then
+            STACK_NAME="parameter-store-common"
+            DEPLOY_ENV="qa" # Fallback env for common stack
+          else
+            STACK_NAME="parameter-store-${{ github.event.inputs.environment }}"
+            DEPLOY_ENV="${{ github.event.inputs.environment }}"
+          fi
+
+          # 3. Deploy
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
             --region "$AWS_REGION" \
             --capabilities CAPABILITY_NAMED_IAM \
+            --no-fail-on-empty-changeset \
             --parameter-overrides \
-              environment="$ENVIRONMENT" \
-              SecureStringValue1="$SECURE_PARAM_1" \
-              SecureStringValue2="$SECURE_PARAM_2"
-
-      - name: Deployment completed
-        run: echo "SecureString and String parameters deployed successfully"
+              Scope="${SCOPE}" \
+              Environment="${ENVIRONMENT}" \
+              Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]'
