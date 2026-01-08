@@ -99,7 +99,7 @@ Resources:
     Properties:
       Name: HR_PORTAL_ROLES
       Type: String
-      Value: Param18HRPORTALROLESValue
+      Value: !Ref Param18HRPORTALROLESValue
 
   Param29SALESPORTALROLES:
     Type: AWS::SSM::Parameter
@@ -107,7 +107,7 @@ Resources:
     Properties:
       Name: SALES_PORTAL_ROLES
       Type: String
-      Value: Param29SALESPORTALROLESValue
+      Value: !Ref Param29SALESPORTALROLESValue
 
   Param36GUNNERNONSERVICESTATE:
     Type: AWS::SSM::Parameter
@@ -115,7 +115,7 @@ Resources:
     Properties:
       Name: /GUNNER/NON_SERVICE_STATE
       Type: String
-      Value: Param36GUNNERNONSERVICESTATEValue
+      Value: !Ref Param36GUNNERNONSERVICESTATEValue
 
 Outputs:
   Status:
