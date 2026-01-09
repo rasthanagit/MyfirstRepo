@@ -136,13 +136,11 @@ Resources:
       Value: !Ref Param29SALESPORTALROLESValue
 
   Param36GUNNERNONSERVICESTATE:
-    Type: Custom::SecureSSMParameter
+    Type: AWS::SSM::Parameter
     Condition: DeployParam36GUNNERNONSERVICESTATE
     Properties:
-      ServiceToken: 
-        arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /GUNNER/NON_SERVICE_STATE
-      Type: SecureString
+      Type: String
       Value: !Ref Param36GUNNERNONSERVICESTATEValue
 
   Param3DOCUSIGNACCOUNTID:

@@ -53,11 +53,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Build and Deploy Parameters
-        shell: bash  
-        env:
-          # --- COMMON SCOPE SECRETS ---
-          GUNNER_NON_SERVICE_STATE: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
-
+        shell: bash
         run: |
 
           SCOPE="${{ github.event.inputs.scope }}"
@@ -90,5 +86,5 @@ jobs:
               Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]' \
               Param29SALESPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
               Param3DOCUSIGNACCOUNTIDValue="${{ secrets.DOCUSIGN_ACCOUNT_ID }}" \
-              Param36GUNNERNONSERVICESTATEValue="${{ secrets.GUNNER_NON_SERVICE_STATE }}" \
+              Param36GUNNERNONSERVICESTATEValue='["AK","HI","DC","CA","FL","TX"]' \
               Param1COGNITOCLIENTIDValue="${{ secrets.COGNITO_CLIENT_ID }}"
