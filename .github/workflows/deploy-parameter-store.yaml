@@ -79,13 +79,6 @@ jobs:
 
           # 5. Populate all parameter values (The template logic handles which ones are actually created)
           
-          # --- Common Scope Params ---
-          Param3DOCUSIGNACCOUNTIDValue="${{ secrets.DOCUSIGN_ACCOUNT_ID }}"
-          Param36GUNNERNONSERVICESTATEValue="${{ secrets.GUNNER_NON_SERVICE_STATE }}"
-
-          # --- Env Scope Params ---
-          Param1COGNITOCLIENTIDValue="${{ secrets.COGNITO_CLIENT_ID }}"
-          
           # 6. Deploy the stack
 
           aws cloudformation deploy \
@@ -99,5 +92,7 @@ jobs:
               environment="$DEPLOY_ENV" \
               Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
               Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]' \
-              Param29SALESPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]'
-
+              Param29SALESPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
+              Param3DOCUSIGNACCOUNTIDValue="${{ secrets.DOCUSIGN_ACCOUNT_ID }}" \
+              Param36GUNNERNONSERVICESTATEValue="${{ secrets.GUNNER_NON_SERVICE_STATE }}" \
+              Param1COGNITOCLIENTIDValue="${{ secrets.COGNITO_CLIENT_ID }}"
