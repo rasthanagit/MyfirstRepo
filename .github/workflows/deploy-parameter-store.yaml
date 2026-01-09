@@ -55,10 +55,8 @@ jobs:
       - name: Build and Deploy Parameters
         shell: bash  
         env:
-        S_GUNNER_NON_SERVICESTATE: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
-
-        #   # --- ENV SCOPE SECRETS ---
-        #   S_COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
+          # --- COMMON SCOPE SECRETS ---
+          GUNNER_NON_SERVICE_STATE: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
 
         run: |
 
