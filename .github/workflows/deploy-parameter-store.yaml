@@ -54,6 +54,13 @@ jobs:
 
       - name: Build and Deploy Parameters
         shell: bash  
+        env:
+          # --- COMMON SCOPE SECRETS ---
+          S_DOCUSIGN_ACCOUNT_ID: ${{ secrets.DOCUSIGN_ACCOUNT_ID }}
+          S_GUNNER_NON_SERVICESTATE: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
+
+          # --- ENV SCOPE SECRETS ---
+          S_COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
 
         run: |
 
@@ -70,6 +77,15 @@ jobs:
 
           echo "Deploying stack $STACK_NAME with scope $SCOPE and env $DEPLOY_ENV"
 
+          # 5. Populate all parameter values (The template logic handles which ones are actually created)
+          
+          # --- Common Scope Params ---
+          add_param_env "Param3DOCUSIGNACCOUNTIDValue" "S_DOCUSIGN_ACCOUNT_ID"
+          add_param_env "Param36GUNNERNONSERVICESTATEValue" "S_GUNNER_NON_SERVICESTATE"
+
+          # --- Env Scope Params ---
+          add_param_env "Param1COGNITOCLIENTIDValue" "S_COGNITO_CLIENT_ID"
+          
           # 6. Deploy the stack
 
           aws cloudformation deploy \
@@ -84,7 +100,4 @@ jobs:
               Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
               Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]' \
               Param29SALESPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
-              Param36GUNNERNONSERVICESTATEValue='["AK","HI","DC","CA","FL","TX"]'
-
-
 
