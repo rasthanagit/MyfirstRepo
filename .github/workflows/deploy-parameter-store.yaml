@@ -55,8 +55,6 @@ jobs:
       - name: Build and Deploy Parameters
         shell: bash  
         env:
-        #   # --- COMMON SCOPE SECRETS ---
-        #   S_DOCUSIGN_ACCOUNT_ID: ${{ secrets.DOCUSIGN_ACCOUNT_ID }}
         S_GUNNER_NON_SERVICESTATE: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
 
         #   # --- ENV SCOPE SECRETS ---
