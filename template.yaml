@@ -40,6 +40,16 @@ Parameters:
     Type: String
     NoEcho: true
     Default: "none"
+  
+  Param3DOCUSIGNACCOUNTIDValue:
+    Type: String
+    NoEcho: true
+    Default: "none"
+  
+  Param1COGNITOCLIENTIDValue:
+    Type: String
+    NoEcho: true
+    Default: "none"
 
 Conditions:
   IsCommonScope:
@@ -83,6 +93,22 @@ Conditions:
               - Ref: Param36GUNNERNONSERVICESTATEValue
               - none
 
+  DeployParam3DOCUSIGNACCOUNTID:
+    Fn::And:
+      - Condition: IsCommonScope
+      - Fn::Not:
+          - Fn::Equals:
+              - Ref: Param3DOCUSIGNACCOUNTIDValue
+              - none
+
+  DeployParam1COGNITOCLIENTID:
+    Fn::And:
+      - Condition: IsEnvScope
+      - Fn::Not:
+          - Fn::Equals:
+              - Ref: Param1COGNITOCLIENTIDValue
+              - none
+
 Resources:
   
   Param22OPERATIONSPORTALROLES:
@@ -118,6 +144,26 @@ Resources:
       Name: /GUNNER/NON_SERVICE_STATE
       Type: SecureString
       Value: !Ref Param36GUNNERNONSERVICESTATEValue
+
+  Param3DOCUSIGNACCOUNTID:
+    Type: Custom::SecureSSMParameter
+    Condition: DeployParam3DOCUSIGNACCOUNTID
+    Properties:
+      ServiceToken: 
+        arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/ACCOUNT_ID
+      Type: SecureString
+      Value: Param3DOCUSIGNACCOUNTIDValue
+
+  Param1COGNITOCLIENTID:
+    Type: Custom::SecureSSMParameter
+    Condition: DeployParam1COGNITOCLIENTID
+    Properties:
+      ServiceToken: 
+        arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /COGNITO/CLIENT_ID
+      Type: SecureString
+      Value: Param1COGNITOCLIENTIDValue
 
 Outputs:
   Status:
