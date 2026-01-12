@@ -186,7 +186,7 @@ Resources:
         arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /REDIS/READ_CONNECTION
       Type: SecureString
-      Value: Param46REDISREADCONNECTIONValue
+      Value: !Ref Param46REDISREADCONNECTIONValue
 
 Outputs:
   Status:
