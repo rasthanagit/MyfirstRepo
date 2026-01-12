@@ -88,4 +88,4 @@ jobs:
               Param3DOCUSIGNACCOUNTIDValue="${{ secrets.DOCUSIGN_ACCOUNT_ID }}" \
               Param36GUNNERNONSERVICESTATEValue="${{ secrets.GUNNER_NON_SERVICE_STATE }}" \
               Param1COGNITOCLIENTIDValue="${{ secrets.COGNITO_CLIENT_ID }}" \
-              Param46REDISREADCONNECTIONValue="${{ secrets.REDIS_READ_CONNECTION }}"
+              Param46REDISREADCONNECTIONValue='${{ secrets.REDIS_READ_CONNECTION }}'
