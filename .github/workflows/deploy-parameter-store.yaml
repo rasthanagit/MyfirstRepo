@@ -54,6 +54,8 @@ jobs:
 
       - name: Build and Deploy Parameters
         shell: bash
+        env:
+            SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
         run: |
 
           SCOPE="${{ github.event.inputs.scope }}"
@@ -69,12 +71,7 @@ jobs:
 
           echo "Deploying stack $STACK_NAME with scope $SCOPE and env $DEPLOY_ENV"
 
-          # 5. Populate all parameter values (The template logic handles which ones are actually created)
-          
-          env:
-            SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
-
-          # 6. Deploy the stack
+          # 2. Deploy the stack
 
           aws cloudformation deploy \
             --template-file template.yaml \
