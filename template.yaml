@@ -63,7 +63,7 @@ Conditions:
 
   DeployParam18HRPORTALROLES:
     Fn::And:
-      - Condition: IsEnvScope
+      - Condition: IsCommonScope
       - Fn::Not:
           - Fn::Equals:
               - Ref: Param18HRPORTALROLESValue
