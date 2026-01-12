@@ -71,6 +71,9 @@ jobs:
 
           # 5. Populate all parameter values (The template logic handles which ones are actually created)
           
+          env:
+            SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
+
           # 6. Deploy the stack
 
           aws cloudformation deploy \
@@ -83,9 +86,9 @@ jobs:
               Scope="$SCOPE" \
               environment="$DEPLOY_ENV" \
               Param18HRPORTALROLESValue='${{ secrets.HR_PORTAL_ROLES }}' \
-              Param22OPERATIONSPORTALROLESValue="${{ secrets.OPERATIONS_PORTAL_ROLES }}" \
-              Param29SALESPORTALROLESValue="${{ secrets.SALES_PORTAL_ROLES }}" \
-              Param3DOCUSIGNACCOUNTIDValue="${{ secrets.DOCUSIGN_ACCOUNT_ID }}" \
-              Param36GUNNERNONSERVICESTATEValue="${{ secrets.GUNNER_NON_SERVICE_STATE }}" \
-              Param1COGNITOCLIENTIDValue="${{ secrets.COGNITO_CLIENT_ID }}" \
+              Param22OPERATIONSPORTALROLESValue='${{ secrets.OPERATIONS_PORTAL_ROLES }}' \
+              Param29SALESPORTALROLESValue="$SALES_VAL" \
+              Param3DOCUSIGNACCOUNTIDValue='${{ secrets.DOCUSIGN_ACCOUNT_ID }}' \
+              Param36GUNNERNONSERVICESTATEValue='${{ secrets.GUNNER_NON_SERVICE_STATE }}' \
+              Param1COGNITOCLIENTIDValue='${{ secrets.COGNITO_CLIENT_ID }}' \
               Param46REDISREADCONNECTIONValue='${{ secrets.REDIS_READ_CONNECTION }}'
