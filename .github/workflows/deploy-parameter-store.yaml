@@ -83,8 +83,8 @@ jobs:
               Scope="$SCOPE" \
               environment="$DEPLOY_ENV" \
               Param18HRPORTALROLESValue="${{ secrets.HR_PORTAL_ROLES }}" \
-              Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]' \
-              Param29SALESPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
+              Param22OPERATIONSPORTALROLESValue="${{ secrets.OPERATIONS_PORTAL_ROLES }}" \
+              Param29SALESPORTALROLESValue="${{ secrets.SALES_PORTAL_ROLES }}" \
               Param3DOCUSIGNACCOUNTIDValue="${{ secrets.DOCUSIGN_ACCOUNT_ID }}" \
-              Param36GUNNERNONSERVICESTATEValue='["AK","HI","DC","CA","FL","TX"]' \
+              Param36GUNNERNONSERVICESTATEValue="${{ secrets.GUNNER_NON_SERVICE_STATE }}" \
               Param1COGNITOCLIENTIDValue="${{ secrets.COGNITO_CLIENT_ID }}"
