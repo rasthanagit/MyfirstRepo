@@ -56,6 +56,7 @@ jobs:
         shell: bash
         env:
             SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
+            REDIS_READ_CONNECTION_VAL: ${{ secrets.REDIS_READ_CONNECTION }}
         run: |
 
           SCOPE="${{ github.event.inputs.scope }}"
@@ -88,4 +89,4 @@ jobs:
               Param3DOCUSIGNACCOUNTIDValue='${{ secrets.DOCUSIGN_ACCOUNT_ID }}' \
               Param36GUNNERNONSERVICESTATEValue='${{ secrets.GUNNER_NON_SERVICE_STATE }}' \
               Param1COGNITOCLIENTIDValue='${{ secrets.COGNITO_CLIENT_ID }}' \
-              Param46REDISREADCONNECTIONValue='${{ secrets.REDIS_READ_CONNECTION }}'
+              Param46REDISREADCONNECTIONValue="$REDIS_READ_CONNECTION_VAL"
