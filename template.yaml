@@ -51,6 +51,11 @@ Parameters:
     NoEcho: true
     Default: "none"
 
+  Param46REDISREADCONNECTIONValue:
+    Type: String
+    NoEcho: true
+    Default: "none"
+
 Conditions:
   IsCommonScope:
     Fn::Equals:
@@ -109,6 +114,14 @@ Conditions:
               - Ref: Param1COGNITOCLIENTIDValue
               - none
 
+  DeployParam46REDISREADCONNECTION:
+    Fn::And:
+      - Condition: IsEnvScope
+      - Fn::Not:
+          - Fn::Equals:
+              - Ref: Param46REDISREADCONNECTIONValue
+              - none
+
 Resources:
   
   Param22OPERATIONSPORTALROLES:
@@ -164,6 +177,16 @@ Resources:
       Name: /COGNITO/CLIENT_ID
       Type: SecureString
       Value: !Ref Param1COGNITOCLIENTIDValue
+
+  Param46REDISREADCONNECTION:
+    Type: Custom::SecureSSMParameter
+    Condition: DeployParam46REDISREADCONNECTION
+    Properties:
+      ServiceToken: 
+        arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /REDIS/READ_CONNECTION
+      Type: SecureString
+      Value: Param46REDISREADCONNECTIONValue
 
 Outputs:
   Status:
