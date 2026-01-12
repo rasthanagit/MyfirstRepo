@@ -82,7 +82,7 @@ jobs:
             --parameter-overrides \
               Scope="$SCOPE" \
               environment="$DEPLOY_ENV" \
-              Param18HRPORTALROLESValue="${{ secrets.HR_PORTAL_ROLES }}" \
+              Param18HRPORTALROLESValue='${{ secrets.HR_PORTAL_ROLES }}' \
               Param22OPERATIONSPORTALROLESValue="${{ secrets.OPERATIONS_PORTAL_ROLES }}" \
               Param29SALESPORTALROLESValue="${{ secrets.SALES_PORTAL_ROLES }}" \
               Param3DOCUSIGNACCOUNTIDValue="${{ secrets.DOCUSIGN_ACCOUNT_ID }}" \
