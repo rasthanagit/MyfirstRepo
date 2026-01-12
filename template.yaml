@@ -71,7 +71,7 @@ Conditions:
 
   DeployParam22OPERATIONSPORTALROLES:
     Fn::And:
-      - Condition: IsEnvScope
+      - Condition: IsCommonScope
       - Fn::Not:
           - Fn::Equals:
               - Ref: Param22OPERATIONSPORTALROLESValue
@@ -79,7 +79,7 @@ Conditions:
 
   DeployParam29SALESPORTALROLES:
     Fn::And:
-      - Condition: IsEnvScope
+      - Condition: IsCommonScope
       - Fn::Not:
           - Fn::Equals:
               - Ref: Param29SALESPORTALROLESValue
