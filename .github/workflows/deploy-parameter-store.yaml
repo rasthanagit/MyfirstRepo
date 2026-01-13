@@ -55,21 +55,17 @@ jobs:
       - name: Build and Deploy Parameters
         shell: bash
         run: |
-
           SCOPE="${{ github.event.inputs.scope }}"
           DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
-          
-          # 1. Handle Stack Name and Environment Input logic
+
           if [ "$SCOPE" == "common" ]; then
             STACK_NAME="parameter-store-common"
-            DEPLOY_ENV="qa"  # fallback for common
+            DEPLOY_ENV="qa"
           else
             STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
 
-          echo "Deploying stack $STACK_NAME with scope $SCOPE and env $DEPLOY_ENV"
-          
-          # 2. Deploy the stack
+          echo "Deploying stack: $STACK_NAME"
 
           aws cloudformation deploy \
             --template-file template.yaml \
@@ -80,10 +76,102 @@ jobs:
             --parameter-overrides \
               Scope="$SCOPE" \
               environment="$DEPLOY_ENV" \
-              Param18HRPORTALROLESValue='${{ secrets.HR_PORTAL_ROLES }}' \
-              Param22OPERATIONSPORTALROLESValue='${{ secrets.OPERATIONS_PORTAL_ROLES }}' \
-              Param29SALESPORTALROLESValue='${{ secrets.SALES_PORTAL_ROLES }}' \
-              Param3DOCUSIGNACCOUNTIDValue='${{ secrets.DOCUSIGN_ACCOUNT_ID }}' \
-              Param36GUNNERNONSERVICESTATEValue='${{ secrets.GUNNER_NON_SERVICE_STATE }}' \
               Param1COGNITOCLIENTIDValue='${{ secrets.COGNITO_CLIENT_ID }}' \
-              Param46REDISREADCONNECTIONValue='${{ secrets.REDIS_READ_CONNECTION }}'
+              Param2COGNITOUSERPOOLIDValue='${{ secrets.COGNITO_USER_POOL_ID }}' \
+              Param3DOCUSIGNACCOUNTIDValue='${{ secrets.DOCUSIGN_ACCOUNT_ID }}' \
+              Param4DOCUSIGNAUTHDOMAINValue='${{ secrets.DOCUSIGN_AUTH_DOMAIN }}' \
+              Param5DOCUSIGNINTEGRATIONKEYValue='${{ secrets.DOCUSIGN_INTEGRATION_KEY }}' \
+              Param6DOCUSIGNPRIVATEKEYValue='${{ secrets.DOCUSIGN_PRIVATE_KEY }}' \
+              Param7DOCUSIGNUSERGUIDValue='${{ secrets.DOCUSIGN_USER_GUID }}' \
+              Param8CONTRACTPAYMENTSCHEDULEAPIValue='${{ secrets.CONTRACT_PAYMENT_SCHEDULE_API }}' \
+              Param9CONTRACTPORTALHMACSECRETValue='${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}' \
+              Param10CONTRACTSENDAPIValue='${{ secrets.CONTRACT_SEND_API }}' \
+              Param11CONTRACTSOWAPIValue='${{ secrets.CONTRACT_SOW_API }}' \
+              Param12CONTRACTSTORAGEBUCKETNAMEValue='${{ secrets.CONTRACT_STORAGE_BUCKET_NAME }}' \
+              Param13CONTRACTTERMAPIValue='${{ secrets.CONTRACT_TERM_API }}' \
+              Param14DBCONNECTIONSTRINGValue='${{ secrets.DB_CONNECTION_STRING }}' \
+              Param15DEFAULTSALESADMINDETAILSValue='${{ secrets.DEFAULT_SALES_ADMIN_DETAILS }}' \
+              Param16DOCUMENTDBTOPICARNValue='${{ secrets.DOCUMENT_DB_TOPIC_ARN }}' \
+              Param17FRONTENDURLValue='${{ secrets.FRONTEND_URL }}' \
+              Param18HRPORTALROLESValue='${{ secrets.HR_PORTAL_ROLES }}' \
+              Param19INTEGRATIONTOKENValue='${{ secrets.INTEGRATION_TOKEN }}' \
+              Param20LOCATIONDATASTREAMValue='${{ secrets.LOCATION_DATASTREAM }}' \
+              Param21MEDIABUCKETValue='${{ secrets.MEDIA_BUCKET }}' \
+              Param22OPERATIONSPORTALROLESValue='${{ secrets.OPERATIONS_PORTAL_ROLES }}' \
+              Param23PACKAGEAPIURLValue='${{ secrets.PACKAGE_API_URL }}' \
+              Param24PASSWORDLESSLOGINTOKENEXPIRYValue='${{ secrets.PASSWORDLESS_LOGIN_TOKEN_EXPIRY }}' \
+              Param25PRICINGAPIURLValue='${{ secrets.PRICING_API_URL }}' \
+              Param26PROPOSALBUCKETNAMEValue='${{ secrets.PROPOSAL_BUCKET_NAME }}' \
+              Param27PROPOSALCALLBACKURLValue='${{ secrets.PROPOSAL_CALLBACK_URL }}' \
+              Param28REGIONValue='${{ secrets.REGION }}' \
+              Param29SALESPORTALROLESValue='${{ secrets.SALES_PORTAL_ROLES }}' \
+              Param30SMTPDETAILSValue='${{ secrets.SMTP_DETAILS }}' \
+              Param31SNSARNValue='${{ secrets.SNS_ARN }}' \
+              Param32TOKENVALIDATEENDPOINTValue='${{ secrets.TOKEN_VALIDATE_ENDPOINT }}' \
+              Param33DOCUSIGNBASEPATHValue='${{ secrets.DOCUSIGN_BASE_PATH }}' \
+              Param34EMAILFROMEMAILValue='${{ secrets.EMAIL_FROM_EMAIL }}' \
+              Param35EMAILTEMPLATEGLOBALVARSValue='${{ secrets.EMAIL_TEMPLATE_GLOBAL_VARS }}' \
+              Param36GUNNERNONSERVICESTATEValue='${{ secrets.GUNNER_NON_SERVICE_STATE }}' \
+              Param37HUBSPOTAPIKEYValue='${{ secrets.HUBSPOT_API_KEY }}' \
+              Param38HUBSPOTDEALSTAGEValue='${{ secrets.HUBSPOT_DEAL_STAGE }}' \
+              Param39MSIDENTIFIERValue='${{ secrets.MS_IDENTIFIER }}' \
+              Param40MSMEASUREMENTSERVICEURLValue='${{ secrets.MS_MEASUREMENT_SERVICE_URL }}' \
+              Param41MSSNSDBTOPICARNValue='${{ secrets.MS_SNS_DB_TOPIC_ARN }}' \
+              Param42MSSNSPROVIDERTOPICARNValue='${{ secrets.MS_SNS_PROVIDER_TOPIC_ARN }}' \
+              Param43MSVENDORAPIKEYValue='${{ secrets.MS_VENDOR_API_KEY }}' \
+              Param44MSVENDORBUCKETNAMEValue='${{ secrets.MS_VENDOR_BUCKET_NAME }}' \
+              Param45MSVENDORFILENAMEValue='${{ secrets.MS_VENDOR_FILE_NAME }}' \
+              Param46REDISREADCONNECTIONValue='${{ secrets.REDIS_READ_CONNECTION }}' \
+              Param47REDISWRITECONNECTIONValue='${{ secrets.REDIS_WRITE_CONNECTION }}' \
+              Param48SNOWFLAKEACCOUNTValue='${{ secrets.SNOWFLAKE_ACCOUNT }}' \
+              Param49SNOWFLAKEDATABASEValue='${{ secrets.SNOWFLAKE_DATABASE }}' \
+              Param50SNOWFLAKEPASSWORDValue='${{ secrets.SNOWFLAKE_PASSWORD }}' \
+              Param51SNOWFLAKEROLEValue='${{ secrets.SNOWFLAKE_ROLE }}' \
+              Param52SNOWFLAKESCHEMAValue='${{ secrets.SNOWFLAKE_SCHEMA }}' \
+              Param54SNOWFLAKEUSERNAMEValue='${{ secrets.SNOWFLAKE_USERNAME }}' \
+              Param55SNOWFLAKEWAREHOUSEValue='${{ secrets.SNOWFLAKE_WAREHOUSE }}' \
+              Param56SNSTOPICDOCUMENTValue='${{ secrets.SNS_TOPIC_DOCUMENT }}' \
+              Param57SNSTOPICNOTIFICATIONSERVICEValue='${{ secrets.SNS_TOPIC_NOTIFICATION_SERVICE }}' \
+              Param58SNSTOPICPROJECTValue='${{ secrets.SNS_TOPIC_PROJECT }}' \
+              Param59SNSTOPICSNSPUSHNOTIFICATIONValue='${{ secrets.SNS_TOPIC_SNS_PUSH_NOTIFICATION }}' \
+              Param60DOCUSIGNACCOUNTEMAILValue='${{ secrets.DOCUSIGN_ACCOUNT_EMAIL }}' \
+              Param61DOCUSIGNACCOUNTNAMEValue='${{ secrets.DOCUSIGN_ACCOUNT_NAME }}' \
+              Param62DOCUSIGNCALLBACKREDIRECTURLValue='${{ secrets.DOCUSIGN_CALLBACK_REDIRECT_URL }}' \
+              Param63DOCUSIGNCALLBACKURLValue='${{ secrets.DOCUSIGN_CALLBACK_URL }}' \
+              Param64DOCUSIGNSECRETKEYValue='${{ secrets.DOCUSIGN_SECRET_KEY }}' \
+              Param65DOCUSIGNSELLERFULLNAMEValue='${{ secrets.DOCUSIGN_SELLER_FULLNAME }}' \
+              Param66DOCUSIGNBASEURLValue='${{ secrets.DOCUSIGN_BASE_URL }}' \
+              Param67DOCUSIGNSELLEREMAILValue='${{ secrets.DOCUSIGN_SELLER_EMAIL }}' \
+              Param68CONTRACTPORTALAPIValue='${{ secrets.CONTRACT_PORTAL_API }}' \
+              Param69CONTRACTPREVIEWBUCKETNAMEValue='${{ secrets.CONTRACT_PREVIEW_BUCKET_NAME }}' \
+              Param70CONTRACTSIGNATUREURLValue='${{ secrets.CONTRACT_SIGNATURE_URL }}' \
+              Param71CONTRACTTEMPLATEBUCKETNAMEValue='${{ secrets.CONTRACT_TEMPLATE_BUCKET_NAME }}' \
+              Param72HOVERCALLBACKAPIURLValue='${{ secrets.HOVER_CALLBACK_API_URL }}' \
+              Param73HOVERMEASUREMENTAPIURLValue='${{ secrets.HOVER_MEASUREMENT_API_URL }}' \
+              Param74HOVERAUTHTOKENURLValue='${{ secrets.HOVER_AUTH_TOKEN_URL }}' \
+              Param75HOVERCLIENTIDValue='${{ secrets.HOVER_CLIENT_ID }}' \
+              Param76HOVERCLIENTSECRETValue='${{ secrets.HOVER_CLIENT_SECRET }}' \
+              Param77HOVERHOVEREVENTTOPICValue='${{ secrets.HOVER_EVENT_TOPIC }}' \
+              Param78HOVERISENABLEDValue='${{ secrets.HOVER_IS_ENABLED }}' \
+              Param79HOVERREFRESHTOKENBUCKETValue='${{ secrets.HOVER_REFRESH_TOKEN_BUCKET }}' \
+              Param80HOVERTOHOVERTOPICValue='${{ secrets.HOVER_TO_HOVER_TOPIC }}' \
+              Param81HUBSPOTAPIKEYTEMPValue='${{ secrets.HUBSPOT_API_KEY_TEMP }}' \
+              Param82HUBSPOTDEALCREATEURLValue='${{ secrets.HUBSPOT_DEAL_CREATE_URL }}' \
+              Param83HUBSPOTHUBSPOTTOQPDEALTOPICARNValue='${{ secrets.HUBSPOT_TO_QP_DEAL_TOPIC_ARN }}' \
+              Param84PROPOSALACCEPTURLValue='${{ secrets.PROPOSAL_ACCEPT_URL }}' \
+              Param85PROPOSALCALLBACKREDIRECTURLValue='${{ secrets.PROPOSAL_CALLBACK_REDIRECT_URL }}' \
+              Param87PROPOSALPREVIEWBUCKETNAMEValue='${{ secrets.PROPOSAL_PREVIEW_BUCKET_NAME }}' \
+              Param88PROPOSALTEMPLATEBUCKETNAMEValue='${{ secrets.PROPOSAL_TEMPLATE_BUCKET_NAME }}' \
+              Param89EMAILFROMCOIEMAILValue='${{ secrets.EMAIL_FROM_COI_EMAIL }}' \
+              Param90GUNNERJWTSECRETKEYValue='${{ secrets.GUNNER_JWT_SECRET_KEY }}' \
+              Param91ROLEPROJECTMANAGERValue='${{ secrets.ROLE_PROJECT_MANAGER }}' \
+              Param92QP2APIKEYValue='${{ secrets.QP2_API_KEY }}' \
+              Param93DEFAULTORIGINPARAMValue='${{ secrets.DEFAULT_ORIGIN_PARAM }}' \
+              Param94ENVIRONMENTValue='${{ secrets.ENVIRONMENT }}' \
+              Param95ENVIRONEMENTValue='${{ secrets.ENVIRONEMENT }}' \
+              Param96ENVRONMENTValue='${{ secrets.ENVRONMENT }}' \
+              Param97REMOTEBUCKETPATHValue='${{ secrets.REMOTE_BUCKET_PATH }}' \
+              Param98SMTPCOIDETAILValue='${{ secrets.SMTP_COI_DETAIL }}' \
+              Param99SNOWFLAKETABLEValue='${{ secrets.SNOWFLAKE_TABLE }}' \
+              Param100CONTRACTAPIURLValue='${{ secrets.CONTRACT_API_URL }}' \
+              Param101DISPATCHNOTIFICATIONValue='${{ secrets.DISPATCH_NOTIFICATION }}'

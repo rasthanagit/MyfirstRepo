@@ -1,7 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Smart Parameter Store - Common and Environment-specific SSM 
-  parameters
-
+Description: Smart Parameter Store - Common and Environment-specific SSM parameters
 Parameters:
   environment:
     Type: String
@@ -11,188 +9,1764 @@ Parameters:
       - stage
       - prod
     Default: dev
-
   Scope:
     Type: String
     AllowedValues:
       - common
       - env
     Default: env
-    Description: "common = deploy only common params, env = deploy only env-specific
-      params"
-
-  Param18HRPORTALROLESValue:
-    Type: String
-    NoEcho: true
-    Default: "none"
-  
-  Param22OPERATIONSPORTALROLESValue:
-    Type: String
-    NoEcho: true
-    Default: "none"
-
-  Param29SALESPORTALROLESValue:
-    Type: String
-    NoEcho: true
-    Default: "none"
-    
-  Param36GUNNERNONSERVICESTATEValue:
-    Type: String
-    NoEcho: true
-    Default: "none"
-  
+    Description: common = deploy only common params, env = deploy only env-specific params
   Param3DOCUSIGNACCOUNTIDValue:
     Type: String
     NoEcho: true
-    Default: "none"
-  
+    Default: none
+  Param4DOCUSIGNAUTHDOMAINValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param5DOCUSIGNINTEGRATIONKEYValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param6DOCUSIGNPRIVATEKEYValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param7DOCUSIGNUSERGUIDValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param8CONTRACTPAYMENTSCHEDULEAPIValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param10CONTRACTSENDAPIValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param11CONTRACTSOWAPIValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param13CONTRACTTERMAPIValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param18HRPORTALROLESValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param19INTEGRATIONTOKENValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param22OPERATIONSPORTALROLESValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param24PASSWORDLESSLOGINTOKENEXPIRYValue:
+    Type: String
+    NoEcho: true
+  Param28REGIONValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param29SALESPORTALROLESValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param30SMTPDETAILSValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param33DOCUSIGNBASEPATHValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param34EMAILFROMEMAILValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param35EMAILTEMPLATEGLOBALVARSValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param36GUNNERNONSERVICESTATEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param37HUBSPOTAPIKEYValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param38HUBSPOTDEALSTAGEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param43MSVENDORAPIKEYValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param45MSVENDORFILENAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param48SNOWFLAKEACCOUNTValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param49SNOWFLAKEDATABASEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param50SNOWFLAKEPASSWORDValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param51SNOWFLAKEROLEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param52SNOWFLAKESCHEMAValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param54SNOWFLAKEUSERNAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param55SNOWFLAKEWAREHOUSEValue:
+    Type: String
+    NoEcho: true
+    Default: none
   Param1COGNITOCLIENTIDValue:
     Type: String
     NoEcho: true
-    Default: "none"
-
+    Default: none
+  Param2COGNITOUSERPOOLIDValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param9CONTRACTPORTALHMACSECRETValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param12CONTRACTSTORAGEBUCKETNAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param14DBCONNECTIONSTRINGValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param15DEFAULTSALESADMINDETAILSValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param16DOCUMENTDBTOPICARNValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param17FRONTENDURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param20LOCATIONDATASTREAMValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param21MEDIABUCKETValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param23PACKAGEAPIURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param25PRICINGAPIURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param26PROPOSALBUCKETNAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param27PROPOSALCALLBACKURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param31SNSARNValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param32TOKENVALIDATEENDPOINTValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param39MSIDENTIFIERValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param40MSMEASUREMENTSERVICEURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param41MSSNSDBTOPICARNValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param42MSSNSPROVIDERTOPICARNValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param44MSVENDORBUCKETNAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
   Param46REDISREADCONNECTIONValue:
     Type: String
     NoEcho: true
-    Default: "none"
-
+    Default: none
+  Param47REDISWRITECONNECTIONValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param56SNSTOPICDOCUMENTValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param57SNSTOPICNOTIFICATIONSERVICEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param58SNSTOPICPROJECTValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param59SNSTOPICSNSPUSHNOTIFICATIONValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param60DOCUSIGNACCOUNTEMAILValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param61DOCUSIGNACCOUNTNAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param62DOCUSIGNCALLBACKREDIRECTURLValue:
+    Type: String
+    Default: none
+  Param63DOCUSIGNCALLBACKURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param64DOCUSIGNSECRETKEYValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param65DOCUSIGNSELLERFULLNAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param66DOCUSIGNBASEURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param67DOCUSIGNSELLEREMAILValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param68CONTRACTPORTALAPIValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param69CONTRACTPREVIEWBUCKETNAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param70CONTRACTSIGNATUREURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param71CONTRACTTEMPLATEBUCKETNAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param72HOVERCALLBACKAPIURLValue:
+    Type: String
+    Default: none
+    NoEcho: true
+  Param73HOVERMEASUREMENTAPIURLValue:
+    Type: String
+    Default: none
+    NoEcho: true
+  Param74HOVERAUTHTOKENURLValue:
+    Type: String
+    Default: none
+    NoEcho: true
+  Param75HOVERCLIENTIDValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param76HOVERCLIENTSECRETValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param77HOVERHOVEREVENTTOPICValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param78HOVERISENABLEDValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param79HOVERREFRESHTOKENBUCKETValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param80HOVERTOHOVERTOPICValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param81HUBSPOTAPIKEYTEMPValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param82HUBSPOTDEALCREATEURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param83HUBSPOTHUBSPOTTOQPDEALTOPICARNValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param84PROPOSALACCEPTURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param85PROPOSALCALLBACKREDIRECTURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param87PROPOSALPREVIEWBUCKETNAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param88PROPOSALTEMPLATEBUCKETNAMEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param89EMAILFROMCOIEMAILValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param90GUNNERJWTSECRETKEYValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param91ROLEPROJECTMANAGERValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param92QP2APIKEYValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param93DEFAULTORIGINPARAMValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param94ENVIRONMENTValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param95ENVIRONEMENTValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param96ENVRONMENTValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param97REMOTEBUCKETPATHValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param98SMTPCOIDETAILValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param99SNOWFLAKETABLEValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param100CONTRACTAPIURLValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  Param101DISPATCHNOTIFICATIONValue:
+    Type: String
+    NoEcho: true
+    Default: none
 Conditions:
-  IsCommonScope:
-    Fn::Equals:
-      - Ref: Scope
-      - common
-  IsEnvScope:
-    Fn::Equals:
-      - Ref: Scope
-      - env
-
-  DeployParam18HRPORTALROLES:
-    Fn::And:
-      - Condition: IsCommonScope
-      - Fn::Not:
-          - Fn::Equals:
-              - Ref: Param18HRPORTALROLESValue
-              - none
-
-  DeployParam22OPERATIONSPORTALROLES:
-    Fn::And:
-      - Condition: IsCommonScope
-      - Fn::Not:
-          - Fn::Equals:
-              - Ref: Param22OPERATIONSPORTALROLESValue
-              - none
-
-  DeployParam29SALESPORTALROLES:
-    Fn::And:
-      - Condition: IsCommonScope
-      - Fn::Not:
-          - Fn::Equals:
-              - Ref: Param29SALESPORTALROLESValue
-              - none
-
-  DeployParam36GUNNERNONSERVICESTATE:
-    Fn::And:
-      - Condition: IsCommonScope
-      - Fn::Not:
-          - Fn::Equals:
-              - Ref: Param36GUNNERNONSERVICESTATEValue
-              - none
-
-  DeployParam3DOCUSIGNACCOUNTID:
-    Fn::And:
-      - Condition: IsCommonScope
-      - Fn::Not:
-          - Fn::Equals:
-              - Ref: Param3DOCUSIGNACCOUNTIDValue
-              - none
-
-  DeployParam1COGNITOCLIENTID:
-    Fn::And:
-      - Condition: IsEnvScope
-      - Fn::Not:
-          - Fn::Equals:
-              - Ref: Param1COGNITOCLIENTIDValue
-              - none
-
-  DeployParam46REDISREADCONNECTION:
-    Fn::And:
-      - Condition: IsEnvScope
-      - Fn::Not:
-          - Fn::Equals:
-              - Ref: Param46REDISREADCONNECTIONValue
-              - none
-
+  IsCommonScope: !Equals
+    - !Ref Scope
+    - common
+  IsEnvScope: !Equals
+    - !Ref Scope
+    - env
+  Param3DOCUSIGNACCOUNTID: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param3DOCUSIGNACCOUNTIDValue
+        - none
+  Param4DOCUSIGNAUTHDOMAIN: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param4DOCUSIGNAUTHDOMAINValue
+        - none
+  Param5DOCUSIGNINTEGRATIONKEY: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param5DOCUSIGNINTEGRATIONKEYValue
+        - none
+  Param6DOCUSIGNPRIVATEKEY: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param6DOCUSIGNPRIVATEKEYValue
+        - none
+  Param7DOCUSIGNUSERGUID: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param7DOCUSIGNUSERGUIDValue
+        - none
+  Param8CONTRACTPAYMENTSCHEDULEAPI: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param8CONTRACTPAYMENTSCHEDULEAPIValue
+        - none
+  Param10CONTRACTSENDAPI: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param10CONTRACTSENDAPIValue
+        - none
+  Param11CONTRACTSOWAPI: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param11CONTRACTSOWAPIValue
+        - none
+  Param13CONTRACTTERMAPI: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param13CONTRACTTERMAPIValue
+        - none
+  Param18HRPORTALROLES: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param18HRPORTALROLESValue
+        - none
+  Param19INTEGRATIONTOKEN: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param19INTEGRATIONTOKENValue
+        - none
+  Param22OPERATIONSPORTALROLES: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param22OPERATIONSPORTALROLESValue
+        - none
+  Param24PASSWORDLESSLOGINTOKENEXPIRY: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param24PASSWORDLESSLOGINTOKENEXPIRYValue
+        - none
+  Param28REGION: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param28REGIONValue
+        - none
+  Param29SALESPORTALROLES: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param29SALESPORTALROLESValue
+        - none
+  Param30SMTPDETAILS: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param30SMTPDETAILSValue
+        - none
+  Param33DOCUSIGNBASEPATH: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param33DOCUSIGNBASEPATHValue
+        - none
+  Param34EMAILFROMEMAIL: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param34EMAILFROMEMAILValue
+        - none
+  Param35EMAILTEMPLATEGLOBALVARS: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param35EMAILTEMPLATEGLOBALVARSValue
+        - none
+  Param36GUNNERNONSERVICESTATE: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param36GUNNERNONSERVICESTATEValue
+        - none
+  Param37HUBSPOTAPIKEY: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param37HUBSPOTAPIKEYValue
+        - none
+  Param38HUBSPOTDEALSTAGE: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param38HUBSPOTDEALSTAGEValue
+        - none
+  Param43MSVENDORAPIKEY: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param43MSVENDORAPIKEYValue
+        - none
+  Param45MSVENDORFILENAME: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param45MSVENDORFILENAMEValue
+        - none
+  Param48SNOWFLAKEACCOUNT: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param48SNOWFLAKEACCOUNTValue
+        - none
+  Param49SNOWFLAKEDATABASE: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param49SNOWFLAKEDATABASEValue
+        - none
+  Param50SNOWFLAKEPASSWORD: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param50SNOWFLAKEPASSWORDValue
+        - none
+  Param51SNOWFLAKEROLE: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param51SNOWFLAKEROLEValue
+        - none
+  Param52SNOWFLAKESCHEMA: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param52SNOWFLAKESCHEMAValue
+        - none
+  Param54SNOWFLAKEUSERNAME: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param54SNOWFLAKEUSERNAMEValue
+        - none
+  Param55SNOWFLAKEWAREHOUSE: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param55SNOWFLAKEWAREHOUSEValue
+        - none
+  Param1COGNITOCLIENTID: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param1COGNITOCLIENTIDValue
+        - none
+  Param2COGNITOUSERPOOLID: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param2COGNITOUSERPOOLIDValue
+        - none
+  Param9CONTRACTPORTALHMACSECRET: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param9CONTRACTPORTALHMACSECRETValue
+        - none
+  Param12CONTRACTSTORAGEBUCKETNAME: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param12CONTRACTSTORAGEBUCKETNAMEValue
+        - none
+  Param14DBCONNECTIONSTRING: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param14DBCONNECTIONSTRINGValue
+        - none
+  Param15DEFAULTSALESADMINDETAILS: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param15DEFAULTSALESADMINDETAILSValue
+        - none
+  Param16DOCUMENTDBTOPICARN: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param16DOCUMENTDBTOPICARNValue
+        - none
+  Param17FRONTENDURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param17FRONTENDURLValue
+        - none
+  Param20LOCATIONDATASTREAM: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param20LOCATIONDATASTREAMValue
+        - none
+  Param21MEDIABUCKET: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param21MEDIABUCKETValue
+        - none
+  Param23PACKAGEAPIURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param23PACKAGEAPIURLValue
+        - none
+  Param25PRICINGAPIURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param25PRICINGAPIURLValue
+        - none
+  Param26PROPOSALBUCKETNAME: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param26PROPOSALBUCKETNAMEValue
+        - none
+  Param27PROPOSALCALLBACKURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param27PROPOSALCALLBACKURLValue
+        - none
+  Param31SNSARN: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param31SNSARNValue
+        - none
+  Param32TOKENVALIDATEENDPOINT: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param32TOKENVALIDATEENDPOINTValue
+        - none
+  Param39MSIDENTIFIER: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param39MSIDENTIFIERValue
+        - none
+  Param40MSMEASUREMENTSERVICEURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param40MSMEASUREMENTSERVICEURLValue
+        - none
+  Param41MSSNSDBTOPICARN: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param41MSSNSDBTOPICARNValue
+        - none
+  Param42MSSNSPROVIDERTOPICARN: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param42MSSNSPROVIDERTOPICARNValue
+        - none
+  Param44MSVENDORBUCKETNAME: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param44MSVENDORBUCKETNAMEValue
+        - none
+  Param46REDISREADCONNECTION: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param46REDISREADCONNECTIONValue
+        - none
+  Param47REDISWRITECONNECTION: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param47REDISWRITECONNECTIONValue
+        - none
+  Param56SNSTOPICDOCUMENT: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param56SNSTOPICDOCUMENTValue
+        - none
+  Param57SNSTOPICNOTIFICATIONSERVICE: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param57SNSTOPICNOTIFICATIONSERVICEValue
+        - none
+  Param58SNSTOPICPROJECT: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param58SNSTOPICPROJECTValue
+        - none
+  Param59SNSTOPICSNSPUSHNOTIFICATION: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param59SNSTOPICSNSPUSHNOTIFICATIONValue
+        - none
+  Param60DOCUSIGNACCOUNTEMAIL: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param60DOCUSIGNACCOUNTEMAILValue
+        - none
+  Param61DOCUSIGNACCOUNTNAME: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param61DOCUSIGNACCOUNTNAMEValue
+        - none
+  Param62DOCUSIGNCALLBACKREDIRECTURL: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param62DOCUSIGNCALLBACKREDIRECTURLValue
+        - none
+  Param63DOCUSIGNCALLBACKURL: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param63DOCUSIGNCALLBACKURLValue
+        - none
+  Param64DOCUSIGNSECRETKEY: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param64DOCUSIGNSECRETKEYValue
+        - none
+  Param65DOCUSIGNSELLERFULLNAME: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param65DOCUSIGNSELLERFULLNAMEValue
+        - none
+  Param66DOCUSIGNBASEURL: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param66DOCUSIGNBASEURLValue
+        - none
+  Param67DOCUSIGNSELLEREMAIL: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param67DOCUSIGNSELLEREMAILValue
+        - none
+  Param68CONTRACTPORTALAPI: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param68CONTRACTPORTALAPIValue
+        - none
+  Param69CONTRACTPREVIEWBUCKETNAME: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param69CONTRACTPREVIEWBUCKETNAMEValue
+        - none
+  Param70CONTRACTSIGNATUREURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param70CONTRACTSIGNATUREURLValue
+        - none
+  Param71CONTRACTTEMPLATEBUCKETNAME: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param71CONTRACTTEMPLATEBUCKETNAMEValue
+        - none
+  Param72HOVERCALLBACKAPIURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param72HOVERCALLBACKAPIURLValue
+        - none
+  Param73HOVERMEASUREMENTAPIURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param73HOVERMEASUREMENTAPIURLValue
+        - none
+  Param74HOVERAUTHTOKENURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param74HOVERAUTHTOKENURLValue
+        - none
+  Param75HOVERCLIENTID: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param75HOVERCLIENTIDValue
+        - none
+  Param76HOVERCLIENTSECRET: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param76HOVERCLIENTSECRETValue
+        - none
+  Param77HOVERHOVEREENTTOPIC: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param77HOVERHOVEREVENTTOPICValue
+        - none
+  Param78HOVERISENABLED: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param78HOVERISENABLEDValue
+        - none
+  Param79HOVERREFRESHTOKENBUCKET: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param79HOVERREFRESHTOKENBUCKETValue
+        - none
+  Param80HOVERTOHOVERTOPIC: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param80HOVERTOHOVERTOPICValue
+        - none
+  Param81HUBSPOTAPIKEYTEMP: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param81HUBSPOTAPIKEYTEMPValue
+        - none
+  Param82HUBSPOTDEALCREATEURL: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param82HUBSPOTDEALCREATEURLValue
+        - none
+  Param83HUBSPOTHUBSPOTTOQPDEALTOPICARN: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param83HUBSPOTHUBSPOTTOQPDEALTOPICARNValue
+        - none
+  Param84PROPOSALACCEPTURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param84PROPOSALACCEPTURLValue
+        - none
+  Param85PROPOSALCALLBACKREDIRECTURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param85PROPOSALCALLBACKREDIRECTURLValue
+        - none
+  Param87PROPOSALPREVIEWBUCKETNAME: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param87PROPOSALPREVIEWBUCKETNAMEValue
+        - none
+  Param88PROPOSALTEMPLATEBUCKETNAME: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param88PROPOSALTEMPLATEBUCKETNAMEValue
+        - none
+  Param89EMAILFROMCOIEMAIL: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param89EMAILFROMCOIEMAILValue
+        - none
+  Param90GUNNERJWTSECRETKEY: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param90GUNNERJWTSECRETKEYValue
+        - none
+  Param91ROLEPROJECTMANAGER: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param91ROLEPROJECTMANAGERValue
+        - none
+  Param92QP2APIKEY: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param92QP2APIKEYValue
+        - none
+  Param93DEFAULTORIGINPARAM: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param93DEFAULTORIGINPARAMValue
+        - none
+  Param94ENVIRONMENT: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param94ENVIRONMENTValue
+        - none
+  Param95ENVIRONEMENT: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param95ENVIRONEMENTValue
+        - none
+  Param96ENVRONMENT: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param96ENVRONMENTValue
+        - none
+  Param97REMOTEBUCKETPATH: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param97REMOTEBUCKETPATHValue
+        - none
+  Param98SMTPCOIDETAIL: !And
+    - !Condition IsCommonScope
+    - !Not
+      - !Equals
+        - !Ref Param98SMTPCOIDETAILValue
+        - none
+  Param99SNOWFLAKETABLE: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param99SNOWFLAKETABLEValue
+        - none
+  Param100CONTRACTAPIURL: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param100CONTRACTAPIURLValue
+        - none
+  Param101DISPATCHNOTIFICATION: !And
+    - !Condition IsEnvScope
+    - !Not
+      - !Equals
+        - !Ref Param101DISPATCHNOTIFICATIONValue
+        - none
 Resources:
-  
-  Param22OPERATIONSPORTALROLES:
-    Type: AWS::SSM::Parameter
-    Condition: DeployParam22OPERATIONSPORTALROLES
+  Param3DOCUSIGNACCOUNTID:
+    Type: Custom::SecureSSMParameter
+    Condition: Param3DOCUSIGNACCOUNTID
     Properties:
-      Name: OPERATIONS_PORTAL_ROLES
-      Type: String
-      Value: !Ref Param22OPERATIONSPORTALROLESValue
-  
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/ACCOUNT_ID
+      Type: SecureString
+      Value: !Ref Param3DOCUSIGNACCOUNTIDValue
+  Param4DOCUSIGNAUTHDOMAIN:
+    Type: Custom::SecureSSMParameter
+    Condition: Param4DOCUSIGNAUTHDOMAIN
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/AUTH_DOMAIN
+      Type: SecureString
+      Value: !Ref Param4DOCUSIGNAUTHDOMAINValue
+  Param5DOCUSIGNINTEGRATIONKEY:
+    Type: Custom::SecureSSMParameter
+    Condition: Param5DOCUSIGNINTEGRATIONKEY
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/INTEGRATION_KEY
+      Type: SecureString
+      Value: !Ref Param5DOCUSIGNINTEGRATIONKEYValue
+  Param6DOCUSIGNPRIVATEKEY:
+    Type: Custom::SecureSSMParameter
+    Condition: Param6DOCUSIGNPRIVATEKEY
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/PRIVATE_KEY
+      Type: SecureString
+      Value: !Ref Param6DOCUSIGNPRIVATEKEYValue
+  Param7DOCUSIGNUSERGUID:
+    Type: Custom::SecureSSMParameter
+    Condition: Param7DOCUSIGNUSERGUID
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/USER_GUID
+      Type: SecureString
+      Value: !Ref Param7DOCUSIGNUSERGUIDValue
+  Param8CONTRACTPAYMENTSCHEDULEAPI:
+    Type: Custom::SecureSSMParameter
+    Condition: Param8CONTRACTPAYMENTSCHEDULEAPI
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: CONTRACT_PAYMENT_SCHEDULE_API
+      Type: SecureString
+      Value: !Ref Param8CONTRACTPAYMENTSCHEDULEAPIValue
+  Param10CONTRACTSENDAPI:
+    Type: Custom::SecureSSMParameter
+    Condition: Param10CONTRACTSENDAPI
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: CONTRACT_SEND_API
+      Type: SecureString
+      Value: !Ref Param10CONTRACTSENDAPIValue
+  Param11CONTRACTSOWAPI:
+    Type: Custom::SecureSSMParameter
+    Condition: Param11CONTRACTSOWAPI
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: CONTRACT_SOW_API
+      Type: SecureString
+      Value: !Ref Param11CONTRACTSOWAPIValue
+  Param13CONTRACTTERMAPI:
+    Type: Custom::SecureSSMParameter
+    Condition: Param13CONTRACTTERMAPI
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: CONTRACT_TERM_API
+      Type: SecureString
+      Value: !Ref Param13CONTRACTTERMAPIValue
   Param18HRPORTALROLES:
     Type: AWS::SSM::Parameter
-    Condition: DeployParam18HRPORTALROLES
+    Condition: Param18HRPORTALROLES
     Properties:
       Name: HR_PORTAL_ROLES
       Type: String
       Value: !Ref Param18HRPORTALROLESValue
-
+  Param19INTEGRATIONTOKEN:
+    Type: AWS::SSM::Parameter
+    Condition: Param19INTEGRATIONTOKEN
+    Properties:
+      Name: INTEGRATION_TOKEN
+      Type: String
+      Value: !Ref Param19INTEGRATIONTOKENValue
+  Param22OPERATIONSPORTALROLES:
+    Type: AWS::SSM::Parameter
+    Condition: Param22OPERATIONSPORTALROLES
+    Properties:
+      Name: OPERATIONS_PORTAL_ROLES
+      Type: String
+      Value: !Ref Param22OPERATIONSPORTALROLESValue
+  Param24PASSWORDLESSLOGINTOKENEXPIRY:
+    Type: Custom::SecureSSMParameter
+    Condition: Param24PASSWORDLESSLOGINTOKENEXPIRY
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: PASSWORD_LESS_LOGIN_TOKEN_EXPIRY
+      Type: SecureString
+      Value: !Ref Param24PASSWORDLESSLOGINTOKENEXPIRYValue
+  Param28REGION:
+    Type: AWS::SSM::Parameter
+    Condition: Param28REGION
+    Properties:
+      Name: REGION
+      Type: String
+      Value: !Ref Param28REGIONValue
   Param29SALESPORTALROLES:
     Type: AWS::SSM::Parameter
-    Condition: DeployParam29SALESPORTALROLES
+    Condition: Param29SALESPORTALROLES
     Properties:
       Name: SALES_PORTAL_ROLES
       Type: String
       Value: !Ref Param29SALESPORTALROLESValue
-
+  Param30SMTPDETAILS:
+    Type: Custom::SecureSSMParameter
+    Condition: Param30SMTPDETAILS
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: SMTP_DETAILS
+      Type: SecureString
+      Value: !Ref Param30SMTPDETAILSValue
+  Param33DOCUSIGNBASEPATH:
+    Type: Custom::SecureSSMParameter
+    Condition: Param33DOCUSIGNBASEPATH
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/BASE_PATH
+      Type: SecureString
+      Value: !Ref Param33DOCUSIGNBASEPATHValue
+  Param34EMAILFROMEMAIL:
+    Type: Custom::SecureSSMParameter
+    Condition: Param34EMAILFROMEMAIL
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /EMAIL/FROM_EMAIL
+      Type: SecureString
+      Value: !Ref Param34EMAILFROMEMAILValue
+  Param35EMAILTEMPLATEGLOBALVARS:
+    Type: Custom::SecureSSMParameter
+    Condition: Param35EMAILTEMPLATEGLOBALVARS
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /EMAIL/TEMPLATE/GLOBAL_VARS
+      Type: SecureString
+      Value: !Ref Param35EMAILTEMPLATEGLOBALVARSValue
   Param36GUNNERNONSERVICESTATE:
     Type: Custom::SecureSSMParameter
-    Condition: DeployParam36GUNNERNONSERVICESTATE
+    Condition: Param36GUNNERNONSERVICESTATE
     Properties:
-      ServiceToken: 
-        arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /GUNNER/NON_SERVICE_STATE
       Type: SecureString
       Value: !Ref Param36GUNNERNONSERVICESTATEValue
-
-  Param3DOCUSIGNACCOUNTID:
+  Param37HUBSPOTAPIKEY:
     Type: Custom::SecureSSMParameter
-    Condition: DeployParam3DOCUSIGNACCOUNTID
+    Condition: Param37HUBSPOTAPIKEY
     Properties:
-      ServiceToken: 
-        arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
-      Name: /DOCUSIGN/ACCOUNT_ID
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HUBSPOT/API_KEY
       Type: SecureString
-      Value: !Ref Param3DOCUSIGNACCOUNTIDValue
-
+      Value: !Ref Param37HUBSPOTAPIKEYValue
+  Param38HUBSPOTDEALSTAGE:
+    Type: Custom::SecureSSMParameter
+    Condition: Param38HUBSPOTDEALSTAGE
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HUBSPOT/DEALSTAGE
+      Type: SecureString
+      Value: !Ref Param38HUBSPOTDEALSTAGEValue
+  Param43MSVENDORAPIKEY:
+    Type: Custom::SecureSSMParameter
+    Condition: Param43MSVENDORAPIKEY
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /MS/VENDOR_API_KEY
+      Type: SecureString
+      Value: !Ref Param43MSVENDORAPIKEYValue
+  Param45MSVENDORFILENAME:
+    Type: AWS::SSM::Parameter
+    Condition: Param45MSVENDORFILENAME
+    Properties:
+      Name: /MS/VENDOR_FILE_NAME
+      Type: String
+      Value: !Ref Param45MSVENDORFILENAMEValue
+  Param48SNOWFLAKEACCOUNT:
+    Type: Custom::SecureSSMParameter
+    Condition: Param48SNOWFLAKEACCOUNT
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/ACCOUNT
+      Type: SecureString
+      Value: !Ref Param48SNOWFLAKEACCOUNTValue
+  Param49SNOWFLAKEDATABASE:
+    Type: Custom::SecureSSMParameter
+    Condition: Param49SNOWFLAKEDATABASE
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/DATABASE
+      Type: SecureString
+      Value: !Ref Param49SNOWFLAKEDATABASEValue
+  Param50SNOWFLAKEPASSWORD:
+    Type: Custom::SecureSSMParameter
+    Condition: Param50SNOWFLAKEPASSWORD
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/PASSWORD
+      Type: SecureString
+      Value: !Ref Param50SNOWFLAKEPASSWORDValue
+  Param51SNOWFLAKEROLE:
+    Type: Custom::SecureSSMParameter
+    Condition: Param51SNOWFLAKEROLE
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/ROLE
+      Type: SecureString
+      Value: !Ref Param51SNOWFLAKEROLEValue
+  Param52SNOWFLAKESCHEMA:
+    Type: Custom::SecureSSMParameter
+    Condition: Param52SNOWFLAKESCHEMA
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/SCHEMA
+      Type: SecureString
+      Value: !Ref Param52SNOWFLAKESCHEMAValue
+  Param54SNOWFLAKEUSERNAME:
+    Type: Custom::SecureSSMParameter
+    Condition: Param54SNOWFLAKEUSERNAME
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/USERNAME
+      Type: SecureString
+      Value: !Ref Param54SNOWFLAKEUSERNAMEValue
+  Param55SNOWFLAKEWAREHOUSE:
+    Type: Custom::SecureSSMParameter
+    Condition: Param55SNOWFLAKEWAREHOUSE
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/WAREHOUSE
+      Type: SecureString
+      Value: !Ref Param55SNOWFLAKEWAREHOUSEValue
   Param1COGNITOCLIENTID:
     Type: Custom::SecureSSMParameter
-    Condition: DeployParam1COGNITOCLIENTID
+    Condition: Param1COGNITOCLIENTID
     Properties:
-      ServiceToken: 
-        arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /COGNITO/CLIENT_ID
       Type: SecureString
       Value: !Ref Param1COGNITOCLIENTIDValue
-
+  Param2COGNITOUSERPOOLID:
+    Type: Custom::SecureSSMParameter
+    Condition: Param2COGNITOUSERPOOLID
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /COGNITO/USER_POOL_ID
+      Type: SecureString
+      Value: !Ref Param2COGNITOUSERPOOLIDValue
+  Param9CONTRACTPORTALHMACSECRET:
+    Type: AWS::SSM::Parameter
+    Condition: Param9CONTRACTPORTALHMACSECRET
+    Properties:
+      Name: CONTRACT_PORTAL_HMAC_SECRET
+      Type: String
+      Value: !Ref Param9CONTRACTPORTALHMACSECRETValue
+  Param12CONTRACTSTORAGEBUCKETNAME:
+    Type: Custom::SecureSSMParameter
+    Condition: Param12CONTRACTSTORAGEBUCKETNAME
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: CONTRACT_STORAGE_BUCKET_NAME
+      Type: SecureString
+      Value: !Ref Param12CONTRACTSTORAGEBUCKETNAMEValue
+  Param14DBCONNECTIONSTRING:
+    Type: Custom::SecureSSMParameter
+    Condition: Param14DBCONNECTIONSTRING
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: DB_CONNECTION_STRING
+      Type: SecureString
+      Value: !Ref Param14DBCONNECTIONSTRINGValue
+  Param15DEFAULTSALESADMINDETAILS:
+    Type: AWS::SSM::Parameter
+    Condition: Param15DEFAULTSALESADMINDETAILS
+    Properties:
+      Name: DEFAULT_SALES_ADMIN_DETAILS
+      Type: String
+      Value: !Ref Param15DEFAULTSALESADMINDETAILSValue
+  Param16DOCUMENTDBTOPICARN:
+    Type: Custom::SecureSSMParameter
+    Condition: Param16DOCUMENTDBTOPICARN
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: DOCUMENT_DB_TOPIC_ARN
+      Type: SecureString
+      Value: !Ref Param16DOCUMENTDBTOPICARNValue
+  Param17FRONTENDURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param17FRONTENDURL
+    Properties:
+      Name: FRONTEND_URL
+      Type: String
+      Value: !Ref Param17FRONTENDURLValue
+  Param20LOCATIONDATASTREAM:
+    Type: AWS::SSM::Parameter
+    Condition: Param20LOCATIONDATASTREAM
+    Properties:
+      Name: LOCATION_DATASTREAM
+      Type: String
+      Value: !Ref Param20LOCATIONDATASTREAMValue
+  Param21MEDIABUCKET:
+    Type: AWS::SSM::Parameter
+    Condition: Param21MEDIABUCKET
+    Properties:
+      Name: MEDIA_BUCKET
+      Type: String
+      Value: !Ref Param21MEDIABUCKETValue
+  Param23PACKAGEAPIURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param23PACKAGEAPIURL
+    Properties:
+      Name: PACKAGE_API_URL
+      Type: String
+      Value: !Ref Param23PACKAGEAPIURLValue
+  Param25PRICINGAPIURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param25PRICINGAPIURL
+    Properties:
+      Name: PRICING_API_URL
+      Type: String
+      Value: !Ref Param25PRICINGAPIURLValue
+  Param26PROPOSALBUCKETNAME:
+    Type: AWS::SSM::Parameter
+    Condition: Param26PROPOSALBUCKETNAME
+    Properties:
+      Name: PROPOSAL_BUCKET_NAME
+      Type: String
+      Value: !Ref Param26PROPOSALBUCKETNAMEValue
+  Param27PROPOSALCALLBACKURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param27PROPOSALCALLBACKURL
+    Properties:
+      Name: PROPOSAL_CALLBACK_URL
+      Type: String
+      Value: !Ref Param27PROPOSALCALLBACKURLValue
+  Param31SNSARN:
+    Type: Custom::SecureSSMParameter
+    Condition: Param31SNSARN
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: SNS_ARN
+      Type: SecureString
+      Value: !Ref Param31SNSARNValue
+  Param32TOKENVALIDATEENDPOINT:
+    Type: Custom::SecureSSMParameter
+    Condition: Param32TOKENVALIDATEENDPOINT
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: TOKEN_VALIDATE_END_POINT
+      Type: SecureString
+      Value: !Ref Param32TOKENVALIDATEENDPOINTValue
+  Param39MSIDENTIFIER:
+    Type: Custom::SecureSSMParameter
+    Condition: Param39MSIDENTIFIER
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /MS/IDENTIFIER
+      Type: SecureString
+      Value: !Ref Param39MSIDENTIFIERValue
+  Param40MSMEASUREMENTSERVICEURL:
+    Type: Custom::SecureSSMParameter
+    Condition: Param40MSMEASUREMENTSERVICEURL
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /MS/MEASUREMENT_SERVICE_URL
+      Type: SecureString
+      Value: !Ref Param40MSMEASUREMENTSERVICEURLValue
+  Param41MSSNSDBTOPICARN:
+    Type: AWS::SSM::Parameter
+    Condition: Param41MSSNSDBTOPICARN
+    Properties:
+      Name: /MS/SNS_DB_TOPIC_ARN
+      Type: String
+      Value: !Ref Param41MSSNSDBTOPICARNValue
+  Param42MSSNSPROVIDERTOPICARN:
+    Type: AWS::SSM::Parameter
+    Condition: Param42MSSNSPROVIDERTOPICARN
+    Properties:
+      Name: /MS/SNS_PROVIDER_TOPIC_ARN
+      Type: String
+      Value: !Ref Param42MSSNSPROVIDERTOPICARNValue
+  Param44MSVENDORBUCKETNAME:
+    Type: AWS::SSM::Parameter
+    Condition: Param44MSVENDORBUCKETNAME
+    Properties:
+      Name: /MS/VENDOR_BUCKET_NAME
+      Type: String
+      Value: !Ref Param44MSVENDORBUCKETNAMEValue
   Param46REDISREADCONNECTION:
     Type: Custom::SecureSSMParameter
-    Condition: DeployParam46REDISREADCONNECTION
+    Condition: Param46REDISREADCONNECTION
     Properties:
-      ServiceToken: 
-        arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /REDIS/READ_CONNECTION
       Type: SecureString
       Value: !Ref Param46REDISREADCONNECTIONValue
-
+  Param47REDISWRITECONNECTION:
+    Type: Custom::SecureSSMParameter
+    Condition: Param47REDISWRITECONNECTION
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /REDIS/WRITE_CONNECTION
+      Type: SecureString
+      Value: !Ref Param47REDISWRITECONNECTIONValue
+  Param56SNSTOPICDOCUMENT:
+    Type: Custom::SecureSSMParameter
+    Condition: Param56SNSTOPICDOCUMENT
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNS_TOPIC/DOCUMENT
+      Type: SecureString
+      Value: !Ref Param56SNSTOPICDOCUMENTValue
+  Param57SNSTOPICNOTIFICATIONSERVICE:
+    Type: Custom::SecureSSMParameter
+    Condition: Param57SNSTOPICNOTIFICATIONSERVICE
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNS_TOPIC/NOTIFICATION_SERVICE
+      Type: SecureString
+      Value: !Ref Param57SNSTOPICNOTIFICATIONSERVICEValue
+  Param58SNSTOPICPROJECT:
+    Type: Custom::SecureSSMParameter
+    Condition: Param58SNSTOPICPROJECT
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNS_TOPIC/PROJECT
+      Type: SecureString
+      Value: !Ref Param58SNSTOPICPROJECTValue
+  Param59SNSTOPICSNSPUSHNOTIFICATION:
+    Type: Custom::SecureSSMParameter
+    Condition: Param59SNSTOPICSNSPUSHNOTIFICATION
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNS_TOPIC/SNS_PUSH_NOTIFICATION
+      Type: SecureString
+      Value: !Ref Param59SNSTOPICSNSPUSHNOTIFICATIONValue
+  Param60DOCUSIGNACCOUNTEMAIL:
+    Type: AWS::SSM::Parameter
+    Condition: Param60DOCUSIGNACCOUNTEMAIL
+    Properties:
+      Name: /DOCUSIGN/ACCOUNT_EMAIL
+      Type: String
+      Value: !Ref Param60DOCUSIGNACCOUNTEMAILValue
+  Param61DOCUSIGNACCOUNTNAME:
+    Type: AWS::SSM::Parameter
+    Condition: Param61DOCUSIGNACCOUNTNAME
+    Properties:
+      Name: /DOCUSIGN/ACCOUNT_NAME
+      Type: String
+      Value: !Ref Param61DOCUSIGNACCOUNTNAMEValue
+  Param62DOCUSIGNCALLBACKREDIRECTURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param62DOCUSIGNCALLBACKREDIRECTURL
+    Properties:
+      Name: /DOCUSIGN/CALLBACK_REDIRECT_URL
+      Type: String
+      Value: !Ref Param62DOCUSIGNCALLBACKREDIRECTURLValue
+  Param63DOCUSIGNCALLBACKURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param63DOCUSIGNCALLBACKURL
+    Properties:
+      Name: /DOCUSIGN/CALLBACK_URL
+      Type: String
+      Value: !Ref Param63DOCUSIGNCALLBACKURLValue
+  Param64DOCUSIGNSECRETKEY:
+    Type: AWS::SSM::Parameter
+    Condition: Param64DOCUSIGNSECRETKEY
+    Properties:
+      Name: /DOCUSIGN/SECRET_KEY
+      Type: String
+      Value: !Ref Param64DOCUSIGNSECRETKEYValue
+  Param65DOCUSIGNSELLERFULLNAME:
+    Type: AWS::SSM::Parameter
+    Condition: Param65DOCUSIGNSELLERFULLNAME
+    Properties:
+      Name: /DOCUSIGN/SELLER_FULLNAME
+      Type: String
+      Value: !Ref Param65DOCUSIGNSELLERFULLNAMEValue
+  Param66DOCUSIGNBASEURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param66DOCUSIGNBASEURL
+    Properties:
+      Name: /DOCUSIGN/BASE_URL
+      Type: String
+      Value: !Ref Param66DOCUSIGNBASEURLValue
+  Param67DOCUSIGNSELLEREMAIL:
+    Type: AWS::SSM::Parameter
+    Condition: Param67DOCUSIGNSELLEREMAIL
+    Properties:
+      Name: /DOCUSIGN/SELLER_EMAIL
+      Type: String
+      Value: !Ref Param67DOCUSIGNSELLEREMAILValue
+  Param68CONTRACTPORTALAPI:
+    Type: AWS::SSM::Parameter
+    Condition: Param68CONTRACTPORTALAPI
+    Properties:
+      Name: CONTRACT_PORTAL_API
+      Type: String
+      Value: !Ref Param68CONTRACTPORTALAPIValue
+  Param69CONTRACTPREVIEWBUCKETNAME:
+    Type: AWS::SSM::Parameter
+    Condition: Param69CONTRACTPREVIEWBUCKETNAME
+    Properties:
+      Name: CONTRACT_PREVIEW_BUCKET_NAME
+      Type: String
+      Value: !Ref Param69CONTRACTPREVIEWBUCKETNAMEValue
+  Param70CONTRACTSIGNATUREURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param70CONTRACTSIGNATUREURL
+    Properties:
+      Name: CONTRACT_SIGNATURE_URL
+      Type: String
+      Value: !Ref Param70CONTRACTSIGNATUREURLValue
+  Param71CONTRACTTEMPLATEBUCKETNAME:
+    Type: AWS::SSM::Parameter
+    Condition: Param71CONTRACTTEMPLATEBUCKETNAME
+    Properties:
+      Name: CONTRACT_TEMPLATE_BUCKET_NAME
+      Type: String
+      Value: !Ref Param71CONTRACTTEMPLATEBUCKETNAMEValue
+  Param72HOVERCALLBACKAPIURL:
+    Type: Custom::SecureSSMParameter
+    Condition: Param72HOVERCALLBACKAPIURL
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: HOVER_CALLBACK_API_URL
+      Type: SecureString
+      Value: !Ref Param72HOVERCALLBACKAPIURLValue
+  Param73HOVERMEASUREMENTAPIURL:
+    Type: Custom::SecureSSMParameter
+    Condition: Param73HOVERMEASUREMENTAPIURL
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: HOVER_MEASUREMENT_API_URL
+      Type: SecureString
+      Value: !Ref Param73HOVERMEASUREMENTAPIURLValue
+  Param74HOVERAUTHTOKENURL:
+    Type: Custom::SecureSSMParameter
+    Condition: Param74HOVERAUTHTOKENURL
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/AUTH_TOKEN_URL
+      Type: SecureString
+      Value: !Ref Param74HOVERAUTHTOKENURLValue
+  Param75HOVERCLIENTID:
+    Type: Custom::SecureSSMParameter
+    Condition: Param75HOVERCLIENTID
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/CLIENT_ID
+      Type: SecureString
+      Value: !Ref Param75HOVERCLIENTIDValue
+  Param76HOVERCLIENTSECRET:
+    Type: Custom::SecureSSMParameter
+    Condition: Param76HOVERCLIENTSECRET
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/CLIENT_SECRET
+      Type: SecureString
+      Value: !Ref Param76HOVERCLIENTSECRETValue
+  Param77HOVERHOVEREENTTOPIC:
+    Type: Custom::SecureSSMParameter
+    Condition: Param77HOVERHOVEREENTTOPIC
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/HOVER_EVENT_TOPIC
+      Type: SecureString
+      Value: !Ref Param77HOVERHOVEREVENTTOPICValue
+  Param78HOVERISENABLED:
+    Type: Custom::SecureSSMParameter
+    Condition: Param78HOVERISENABLED
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/IS_ENABLED
+      Type: SecureString
+      Value: !Ref Param78HOVERISENABLEDValue
+  Param79HOVERREFRESHTOKENBUCKET:
+    Type: Custom::SecureSSMParameter
+    Condition: Param79HOVERREFRESHTOKENBUCKET
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/REFRESH_TOKEN_BUCKET
+      Type: SecureString
+      Value: !Ref Param79HOVERREFRESHTOKENBUCKETValue
+  Param80HOVERTOHOVERTOPIC:
+    Type: Custom::SecureSSMParameter
+    Condition: Param80HOVERTOHOVERTOPIC
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/TO_HOVER_TOPIC
+      Type: SecureString
+      Value: !Ref Param80HOVERTOHOVERTOPICValue
+  Param81HUBSPOTAPIKEYTEMP:
+    Type: AWS::SSM::Parameter
+    Condition: Param81HUBSPOTAPIKEYTEMP
+    Properties:
+      Name: /HUBSPOT/API_KEY_TEMP
+      Type: String
+      Value: !Ref Param81HUBSPOTAPIKEYTEMPValue
+  Param82HUBSPOTDEALCREATEURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param82HUBSPOTDEALCREATEURL
+    Properties:
+      Name: /HUBSPOT/DEAL_CREATE_URL
+      Type: String
+      Value: !Ref Param82HUBSPOTDEALCREATEURLValue
+  Param83HUBSPOTHUBSPOTTOQPDEALTOPICARN:
+    Type: AWS::SSM::Parameter
+    Condition: Param83HUBSPOTHUBSPOTTOQPDEALTOPICARN
+    Properties:
+      Name: /HUBSPOT/HUBSPOT_TO_QP_DEAL_TOPIC_ARN
+      Type: String
+      Value: !Ref Param83HUBSPOTHUBSPOTTOQPDEALTOPICARNValue
+  Param84PROPOSALACCEPTURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param84PROPOSALACCEPTURL
+    Properties:
+      Name: /PROPOSAL/ACCEPT_URL
+      Type: String
+      Value: !Ref Param84PROPOSALACCEPTURLValue
+  Param85PROPOSALCALLBACKREDIRECTURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param85PROPOSALCALLBACKREDIRECTURL
+    Properties:
+      Name: /PROPOSAL/CALLBACK_REDIRECT_URL
+      Type: String
+      Value: !Ref Param85PROPOSALCALLBACKREDIRECTURLValue
+  Param87PROPOSALPREVIEWBUCKETNAME:
+    Type: AWS::SSM::Parameter
+    Condition: Param87PROPOSALPREVIEWBUCKETNAME
+    Properties:
+      Name: /PROPOSAL/PREVIEW_BUCKET_NAME
+      Type: String
+      Value: !Ref Param87PROPOSALPREVIEWBUCKETNAMEValue
+  Param88PROPOSALTEMPLATEBUCKETNAME:
+    Type: AWS::SSM::Parameter
+    Condition: Param88PROPOSALTEMPLATEBUCKETNAME
+    Properties:
+      Name: /PROPOSAL/TEMPLATE_BUCKET_NAME
+      Type: String
+      Value: !Ref Param88PROPOSALTEMPLATEBUCKETNAMEValue
+  Param89EMAILFROMCOIEMAIL:
+    Type: Custom::SecureSSMParameter
+    Condition: Param89EMAILFROMCOIEMAIL
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /EMAIL/FROM_COI_EMAIL
+      Type: SecureString
+      Value: !Ref Param89EMAILFROMCOIEMAILValue
+  Param90GUNNERJWTSECRETKEY:
+    Type: Custom::SecureSSMParameter
+    Condition: Param90GUNNERJWTSECRETKEY
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /GUNNER/JWT_SECRET_KEY
+      Type: SecureString
+      Value: !Ref Param90GUNNERJWTSECRETKEYValue
+  Param91ROLEPROJECTMANAGER:
+    Type: Custom::SecureSSMParameter
+    Condition: Param91ROLEPROJECTMANAGER
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /ROLE/PROJECT_MANAGER
+      Type: SecureString
+      Value: !Ref Param91ROLEPROJECTMANAGERValue
+  Param92QP2APIKEY:
+    Type: Custom::SecureSSMParameter
+    Condition: Param92QP2APIKEY
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /QP2/API_KEY
+      Type: SecureString
+      Value: !Ref Param92QP2APIKEYValue
+  Param93DEFAULTORIGINPARAM:
+    Type: Custom::SecureSSMParameter
+    Condition: Param93DEFAULTORIGINPARAM
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: DEFAULT_ORIGIN_PARAM
+      Type: SecureString
+      Value: !Ref Param93DEFAULTORIGINPARAMValue
+  Param94ENVIRONMENT:
+    Type: AWS::SSM::Parameter
+    Condition: Param94ENVIRONMENT
+    Properties:
+      Name: ENVIRONMENT
+      Type: String
+      Value: !Ref Param94ENVIRONMENTValue
+  Param95ENVIRONEMENT:
+    Type: AWS::SSM::Parameter
+    Condition: Param95ENVIRONEMENT
+    Properties:
+      Name: ENVIRONEMENT
+      Type: String
+      Value: !Ref Param95ENVIRONEMENTValue
+  Param96ENVRONMENT:
+    Type: AWS::SSM::Parameter
+    Condition: Param96ENVRONMENT
+    Properties:
+      Name: ENVRONMENT
+      Type: String
+      Value: !Ref Param96ENVRONMENTValue
+  Param97REMOTEBUCKETPATH:
+    Type: Custom::SecureSSMParameter
+    Condition: Param97REMOTEBUCKETPATH
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: REMOTE_BUCKET_PATH
+      Type: SecureString
+      Value: !Ref Param97REMOTEBUCKETPATHValue
+  Param98SMTPCOIDETAIL:
+    Type: Custom::SecureSSMParameter
+    Condition: Param98SMTPCOIDETAIL
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: SMTP_COI_DETAIL
+      Type: SecureString
+      Value: !Ref Param98SMTPCOIDETAILValue
+  Param99SNOWFLAKETABLE:
+    Type: Custom::SecureSSMParameter
+    Condition: Param99SNOWFLAKETABLE
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/TABLE
+      Type: SecureString
+      Value: !Ref Param99SNOWFLAKETABLEValue
+  Param100CONTRACTAPIURL:
+    Type: AWS::SSM::Parameter
+    Condition: Param100CONTRACTAPIURL
+    Properties:
+      Name: CONTRACT_API_URL
+      Type: String
+      Value: !Ref Param100CONTRACTAPIURLValue
+  Param101DISPATCHNOTIFICATION:
+    Type: AWS::SSM::Parameter
+    Condition: Param101DISPATCHNOTIFICATION
+    Properties:
+      Name: DISPATCH_NOTIFICATION
+      Type: String
+      Value: !Ref Param101DISPATCHNOTIFICATIONValue
 Outputs:
   Status:
-    Value: !Sub "Parameters created successfully for scope: ${Scope}"
+    Value: 'Parameters created successfully for scope: ${Scope}'
   Environment:
-    Value: !Ref environment
+    Value: environment
     Condition: IsEnvScope
   ParametersCreated:
-    Value: "Parameters processed successfully"
+    Value: Parameters processed successfully
