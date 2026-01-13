@@ -802,7 +802,7 @@ Conditions:
         - !Ref Param65DOCUSIGNSELLERFULLNAMEValue
         - none
   Param66DOCUSIGNBASEURL: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param66DOCUSIGNBASEURLValue
