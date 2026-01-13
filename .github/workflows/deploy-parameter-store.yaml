@@ -55,7 +55,6 @@ jobs:
       - name: Build and Deploy Parameters
         shell: bash
         env:
-          # Mapping secrets to Environment Variables to prevent shell expansion issues
           HR_VAL: ${{ secrets.HR_PORTAL_ROLES }}
           OP_VAL: ${{ secrets.OPERATIONS_PORTAL_ROLES }}
           SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
@@ -64,7 +63,6 @@ jobs:
           COGNITO_ID: ${{ secrets.COGNITO_CLIENT_ID }}
           REDIS_VAL: ${{ secrets.REDIS_READ_CONNECTION }}
         run: |
-          # 1. Setup Logic for Stack and Environment
           SCOPE="${{ github.event.inputs.scope }}"
           DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
           
@@ -75,31 +73,33 @@ jobs:
             STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
 
-          echo "Deploying stack $STACK_NAME with scope $SCOPE and env $DEPLOY_ENV"
-
-          # 2. Initialize the temporary params.json file as an empty array
           echo "[]" > params.json
 
-          # 3. Use JQ for EVERY parameter. 
-          # This handles strings, arrays, and complex JSON (like Redis) exactly the same way.
-          # It prevents the ""quote"" issues and the { brackets issue.
-          
-          # Add Scope and Environment
-          jq --arg k "Scope" --arg v "$SCOPE" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          jq --arg k "environment" --arg v "$DEPLOY_ENV" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          
-          # Add Roles and IDs
-          jq --arg k "Param18HRPORTALROLESValue" --arg v "$HR_VAL" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          jq --arg k "Param22OPERATIONSPORTALROLESValue" --arg v "$OP_VAL" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          jq --arg k "Param29SALESPORTALROLESValue" --arg v "$SALES_VAL" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          jq --arg k "Param3DOCUSIGNACCOUNTIDValue" --arg v "$DOCUSIGN_ID" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          jq --arg k "Param36GUNNERNONSERVICESTATEValue" --arg v "$GUNNER_STATES" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          jq --arg k "Param1COGNITOCLIENTIDValue" --arg v "$COGNITO_ID" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          
-          # Add the Redis JSON (Now handled safely by JQ)
-          jq --arg k "Param46REDISREADCONNECTIONValue" --arg v "$REDIS_VAL" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          # Standard helper for simple strings (Scope, IDs)
+          add_str() {
+            jq --arg k "$1" --arg v "$2" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          }
 
-          # 4. Final Deployment using the file
+          # SPECIAL HELPER for Redis/JSON: This prevents the double-quote "" issue
+          add_json_as_string() {
+            # This takes the JSON secret, minifies it, and puts it in as a single clean string
+            jq --arg k "$1" --arg v "$2" '. += [{"ParameterKey": $k, "ParameterValue": ($v | fromjson | tojson)}]' params.json > tmp.json && mv tmp.json params.json
+          }
+
+          # Populate
+          add_str "Scope" "$SCOPE"
+          add_str "environment" "$DEPLOY_ENV"
+          add_str "Param3DOCUSIGNACCOUNTIDValue" "$DOCUSIGN_ID"
+          add_str "Param1COGNITOCLIENTIDValue" "$COGNITO_ID"
+          
+          # Use the special helper for Redis and any Roles arrays
+          add_json_as_string "Param18HRPORTALROLESValue" "$HR_VAL"
+          add_json_as_string "Param22OPERATIONSPORTALROLESValue" "$OP_VAL"
+          add_json_as_string "Param29SALESPORTALROLESValue" "$SALES_VAL"
+          add_json_as_string "Param36GUNNERNONSERVICESTATEValue" "$GUNNER_STATES"
+          add_json_as_string "Param46REDISREADCONNECTIONValue" "$REDIS_VAL"
+
+          # Deploy
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
