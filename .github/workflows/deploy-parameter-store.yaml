@@ -54,62 +54,36 @@ jobs:
 
       - name: Build and Deploy Parameters
         shell: bash
-        env:
-          HR_VAL: ${{ secrets.HR_PORTAL_ROLES }}
-          OP_VAL: ${{ secrets.OPERATIONS_PORTAL_ROLES }}
-          SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
-          DOCUSIGN_ID: ${{ secrets.DOCUSIGN_ACCOUNT_ID }}
-          GUNNER_STATES: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
-          COGNITO_ID: ${{ secrets.COGNITO_CLIENT_ID }}
-          REDIS_VAL: ${{ secrets.REDIS_READ_CONNECTION }}
         run: |
+
           SCOPE="${{ github.event.inputs.scope }}"
           DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
           
+          # 1. Handle Stack Name and Environment Input logic
           if [ "$SCOPE" == "common" ]; then
             STACK_NAME="parameter-store-common"
-            DEPLOY_ENV="qa"
+            DEPLOY_ENV="qa"  # fallback for common
           else
             STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
 
-          # 1. Initialize the file
-          echo "[]" > params.json
+          echo "Deploying stack $STACK_NAME with scope $SCOPE and env $DEPLOY_ENV"
+          
+          # 2. Deploy the stack
 
-          # 2. THE BULLETPROOF FUNCTION
-          # This takes ANY input (multi-line, JSON, or string) and makes it a safe string
-          add_anything() {
-            local key="$1"
-            local value="$2"
-            
-            # Use printf and JQ raw-input (-Rs) to handle newlines and quotes perfectly
-            # This turns the multi-line Redis JSON into a single-line string automatically.
-            CLEAN_VALUE=$(printf "%s" "$value" | jq -Rs .)
-            
-            jq --arg k "$key" --argjson v "$CLEAN_VALUE" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          }
-
-          # 3. Populate all parameters using the safe function
-          add_anything "Scope" "$SCOPE"
-          add_anything "environment" "$DEPLOY_ENV"
-          add_anything "Param18HRPORTALROLESValue" "$HR_VAL"
-          add_anything "Param22OPERATIONSPORTALROLESValue" "$OP_VAL"
-          add_anything "Param29SALESPORTALROLESValue" "$SALES_VAL"
-          add_anything "Param3DOCUSIGNACCOUNTIDValue" "$DOCUSIGN_ID"
-          add_anything "Param36GUNNERNONSERVICESTATEValue" "$GUNNER_STATES"
-          add_anything "Param1COGNITOCLIENTIDValue" "$COGNITO_ID"
-          add_anything "Param46REDISREADCONNECTIONValue" "$REDIS_VAL"
-
-          # 4. Debug check (This will show you if the key actually exists in the file)
-          echo "--- Verifying keys in params.json ---"
-          jq -r '.[].ParameterKey' params.json
-          echo "------------------------------------"
-
-          # 5. Deploy
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
             --region "$AWS_REGION" \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset \
-            --parameter-overrides file://$(pwd)/params.json
+            --parameter-overrides \
+              Scope="$SCOPE" \
+              environment="$DEPLOY_ENV" \
+              Param18HRPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
+              Param22OPERATIONSPORTALROLESValue='["OperationsAdmin"]' \
+              Param29SALESPORTALROLESValue='["SalesAdmin","SalesTeamManager","SalesTeamMember"]' \
+              Param3DOCUSIGNACCOUNTIDValue='${{ secrets.DOCUSIGN_ACCOUNT_ID }}' \
+              Param36GUNNERNONSERVICESTATEValue='["AK","HI","DC","CA","FL","TX"]' \
+              Param1COGNITOCLIENTIDValue='${{ secrets.COGNITO_CLIENT_ID }}' \
+              Param46REDISREADCONNECTIONValue='${{ secrets.REDIS_READ_CONNECTION }}'
