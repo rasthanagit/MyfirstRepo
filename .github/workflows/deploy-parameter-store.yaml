@@ -55,7 +55,6 @@ jobs:
       - name: Build and Deploy Parameters
         shell: bash
         env:
-          # Secrets mapped to Env Vars
           HR_VAL: ${{ secrets.HR_PORTAL_ROLES }}
           OP_VAL: ${{ secrets.OPERATIONS_PORTAL_ROLES }}
           SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
@@ -74,38 +73,39 @@ jobs:
             STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
 
-          # 1. Start with a clean array
+          # 1. Initialize the file
           echo "[]" > params.json
 
-          # 2. Add Standard Strings (Scope, IDs)
-          # These are safe to pass as --arg because they are single-line
-          jq --arg k "Scope" --arg v "$SCOPE" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          jq --arg k "environment" --arg v "$DEPLOY_ENV" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          jq --arg k "Param3DOCUSIGNACCOUNTIDValue" --arg v "$DOCUSIGN_ID" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          jq --arg k "Param1COGNITOCLIENTIDValue" --arg v "$COGNITO_ID" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          # 2. THE BULLETPROOF FUNCTION
+          # This takes ANY input (multi-line, JSON, or string) and makes it a safe string
+          add_anything() {
+            local key="$1"
+            local value="$2"
+            
+            # Use printf and JQ raw-input (-Rs) to handle newlines and quotes perfectly
+            # This turns the multi-line Redis JSON into a single-line string automatically.
+            CLEAN_VALUE=$(printf "%s" "$value" | jq -Rs .)
+            
+            jq --arg k "$key" --argjson v "$CLEAN_VALUE" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          }
 
-          # 3. Add Complex JSON (Redis, Roles)
-          # We use 'env.VARIABLE' inside JQ. This is the only way to handle 
-          # multi-line secrets without the "control characters" error.
-          
-          # Redis Connection
-          export R_VAL="$REDIS_VAL"
-          jq --arg k "Param46REDISREADCONNECTIONValue" '. += [{"ParameterKey": $k, "ParameterValue": (env.R_VAL | fromjson | tojson)}]' params.json > tmp.json && mv tmp.json params.json
-          
-          # Roles and Arrays
-          export H_VAL="$HR_VAL"
-          jq --arg k "Param18HRPORTALROLESValue" '. += [{"ParameterKey": $k, "ParameterValue": (env.H_VAL | fromjson | tojson)}]' params.json > tmp.json && mv tmp.json params.json
-          
-          export O_VAL="$OP_VAL"
-          jq --arg k "Param22OPERATIONSPORTALROLESValue" '. += [{"ParameterKey": $k, "ParameterValue": (env.O_VAL | fromjson | tojson)}]' params.json > tmp.json && mv tmp.json params.json
-          
-          export S_VAL="$SALES_VAL"
-          jq --arg k "Param29SALESPORTALROLESValue" '. += [{"ParameterKey": $k, "ParameterValue": (env.S_VAL | fromjson | tojson)}]' params.json > tmp.json && mv tmp.json params.json
+          # 3. Populate all parameters using the safe function
+          add_anything "Scope" "$SCOPE"
+          add_anything "environment" "$DEPLOY_ENV"
+          add_anything "Param18HRPORTALROLESValue" "$HR_VAL"
+          add_anything "Param22OPERATIONSPORTALROLESValue" "$OP_VAL"
+          add_anything "Param29SALESPORTALROLESValue" "$SALES_VAL"
+          add_anything "Param3DOCUSIGNACCOUNTIDValue" "$DOCUSIGN_ID"
+          add_anything "Param36GUNNERNONSERVICESTATEValue" "$GUNNER_STATES"
+          add_anything "Param1COGNITOCLIENTIDValue" "$COGNITO_ID"
+          add_anything "Param46REDISREADCONNECTIONValue" "$REDIS_VAL"
 
-          export G_VAL="$GUNNER_STATES"
-          jq --arg k "Param36GUNNERNONSERVICESTATEValue" '. += [{"ParameterKey": $k, "ParameterValue": (env.G_VAL | fromjson | tojson)}]' params.json > tmp.json && mv tmp.json params.json
+          # 4. Debug check (This will show you if the key actually exists in the file)
+          echo "--- Verifying keys in params.json ---"
+          jq -r '.[].ParameterKey' params.json
+          echo "------------------------------------"
 
-          # 4. Final Deploy
+          # 5. Deploy
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
