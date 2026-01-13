@@ -55,20 +55,15 @@ jobs:
       - name: Build and Deploy Parameters
         shell: bash
         env:
-          # Mapping secrets to variables here is the only way to 
-          # safely handle special characters like [ ] " and :
+          # Secrets mapped to Env Vars
           HR_VAL: ${{ secrets.HR_PORTAL_ROLES }}
           OP_VAL: ${{ secrets.OPERATIONS_PORTAL_ROLES }}
           SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
-          DOCUSIGN_ID: ${{ secrets.DOCUSIGN_ACCOUNT_ID }}
-          GUNNER_STATES: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
-          COGNITO_ID: ${{ secrets.COGNITO_CLIENT_ID }}
           REDIS_VAL: ${{ secrets.REDIS_READ_CONNECTION }}
         run: |
           SCOPE="${{ github.event.inputs.scope }}"
           DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
           
-          # 1. Handle Stack Name Logic
           if [ "$SCOPE" == "common" ]; then
             STACK_NAME="parameter-store-common"
             DEPLOY_ENV="qa"
@@ -76,26 +71,26 @@ jobs:
             STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
 
-          # 2. Manually create the params.json file
-          # We wrap the $VARIABLES in double quotes because AWS expects the Value to be a string
-          cat << EOF > params.json
-          [
-            { "ParameterKey": "Scope", "ParameterValue": "$SCOPE" },
-            { "ParameterKey": "environment", "ParameterValue": "$DEPLOY_ENV" },
-            { "ParameterKey": "Param18HRPORTALROLESValue", "ParameterValue": "$HR_VAL" },
-            { "ParameterKey": "Param22OPERATIONSPORTALROLESValue", "ParameterValue": "$OP_VAL" },
-            { "ParameterKey": "Param29SALESPORTALROLESValue", "ParameterValue": "$SALES_VAL" },
-            { "ParameterKey": "Param3DOCUSIGNACCOUNTIDValue", "ParameterValue": "$DOCUSIGN_ID" },
-            { "ParameterKey": "Param36GUNNERNONSERVICESTATEValue", "ParameterValue": "$GUNNER_STATES" },
-            { "ParameterKey": "Param1COGNITOCLIENTIDValue", "ParameterValue": "$COGNITO_ID" },
-            { "ParameterKey": "Param46REDISREADCONNECTIONValue", "ParameterValue": "$REDIS_VAL" }
-          ]
-          EOF
+          # 1. Create an empty JSON array
+          echo "[]" > params.json
 
-          echo "Deploying stack $STACK_NAME with scope $SCOPE and env $DEPLOY_ENV"
+          # 2. Add each parameter using JQ (This handles all quoting perfectly)
+          # We use --arg to treat the values as "Data" so they can't break the JSON
+          add_to_json() {
+            jq --arg k "$1" --arg v "$2" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          }
 
-          # 3. Deploy the stack using the file
-          # The file:// prefix tells AWS to read the raw content from the file
+          add_to_json "Scope" "$SCOPE"
+          add_to_json "environment" "$DEPLOY_ENV"
+          add_to_json "Param18HRPORTALROLESValue" "$HR_VAL"
+          add_to_json "Param22OPERATIONSPORTALROLESValue" "$OP_VAL"
+          add_to_json "Param29SALESPORTALROLESValue" "$SALES_VAL"
+          add_to_json "Param46REDISREADCONNECTIONValue" "$REDIS_VAL"
+
+          echo "--- Validated params.json ---"
+          # cat params.json # Secrets will be masked
+
+          # 3. Deploy
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
