@@ -772,7 +772,7 @@ Conditions:
         - !Ref Param60DOCUSIGNACCOUNTEMAILValue
         - none
   Param61DOCUSIGNACCOUNTNAME: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param61DOCUSIGNACCOUNTNAMEValue
