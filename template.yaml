@@ -892,7 +892,7 @@ Conditions:
         - !Ref Param80HOVERTOHOVERTOPICValue
         - none
   Param81HUBSPOTAPIKEYTEMP: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param81HUBSPOTAPIKEYTEMPValue
