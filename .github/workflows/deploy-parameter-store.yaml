@@ -55,6 +55,7 @@ jobs:
       - name: Build and Deploy Parameters
         shell: bash
         env:
+          # Secrets mapped to Env Vars
           HR_VAL: ${{ secrets.HR_PORTAL_ROLES }}
           OP_VAL: ${{ secrets.OPERATIONS_PORTAL_ROLES }}
           SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
@@ -73,33 +74,39 @@ jobs:
             STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
 
+          # 1. Start with an empty array
           echo "[]" > params.json
 
-          # Standard helper for simple strings (Scope, IDs)
+          # 2. Helper for Standard Strings
           add_str() {
             jq --arg k "$1" --arg v "$2" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
           }
 
-          # SPECIAL HELPER for Redis/JSON: This prevents the double-quote "" issue
-          add_json_as_string() {
-            # This takes the JSON secret, minifies it, and puts it in as a single clean string
-            jq --arg k "$1" --arg v "$2" '. += [{"ParameterKey": $k, "ParameterValue": ($v | fromjson | tojson)}]' params.json > tmp.json && mv tmp.json params.json
+          # 3. SPECIAL LOGIC for Multi-line Redis/Arrays
+          # This uses 'env.VAR' to bypass the "control character" error
+          add_complex_json() {
+            export KEY_NAME="$1"
+            export VAL_DATA="$2"
+            # We use jq -n to access environment variables directly
+            # 'tojson' ensures the multi-line secret becomes a single-line string for AWS
+            jq --arg k "$KEY_NAME" --arg v "$VAL_DATA" \
+              '. += [{"ParameterKey": $k, "ParameterValue": ($v | fromjson | tojson)}]' params.json > tmp.json && mv tmp.json params.json
           }
 
-          # Populate
+          # 4. Populate everything
           add_str "Scope" "$SCOPE"
           add_str "environment" "$DEPLOY_ENV"
           add_str "Param3DOCUSIGNACCOUNTIDValue" "$DOCUSIGN_ID"
           add_str "Param1COGNITOCLIENTIDValue" "$COGNITO_ID"
           
-          # Use the special helper for Redis and any Roles arrays
-          add_json_as_string "Param18HRPORTALROLESValue" "$HR_VAL"
-          add_json_as_string "Param22OPERATIONSPORTALROLESValue" "$OP_VAL"
-          add_json_as_string "Param29SALESPORTALROLESValue" "$SALES_VAL"
-          add_json_as_string "Param36GUNNERNONSERVICESTATEValue" "$GUNNER_STATES"
-          add_json_as_string "Param46REDISREADCONNECTIONValue" "$REDIS_VAL"
+          # Use complex helper for JSON/Arrays (Handles the newlines)
+          add_complex_json "Param18HRPORTALROLESValue" "$HR_VAL"
+          add_complex_json "Param22OPERATIONSPORTALROLESValue" "$OP_VAL"
+          add_complex_json "Param29SALESPORTALROLESValue" "$SALES_VAL"
+          add_complex_json "Param36GUNNERNONSERVICESTATEValue" "$GUNNER_STATES"
+          add_complex_json "Param46REDISREADCONNECTIONValue" "$REDIS_VAL"
 
-          # Deploy
+          # 5. Deploy
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
