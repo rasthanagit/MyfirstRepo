@@ -73,6 +73,7 @@ jobs:
             --region "$AWS_REGION" \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset \
+            --s3-bucket gunner-cloudformation-template-us-east-2 \
             --parameter-overrides \
               Scope="$SCOPE" \
               environment="$DEPLOY_ENV" \
