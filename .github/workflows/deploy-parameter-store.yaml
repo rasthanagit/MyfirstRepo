@@ -55,12 +55,16 @@ jobs:
       - name: Build and Deploy Parameters
         shell: bash
         env:
-          # Secrets mapped to Env Vars
+          # Mapping secrets to Environment Variables to prevent shell expansion issues
           HR_VAL: ${{ secrets.HR_PORTAL_ROLES }}
           OP_VAL: ${{ secrets.OPERATIONS_PORTAL_ROLES }}
           SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
+          DOCUSIGN_ID: ${{ secrets.DOCUSIGN_ACCOUNT_ID }}
+          GUNNER_STATES: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
+          COGNITO_ID: ${{ secrets.COGNITO_CLIENT_ID }}
           REDIS_VAL: ${{ secrets.REDIS_READ_CONNECTION }}
         run: |
+          # 1. Setup Logic for Stack and Environment
           SCOPE="${{ github.event.inputs.scope }}"
           DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
           
@@ -71,26 +75,31 @@ jobs:
             STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
 
-          # 1. Create an empty JSON array
+          echo "Deploying stack $STACK_NAME with scope $SCOPE and env $DEPLOY_ENV"
+
+          # 2. Initialize the temporary params.json file as an empty array
           echo "[]" > params.json
 
-          # 2. Add each parameter using JQ (This handles all quoting perfectly)
-          # We use --arg to treat the values as "Data" so they can't break the JSON
-          add_to_json() {
-            jq --arg k "$1" --arg v "$2" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
-          }
+          # 3. Use JQ for EVERY parameter. 
+          # This handles strings, arrays, and complex JSON (like Redis) exactly the same way.
+          # It prevents the ""quote"" issues and the { brackets issue.
+          
+          # Add Scope and Environment
+          jq --arg k "Scope" --arg v "$SCOPE" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          jq --arg k "environment" --arg v "$DEPLOY_ENV" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          
+          # Add Roles and IDs
+          jq --arg k "Param18HRPORTALROLESValue" --arg v "$HR_VAL" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          jq --arg k "Param22OPERATIONSPORTALROLESValue" --arg v "$OP_VAL" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          jq --arg k "Param29SALESPORTALROLESValue" --arg v "$SALES_VAL" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          jq --arg k "Param3DOCUSIGNACCOUNTIDValue" --arg v "$DOCUSIGN_ID" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          jq --arg k "Param36GUNNERNONSERVICESTATEValue" --arg v "$GUNNER_STATES" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          jq --arg k "Param1COGNITOCLIENTIDValue" --arg v "$COGNITO_ID" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
+          
+          # Add the Redis JSON (Now handled safely by JQ)
+          jq --arg k "Param46REDISREADCONNECTIONValue" --arg v "$REDIS_VAL" '. += [{"ParameterKey": $k, "ParameterValue": $v}]' params.json > tmp.json && mv tmp.json params.json
 
-          add_to_json "Scope" "$SCOPE"
-          add_to_json "environment" "$DEPLOY_ENV"
-          add_to_json "Param18HRPORTALROLESValue" "$HR_VAL"
-          add_to_json "Param22OPERATIONSPORTALROLESValue" "$OP_VAL"
-          add_to_json "Param29SALESPORTALROLESValue" "$SALES_VAL"
-          add_to_json "Param46REDISREADCONNECTIONValue" "$REDIS_VAL"
-
-          echo "--- Validated params.json ---"
-          # cat params.json # Secrets will be masked
-
-          # 3. Deploy
+          # 4. Final Deployment using the file
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
