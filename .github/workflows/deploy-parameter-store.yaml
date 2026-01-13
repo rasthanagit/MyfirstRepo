@@ -55,22 +55,20 @@ jobs:
       - name: Build and Deploy Parameters
         shell: bash
         env:
-          # Map complex secrets to env vars to prevent shell parsing errors
-          HR_ROLES: ${{ secrets.HR_PORTAL_ROLES }}
-          OP_ROLES: ${{ secrets.OPERATIONS_PORTAL_ROLES }}
-          SALES_ROLES: ${{ secrets.SALES_PORTAL_ROLES }}
-          GUNNER_STATES: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
-          REDIS_READ: ${{ secrets.REDIS_READ_CONNECTION }}
+          # Mapping secrets to variables here is the only way to 
+          # safely handle special characters like [ ] " and :
+          HR_VAL: ${{ secrets.HR_PORTAL_ROLES }}
+          OP_VAL: ${{ secrets.OPERATIONS_PORTAL_ROLES }}
+          SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
           DOCUSIGN_ID: ${{ secrets.DOCUSIGN_ACCOUNT_ID }}
+          GUNNER_STATES: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
           COGNITO_ID: ${{ secrets.COGNITO_CLIENT_ID }}
+          REDIS_VAL: ${{ secrets.REDIS_READ_CONNECTION }}
         run: |
-          # 1. Update the template structure using your python script
-          python3 update_template.py
-
-          # 2. Logic for Stack Names
           SCOPE="${{ github.event.inputs.scope }}"
           DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
           
+          # 1. Handle Stack Name Logic
           if [ "$SCOPE" == "common" ]; then
             STACK_NAME="parameter-store-common"
             DEPLOY_ENV="qa"
@@ -78,26 +76,26 @@ jobs:
             STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
 
-          # 3. MANUAL CREATION OF PARAMS FILE
-          # This writes the JSON structure directly. Quotes are preserved.
+          # 2. Manually create the params.json file
+          # We wrap the $VARIABLES in double quotes because AWS expects the Value to be a string
           cat << EOF > params.json
           [
             { "ParameterKey": "Scope", "ParameterValue": "$SCOPE" },
             { "ParameterKey": "environment", "ParameterValue": "$DEPLOY_ENV" },
-            { "ParameterKey": "Param18HRPORTALROLESValue", "ParameterValue": "$HR_ROLES" },
-            { "ParameterKey": "Param22OPERATIONSPORTALROLESValue", "ParameterValue": "$OP_ROLES" },
-            { "ParameterKey": "Param29SALESPORTALROLESValue", "ParameterValue": "$SALES_ROLES" },
+            { "ParameterKey": "Param18HRPORTALROLESValue", "ParameterValue": "$HR_VAL" },
+            { "ParameterKey": "Param22OPERATIONSPORTALROLESValue", "ParameterValue": "$OP_VAL" },
+            { "ParameterKey": "Param29SALESPORTALROLESValue", "ParameterValue": "$SALES_VAL" },
             { "ParameterKey": "Param3DOCUSIGNACCOUNTIDValue", "ParameterValue": "$DOCUSIGN_ID" },
             { "ParameterKey": "Param36GUNNERNONSERVICESTATEValue", "ParameterValue": "$GUNNER_STATES" },
             { "ParameterKey": "Param1COGNITOCLIENTIDValue", "ParameterValue": "$COGNITO_ID" },
-            { "ParameterKey": "Param46REDISREADCONNECTIONValue", "ParameterValue": "$REDIS_READ" }
+            { "ParameterKey": "Param46REDISREADCONNECTIONValue", "ParameterValue": "$REDIS_VAL" }
           ]
           EOF
 
-          echo "--- Created params.json ---"
-          # cat params.json # Optional: Uncomment to see masked structure in logs
+          echo "Deploying stack $STACK_NAME with scope $SCOPE and env $DEPLOY_ENV"
 
-          # 4. DEPLOY using the file
+          # 3. Deploy the stack using the file
+          # The file:// prefix tells AWS to read the raw content from the file
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
