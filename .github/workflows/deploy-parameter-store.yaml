@@ -55,38 +55,53 @@ jobs:
       - name: Build and Deploy Parameters
         shell: bash
         env:
-            SALES_VAL: ${{ secrets.SALES_PORTAL_ROLES }}
-            REDIS_READ_CONNECTION_VALUE: ${{ secrets.REDIS_READ_CONNECTION }}
+          # Map complex secrets to env vars to prevent shell parsing errors
+          HR_ROLES: ${{ secrets.HR_PORTAL_ROLES }}
+          OP_ROLES: ${{ secrets.OPERATIONS_PORTAL_ROLES }}
+          SALES_ROLES: ${{ secrets.SALES_PORTAL_ROLES }}
+          GUNNER_STATES: ${{ secrets.GUNNER_NON_SERVICE_STATE }}
+          REDIS_READ: ${{ secrets.REDIS_READ_CONNECTION }}
+          DOCUSIGN_ID: ${{ secrets.DOCUSIGN_ACCOUNT_ID }}
+          COGNITO_ID: ${{ secrets.COGNITO_CLIENT_ID }}
         run: |
+          # 1. Update the template structure using your python script
+          python3 update_template.py
 
+          # 2. Logic for Stack Names
           SCOPE="${{ github.event.inputs.scope }}"
           DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
           
-          # 1. Handle Stack Name and Environment Input logic
           if [ "$SCOPE" == "common" ]; then
             STACK_NAME="parameter-store-common"
-            DEPLOY_ENV="qa"  # fallback for common
+            DEPLOY_ENV="qa"
           else
             STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
 
-          echo "Deploying stack $STACK_NAME with scope $SCOPE and env $DEPLOY_ENV"
+          # 3. MANUAL CREATION OF PARAMS FILE
+          # This writes the JSON structure directly. Quotes are preserved.
+          cat << EOF > params.json
+          [
+            { "ParameterKey": "Scope", "ParameterValue": "$SCOPE" },
+            { "ParameterKey": "environment", "ParameterValue": "$DEPLOY_ENV" },
+            { "ParameterKey": "Param18HRPORTALROLESValue", "ParameterValue": "$HR_ROLES" },
+            { "ParameterKey": "Param22OPERATIONSPORTALROLESValue", "ParameterValue": "$OP_ROLES" },
+            { "ParameterKey": "Param29SALESPORTALROLESValue", "ParameterValue": "$SALES_ROLES" },
+            { "ParameterKey": "Param3DOCUSIGNACCOUNTIDValue", "ParameterValue": "$DOCUSIGN_ID" },
+            { "ParameterKey": "Param36GUNNERNONSERVICESTATEValue", "ParameterValue": "$GUNNER_STATES" },
+            { "ParameterKey": "Param1COGNITOCLIENTIDValue", "ParameterValue": "$COGNITO_ID" },
+            { "ParameterKey": "Param46REDISREADCONNECTIONValue", "ParameterValue": "$REDIS_READ" }
+          ]
+          EOF
 
-          # 2. Deploy the stack
+          echo "--- Created params.json ---"
+          # cat params.json # Optional: Uncomment to see masked structure in logs
 
+          # 4. DEPLOY using the file
           aws cloudformation deploy \
             --template-file template.yaml \
             --stack-name "$STACK_NAME" \
             --region "$AWS_REGION" \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset \
-            --parameter-overrides \
-              Scope="$SCOPE" \
-              environment="$DEPLOY_ENV" \
-              Param18HRPORTALROLESValue='${{ secrets.HR_PORTAL_ROLES }}' \
-              Param22OPERATIONSPORTALROLESValue='${{ secrets.OPERATIONS_PORTAL_ROLES }}' \
-              Param29SALESPORTALROLESValue="$SALES_VAL" \
-              Param3DOCUSIGNACCOUNTIDValue='${{ secrets.DOCUSIGN_ACCOUNT_ID }}' \
-              Param36GUNNERNONSERVICESTATEValue='${{ secrets.GUNNER_NON_SERVICE_STATE }}' \
-              Param1COGNITOCLIENTIDValue='${{ secrets.COGNITO_CLIENT_ID }}' \
-              Param46REDISREADCONNECTIONValue="$REDIS_READ_CONNECTION_VALUE"
+            --parameter-overrides file://$(pwd)/params.json
