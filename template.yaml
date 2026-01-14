@@ -778,7 +778,7 @@ Conditions:
         - !Ref Param61DOCUSIGNACCOUNTNAMEValue
         - none
   Param62DOCUSIGNCALLBACKREDIRECTURL: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param62DOCUSIGNCALLBACKREDIRECTURLValue
