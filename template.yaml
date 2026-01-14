@@ -790,7 +790,7 @@ Conditions:
         - !Ref Param63DOCUSIGNCALLBACKURLValue
         - none
   Param64DOCUSIGNSECRETKEY: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param64DOCUSIGNSECRETKEYValue
