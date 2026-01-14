@@ -766,7 +766,7 @@ Conditions:
         - !Ref Param59SNSTOPICSNSPUSHNOTIFICATIONValue
         - none
   Param60DOCUSIGNACCOUNTEMAIL: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param60DOCUSIGNACCOUNTEMAILValue
