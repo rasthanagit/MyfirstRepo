@@ -898,7 +898,7 @@ Conditions:
         - !Ref Param81HUBSPOTAPIKEYTEMPValue
         - none
   Param82HUBSPOTDEALCREATEURL: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param82HUBSPOTDEALCREATEURLValue
