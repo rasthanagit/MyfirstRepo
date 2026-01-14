@@ -808,7 +808,7 @@ Conditions:
         - !Ref Param66DOCUSIGNBASEURLValue
         - none
   Param67DOCUSIGNSELLEREMAIL: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param67DOCUSIGNSELLEREMAILValue
