@@ -796,7 +796,7 @@ Conditions:
         - !Ref Param64DOCUSIGNSECRETKEYValue
         - none
   Param65DOCUSIGNSELLERFULLNAME: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param65DOCUSIGNSELLERFULLNAMEValue
