@@ -904,7 +904,7 @@ Conditions:
         - !Ref Param82HUBSPOTDEALCREATEURLValue
         - none
   Param83HUBSPOTHUBSPOTTOQPDEALTOPICARN: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param83HUBSPOTHUBSPOTTOQPDEALTOPICARNValue
