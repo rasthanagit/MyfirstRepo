@@ -490,7 +490,7 @@ Conditions:
         - !Ref Param22OPERATIONSPORTALROLESValue
         - none
   Param24PASSWORDLESSLOGINTOKENEXPIRY: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param24PASSWORDLESSLOGINTOKENEXPIRYValue
