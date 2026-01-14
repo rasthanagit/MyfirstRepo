@@ -544,7 +544,7 @@ Conditions:
         - !Ref Param37HUBSPOTAPIKEYValue
         - none
   Param38HUBSPOTDEALSTAGE: !And
-    - !Condition IsCommonScope
+    - !Condition IsEnvScope
     - !Not
       - !Equals
         - !Ref Param38HUBSPOTDEALSTAGEValue
