@@ -100,7 +100,7 @@ jobs:
               Param21MEDIABUCKETValue='${{ secrets.MEDIA_BUCKET }}' \
               Param22OPERATIONSPORTALROLESValue='${{ secrets.OPERATIONS_PORTAL_ROLES }}' \
               Param23PACKAGEAPIURLValue='${{ secrets.PACKAGE_API_URL }}' \
-              Param24PASSWORDLESSLOGINTOKENEXPIRYValue='${{ secrets.PASSWORDLESS_LOGIN_TOKEN_EXPIRY }}' \
+              Param24PASSWORDLESSLOGINTOKENEXPIRYValue='${{ secrets.PASSWORD_LESS_LOGIN_TOKEN_EXPIRY }}' \
               Param25PRICINGAPIURLValue='${{ secrets.PRICING_API_URL }}' \
               Param26PROPOSALBUCKETNAMEValue='${{ secrets.PROPOSAL_BUCKET_NAME }}' \
               Param27PROPOSALCALLBACKURLValue='${{ secrets.PROPOSAL_CALLBACK_URL }}' \
@@ -108,13 +108,13 @@ jobs:
               Param29SALESPORTALROLESValue='${{ secrets.SALES_PORTAL_ROLES }}' \
               Param30SMTPDETAILSValue='${{ secrets.SMTP_DETAILS }}' \
               Param31SNSARNValue='${{ secrets.SNS_ARN }}' \
-              Param32TOKENVALIDATEENDPOINTValue='${{ secrets.TOKEN_VALIDATE_ENDPOINT }}' \
+              Param32TOKENVALIDATEENDPOINTValue='${{ secrets.TOKEN_VALIDATE_END_POINT }}' \
               Param33DOCUSIGNBASEPATHValue='${{ secrets.DOCUSIGN_BASE_PATH }}' \
               Param34EMAILFROMEMAILValue='${{ secrets.EMAIL_FROM_EMAIL }}' \
               Param35EMAILTEMPLATEGLOBALVARSValue='${{ secrets.EMAIL_TEMPLATE_GLOBAL_VARS }}' \
               Param36GUNNERNONSERVICESTATEValue='${{ secrets.GUNNER_NON_SERVICE_STATE }}' \
               Param37HUBSPOTAPIKEYValue='${{ secrets.HUBSPOT_API_KEY }}' \
-              Param38HUBSPOTDEALSTAGEValue='${{ secrets.HUBSPOT_DEAL_STAGE }}' \
+              Param38HUBSPOTDEALSTAGEValue='${{ secrets.HUBSPOT_DEALSTAGE }}' \
               Param39MSIDENTIFIERValue='${{ secrets.MS_IDENTIFIER }}' \
               Param40MSMEASUREMENTSERVICEURLValue='${{ secrets.MS_MEASUREMENT_SERVICE_URL }}' \
               Param41MSSNSDBTOPICARNValue='${{ secrets.MS_SNS_DB_TOPIC_ARN }}' \
