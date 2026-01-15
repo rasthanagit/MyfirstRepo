@@ -1028,7 +1028,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam3DOCUSIGNACCOUNTID
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /DOCUSIGN/ACCOUNT_ID
       Type: SecureString
       Value:
@@ -1037,7 +1037,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam4DOCUSIGNAUTHDOMAIN
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /DOCUSIGN/AUTH_DOMAIN
       Type: SecureString
       Value:
@@ -1046,7 +1046,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam5DOCUSIGNINTEGRATIONKEY
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /DOCUSIGN/INTEGRATION_KEY
       Type: SecureString
       Value:
@@ -1055,7 +1055,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam6DOCUSIGNPRIVATEKEY
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /DOCUSIGN/PRIVATE_KEY
       Type: SecureString
       Value:
@@ -1064,7 +1064,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam7DOCUSIGNUSERGUID
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /DOCUSIGN/USER_GUID
       Type: SecureString
       Value:
@@ -1073,7 +1073,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam8CONTRACTPAYMENTSCHEDULEAPI
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: CONTRACT_PAYMENT_SCHEDULE_API
       Type: SecureString
       Value:
@@ -1082,7 +1082,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam10CONTRACTSENDAPI
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: CONTRACT_SEND_API
       Type: SecureString
       Value:
@@ -1091,7 +1091,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam11CONTRACTSOWAPI
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: CONTRACT_SOW_API
       Type: SecureString
       Value:
@@ -1100,7 +1100,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam13CONTRACTTERMAPI
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: CONTRACT_TERM_API
       Type: SecureString
       Value:
@@ -1133,7 +1133,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam24PASSWORDLESSLOGINTOKENEXPIRY
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: PASSWORD_LESS_LOGIN_TOKEN_EXPIRY
       Type: SecureString
       Value:
@@ -1158,7 +1158,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam30SMTPDETAILS
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: SMTP_DETAILS
       Type: SecureString
       Value:
@@ -1167,7 +1167,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam33DOCUSIGNBASEPATH
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /DOCUSIGN/BASE_PATH
       Type: SecureString
       Value:
@@ -1176,7 +1176,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam34EMAILFROMEMAIL
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /EMAIL/FROM_EMAIL
       Type: SecureString
       Value:
@@ -1185,7 +1185,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam35EMAILTEMPLATEGLOBALVARS
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /EMAIL/TEMPLATE/GLOBAL_VARS
       Type: SecureString
       Value:
@@ -1194,7 +1194,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam36GUNNERNONSERVICESTATE
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /GUNNER/NON_SERVICE_STATE
       Type: SecureString
       Value:
@@ -1203,7 +1203,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam37HUBSPOTAPIKEY
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /HUBSPOT/API_KEY
       Type: SecureString
       Value:
@@ -1212,7 +1212,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam38HUBSPOTDEALSTAGE
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /HUBSPOT/DEALSTAGE
       Type: SecureString
       Value:
@@ -1221,7 +1221,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam43MSVENDORAPIKEY
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /MS/VENDOR_API_KEY
       Type: SecureString
       Value:
@@ -1238,7 +1238,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam48SNOWFLAKEACCOUNT
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNOWFLAKE/ACCOUNT
       Type: SecureString
       Value:
@@ -1247,7 +1247,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam49SNOWFLAKEDATABASE
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNOWFLAKE/DATABASE
       Type: SecureString
       Value:
@@ -1256,7 +1256,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam50SNOWFLAKEPASSWORD
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNOWFLAKE/PASSWORD
       Type: SecureString
       Value:
@@ -1265,7 +1265,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam51SNOWFLAKEROLE
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNOWFLAKE/ROLE
       Type: SecureString
       Value:
@@ -1274,7 +1274,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam52SNOWFLAKESCHEMA
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNOWFLAKE/SCHEMA
       Type: SecureString
       Value:
@@ -1283,7 +1283,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam54SNOWFLAKEUSERNAME
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNOWFLAKE/USERNAME
       Type: SecureString
       Value:
@@ -1292,7 +1292,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam55SNOWFLAKEWAREHOUSE
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNOWFLAKE/WAREHOUSE
       Type: SecureString
       Value:
@@ -1301,7 +1301,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam1COGNITOCLIENTID
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /COGNITO/CLIENT_ID
       Type: SecureString
       Value:
@@ -1310,7 +1310,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam2COGNITOUSERPOOLID
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /COGNITO/USER_POOL_ID
       Type: SecureString
       Value:
@@ -1327,7 +1327,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam12CONTRACTSTORAGEBUCKETNAME
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: CONTRACT_STORAGE_BUCKET_NAME
       Type: SecureString
       Value:
@@ -1336,7 +1336,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam14DBCONNECTIONSTRING
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: DB_CONNECTION_STRING
       Type: SecureString
       Value:
@@ -1353,7 +1353,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam16DOCUMENTDBTOPICARN
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: DOCUMENT_DB_TOPIC_ARN
       Type: SecureString
       Value:
@@ -1418,7 +1418,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam31SNSARN
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: SNS_ARN
       Type: SecureString
       Value:
@@ -1427,7 +1427,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam32TOKENVALIDATEENDPOINT
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: TOKEN_VALIDATE_END_POINT
       Type: SecureString
       Value:
@@ -1436,7 +1436,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam39MSIDENTIFIER
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /MS/IDENTIFIER
       Type: SecureString
       Value:
@@ -1445,7 +1445,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam40MSMEASUREMENTSERVICEURL
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /MS/MEASUREMENT_SERVICE_URL
       Type: SecureString
       Value:
@@ -1478,7 +1478,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam46REDISREADCONNECTION
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /REDIS/READ_CONNECTION
       Type: SecureString
       Value:
@@ -1487,7 +1487,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam47REDISWRITECONNECTION
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /REDIS/WRITE_CONNECTION
       Type: SecureString
       Value:
@@ -1496,7 +1496,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam56SNSTOPICDOCUMENT
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNS_TOPIC/DOCUMENT
       Type: SecureString
       Value:
@@ -1505,7 +1505,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam57SNSTOPICNOTIFICATIONSERVICE
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNS_TOPIC/NOTIFICATION_SERVICE
       Type: SecureString
       Value:
@@ -1514,7 +1514,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam58SNSTOPICPROJECT
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNS_TOPIC/PROJECT
       Type: SecureString
       Value:
@@ -1523,7 +1523,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam59SNSTOPICSNSPUSHNOTIFICATION
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNS_TOPIC/SNS_PUSH_NOTIFICATION
       Type: SecureString
       Value:
@@ -1628,7 +1628,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam72HOVERCALLBACKAPIURL
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: HOVER_CALLBACK_API_URL
       Type: SecureString
       Value:
@@ -1637,7 +1637,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam73HOVERMEASUREMENTAPIURL
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: HOVER_MEASUREMENT_API_URL
       Type: SecureString
       Value:
@@ -1646,7 +1646,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam74HOVERAUTHTOKENURL
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /HOVER/AUTH_TOKEN_URL
       Type: SecureString
       Value:
@@ -1655,7 +1655,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam75HOVERCLIENTID
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /HOVER/CLIENT_ID
       Type: SecureString
       Value:
@@ -1664,7 +1664,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam76HOVERCLIENTSECRET
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /HOVER/CLIENT_SECRET
       Type: SecureString
       Value:
@@ -1673,7 +1673,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam77HOVERHOVEREENTTOPIC
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /HOVER/HOVER_EVENT_TOPIC
       Type: SecureString
       Value:
@@ -1682,7 +1682,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam78HOVERISENABLED
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /HOVER/IS_ENABLED
       Type: SecureString
       Value:
@@ -1691,7 +1691,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam79HOVERREFRESHTOKENBUCKET
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /HOVER/REFRESH_TOKEN_BUCKET
       Type: SecureString
       Value:
@@ -1700,7 +1700,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam80HOVERTOHOVERTOPIC
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /HOVER/TO_HOVER_TOPIC
       Type: SecureString
       Value:
@@ -1765,7 +1765,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam89EMAILFROMCOIEMAIL
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /EMAIL/FROM_COI_EMAIL
       Type: SecureString
       Value:
@@ -1774,7 +1774,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam90GUNNERJWTSECRETKEY
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /GUNNER/JWT_SECRET_KEY
       Type: SecureString
       Value:
@@ -1783,7 +1783,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam91ROLEPROJECTMANAGER
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /ROLE/PROJECT_MANAGER
       Type: SecureString
       Value:
@@ -1792,7 +1792,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam92QP2APIKEY
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /QP2/API_KEY
       Type: SecureString
       Value:
@@ -1801,7 +1801,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam93DEFAULTORIGINPARAM
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: DEFAULT_ORIGIN_PARAM
       Type: SecureString
       Value:
@@ -1834,7 +1834,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam97REMOTEBUCKETPATH
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: REMOTE_BUCKET_PATH
       Type: SecureString
       Value:
@@ -1843,7 +1843,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam98SMTPCOIDETAIL
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: SMTP_COI_DETAIL
       Type: SecureString
       Value:
@@ -1852,7 +1852,7 @@ Resources:
     Type: Custom::SecureSSMParameter
     Condition: DParam99SNOWFLAKETABLE
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-2:108782075497:function:ssm-parameter-manager
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /SNOWFLAKE_TABLE
       Type: SecureString
       Value:
