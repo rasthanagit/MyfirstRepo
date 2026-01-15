@@ -1616,7 +1616,7 @@ Resources:
       Value: !Ref Param80HOVERTOHOVERTOPICValue
   Param81HUBSPOTAPIKEYTEMP:
     Type: AWS::SSM::Parameter
-    Condition: Param81HUBSPOTAPIKEYTEMP
+    Condition: CreateParam81HUBSPOTAPIKEYTEMP
     Properties:
       Name: /HUBSPOT/API_KEY_TEMP
       Type: String
