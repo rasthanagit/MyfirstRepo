@@ -41,11 +41,6 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pyyaml ruamel.yaml
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -81,7 +76,7 @@ jobs:
             --region "$AWS_REGION" \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset \
-            --s3-bucket gunner-cloudformation-template-us-east-2 \
+            --s3-bucket gunner-cft-template-us-east-2 \
             --parameter-overrides \
               Scope="$SCOPE" \
               environment="$DEPLOY_ENV" \
