@@ -82,7 +82,8 @@ jobs:
             --parameter-overrides \
               Scope="$SCOPE" \
               environment="$DEPLOY_ENV" \
-              COGNITOCLIENTIDValue="$(normalize '${{ secrets.COGNITO_CLIENT_ID }}')"
+              COGNITOCLIENTIDValue="$(normalize "$COGNITO_CLIENT_ID")"
+              # COGNITOCLIENTIDValue="$(normalize '${{ secrets.COGNITO_CLIENT_ID }}')"
               # Param2COGNITOUSERPOOLIDValue="$(normalize '${{ secrets.COGNITO_USER_POOL_ID }}')" \
               # Param3DOCUSIGNACCOUNTIDValue="$(normalize '${{ secrets.DOCUSIGN_ACCOUNT_ID }}')" \
               # Param4DOCUSIGNAUTHDOMAINValue="$(normalize '${{ secrets.DOCUSIGN_AUTH_DOMAIN }}')" \
