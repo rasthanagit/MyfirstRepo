@@ -17,7 +17,7 @@ Parameters:
     Default: env
     Description: common = deploy only common params, env = deploy only env-specific
       params
-  COGNITOCLIENTIDValue:
+  COGNITOCLIENTID-Value:
     Type: String
     NoEcho: true
 Conditions:
@@ -34,7 +34,7 @@ Conditions:
     - Condition: IsEnvScope
     - Fn::Not:
       - Fn::Equals:
-        - Ref: COGNITOCLIENTIDValue
+        - Ref: COGNITOCLIENTID-Value
         - none
 Resources:
   COGNITOCLIENTID:
@@ -45,7 +45,7 @@ Resources:
       Name: /COGNITO/CLIENT_ID
       Type: SecureString
       Value:
-        Ref: COGNITOCLIENTIDValue
+        Ref: COGNITOCLIENTID-Value
 Outputs:
   Status:
     Value: 'Parameters created successfully for scope: ${Scope}'
