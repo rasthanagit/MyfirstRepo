@@ -49,6 +49,8 @@ jobs:
 
       - name: Build and Deploy Parameters
         shell: bash
+        env:
+          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
         run: |
           SCOPE="${{ github.event.inputs.scope }}"
           DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
