@@ -49,8 +49,6 @@ jobs:
 
       - name: Build and Deploy Parameters
         shell: bash
-        env:
-          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
         run: |
           SCOPE="${{ github.event.inputs.scope }}"
           DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
@@ -82,8 +80,7 @@ jobs:
             --parameter-overrides \
               Scope="$SCOPE" \
               environment="$DEPLOY_ENV" \
-              COGNITOCLIENTIDValue="$(normalize "$COGNITO_CLIENT_ID")"
-              # COGNITOCLIENTIDValue="$(normalize '${{ secrets.COGNITO_CLIENT_ID }}')"
+              COGNITOCLIENTIDValue="$(normalize '${{ secrets.COGNITO_CLIENT_ID }}')"
               # Param2COGNITOUSERPOOLIDValue="$(normalize '${{ secrets.COGNITO_USER_POOL_ID }}')" \
               # Param3DOCUSIGNACCOUNTIDValue="$(normalize '${{ secrets.DOCUSIGN_ACCOUNT_ID }}')" \
               # Param4DOCUSIGNAUTHDOMAINValue="$(normalize '${{ secrets.DOCUSIGN_AUTH_DOMAIN }}')" \

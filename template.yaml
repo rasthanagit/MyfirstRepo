@@ -17,7 +17,7 @@ Parameters:
     Default: env
     Description: common = deploy only common params, env = deploy only env-specific
       params
-  COGNITOCLIENTIDValue:
+  cognitoclientidVALUE:
     Type: String
     NoEcho: true
 Conditions:
@@ -29,23 +29,23 @@ Conditions:
     Fn::Equals:
     - Ref: Scope
     - env
-  COGNITOCLIENTIDCondition:
+  cognitoclientidCONDITION:
     Fn::And:
     - Condition: IsEnvScope
     - Fn::Not:
       - Fn::Equals:
-        - Ref: COGNITOCLIENTIDValue
+        - Ref: cognitoclientidVALUE
         - none
 Resources:
   COGNITOCLIENTID:
     Type: Custom::SecureSSMParameter
-    Condition: COGNITOCLIENTIDCondition
+    Condition: cognitoclientidCONDITION
     Properties:
       ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
       Name: /COGNITO/CLIENT_ID
       Type: SecureString
       Value:
-        Ref: COGNITOCLIENTIDValue
+        Ref: cognitoclientidVALUE
 Outputs:
   Status:
     Value: 'Parameters created successfully for scope: ${Scope}'
