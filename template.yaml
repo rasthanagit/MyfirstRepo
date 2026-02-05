@@ -21,6 +21,10 @@ Parameters:
     Type: String
     NoEcho: true
     Default: none
+  CognitoUserPoolIdValue:
+    Type: String
+    NoEcho: true
+    Default: none
   
 Conditions:
   IsCommonScope:
@@ -38,8 +42,24 @@ Conditions:
       - Fn::Equals:
         - Ref: CognitoClientIdValue
         - none
+  CognitoUserPoolIdCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: CognitoUserPoolIdValue
+        - none
 Resources:
-  COGNITOCLIENTID:
+  CognitoClientId:
+    Type: Custom::SecureSSMParameter
+    Condition: CognitoClientIdCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /COGNITO/CLIENT_ID
+      Type: SecureString
+      Value:
+        Ref: CognitoClientIdValue
+  CognitoUserPoolId:
     Type: Custom::SecureSSMParameter
     Condition: CognitoClientIdCondition
     Properties:

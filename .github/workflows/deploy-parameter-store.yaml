@@ -81,3 +81,4 @@ jobs:
               Scope="$SCOPE" \
               environment="$DEPLOY_ENV" \
               CognitoClientIdValue="$(normalize '${{ secrets.COGNITO_CLIENT_ID }}')"
+              CognitoUserPoolIdValue="$(normalize '${{ secrets.COGNITO_USER_POOL_ID }}')"
