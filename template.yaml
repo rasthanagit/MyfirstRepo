@@ -64,7 +64,7 @@ Resources:
     Condition: CognitoUserPoolIdCondition
     Properties:
       ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
-      Name: /COGNITO/CLIENT_ID
+      Name: /COGNITO/USER_POOL_ID
       Type: SecureString
       Value:
         Ref: CognitoUserPoolIdValue
