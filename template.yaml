@@ -15,13 +15,432 @@ Parameters:
     - common
     - env
     Default: env
-    Description: common = deploy only common params, env = deploy only env-specific
-      params
+    Description: common = deploy only common params, env = deploy only env-specific params
+  
   CognitoClientIdValue:
     Type: String
     NoEcho: true
     Default: none
   CognitoUserPoolIdValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  DocusignAccountIdValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignAuthDomainValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignIntegrationKeyValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignPrivateKeyValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignUserGuidValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignBasePathValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignAccountEmailValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignAccountNameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignCallbackRedirectUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignCallbackUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignSecretKeyValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignSellerFullNameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignBaseUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocusignSellerEmailValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  ContractPaymentScheduleApiValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ContractPortalHmacSecretValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ContractSendApiValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ContractSowApiValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ContractStorageBucketNameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ContractTermApiValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ContractPortalApiValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ContractPreviewBucketNameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ContractSignatureUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ContractTemplateBucketNameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ContractApiUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  DbConnectionStringValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DocumentDbTopicArnValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  DefaultSalesAdminDetailsValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  DefaultOriginParamValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  EmailFromEmailValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  EmailTemplateGlobalVarsValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  EmailFromCoiEmailValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  EnvironmentValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  EnvironementValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  EnvromenValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  FrontendUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  GunnerNonServiceStateValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  GunnerJwtSecretKeyValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  HoverCallbackApiUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HoverMeasurementApiUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HoverAuthTokenUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HoverClientIdValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HoverClientSecretValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HoverEventTopicValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HoverIsEnabledValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HoverRefreshTokenBucketValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HoverToHoverTopicValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  HrPortalRolesValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  HubspotApiKeyValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HubspotDealStageValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HubspotApiKeyTempValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HubspotDealCreateUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  HubspotToQpDealTopicArnValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  IntegrationTokenValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  LocationDataStreamValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  MediaBucketValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  MsIdentifierValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  MsMeasurementServiceUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  MsSnsDbTopicArnValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  MsSnsProviderTopicArnValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  MsVendorApiKeyValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  MsVendorBucketNameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  MsVendorFileNameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  OperationsPortalRolesValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  PackageApiUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  PasswordLessLoginTokenExpiryValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  PricingApiUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  ProposalBucketNameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ProposalCallbackUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ProposalAcceptUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ProposalCallbackRedirectUrlValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ProposalPreviewBucketNameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  ProposalTemplateBucketNameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  qp2ApiKeyValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  RedisReadConnectionValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  RedisWriteConnectionValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  RegionValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  RemoteBucketPathValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  RoleProjectManagerValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  SalesPortalRolesValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  SmtpDetailsValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SmtpCoiDetailValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  SnsArnValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnsTopicDocumentValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnsTopicNotificationServiceValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnsTopicProjectValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnsTopicSnsPushNotificationValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  SnowflakeAccountValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnowflakeDatabaseValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnowflakePasswordValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnowflakeRoleValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnowflakeSchemaValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnowflakeUsernameValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnowflakeWarehouseValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  SnowflakeTableValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  TokenValidateEndPointValue:
+    Type: String
+    NoEcho: true
+    Default: none
+  
+  DispatchNotificationValue:
     Type: String
     NoEcho: true
     Default: none
@@ -35,6 +454,7 @@ Conditions:
     Fn::Equals:
     - Ref: Scope
     - env
+  
   CognitoClientIdCondition:
     Fn::And:
     - Condition: IsEnvScope
@@ -49,7 +469,747 @@ Conditions:
       - Fn::Equals:
         - Ref: CognitoUserPoolIdValue
         - none
+  
+  DocusignAccountIdCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignAccountIdValue
+        - none
+  DocusignAuthDomainCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignAuthDomainValue
+        - none
+  DocusignIntegrationKeyCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignIntegrationKeyValue
+        - none
+  DocusignPrivateKeyCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignPrivateKeyValue
+        - none
+  DocusignUserGuidCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignUserGuidValue
+        - none
+  DocusignBasePathCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignBasePathValue
+        - none
+  DocusignAccountEmailCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignAccountEmailValue
+        - none
+  DocusignAccountNameCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignAccountNameValue
+        - none
+  DocusignCallbackRedirectUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignCallbackRedirectUrlValue
+        - none
+  DocusignCallbackUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignCallbackUrlValue
+        - none
+  DocusignSecretKeyCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignSecretKeyValue
+        - none
+  DocusignSellerFullNameCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignSellerFullNameValue
+        - none
+  DocusignBaseUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignBaseUrlValue
+        - none
+  DocusignSellerEmailCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocusignSellerEmailValue
+        - none
+  
+  # Contract Conditions
+  ContractPaymentScheduleApiCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractPaymentScheduleApiValue
+        - none
+  ContractPortalHmacSecretCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractPortalHmacSecretValue
+        - none
+  ContractSendApiCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractSendApiValue
+        - none
+  ContractSowApiCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractSowApiValue
+        - none
+  ContractStorageBucketNameCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractStorageBucketNameValue
+        - none
+  ContractTermApiCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractTermApiValue
+        - none
+  ContractPortalApiCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractPortalApiValue
+        - none
+  ContractPreviewBucketNameCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractPreviewBucketNameValue
+        - none
+  ContractSignatureUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractSignatureUrlValue
+        - none
+  ContractTemplateBucketNameCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractTemplateBucketNameValue
+        - none
+  ContractApiUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ContractApiUrlValue
+        - none
+  
+  DbConnectionStringCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DbConnectionStringValue
+        - none
+  DocumentDbTopicArnCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DocumentDbTopicArnValue
+        - none
+  
+  DefaultSalesAdminDetailsCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DefaultSalesAdminDetailsValue
+        - none
+  DefaultOriginParamCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DefaultOriginParamValue
+        - none
+  
+  # Email Conditions
+  EmailFromEmailCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: EmailFromEmailValue
+        - none
+  EmailTemplateGlobalVarsCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: EmailTemplateGlobalVarsValue
+        - none
+  EmailFromCoiEmailCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: EmailFromCoiEmailValue
+        - none
+  
+  # Environment Conditions
+  EnvironmentCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: EnvironmentValue
+        - none
+  EnvironementCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: EnvironementValue
+        - none
+  EnvromenCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: EnvromenValue
+        - none
+  
+  # Frontend Conditions
+  FrontendUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: FrontendUrlValue
+        - none
+  
+  # Gunner Conditions
+  GunnerNonServiceStateCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: GunnerNonServiceStateValue
+        - none
+  GunnerJwtSecretKeyCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: GunnerJwtSecretKeyValue
+        - none
+  
+  # Hover Conditions
+  HoverCallbackApiUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HoverCallbackApiUrlValue
+        - none
+  HoverMeasurementApiUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HoverMeasurementApiUrlValue
+        - none
+  HoverAuthTokenUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HoverAuthTokenUrlValue
+        - none
+  HoverClientIdCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HoverClientIdValue
+        - none
+  HoverClientSecretCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HoverClientSecretValue
+        - none
+  HoverEventTopicCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HoverEventTopicValue
+        - none
+  HoverIsEnabledCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HoverIsEnabledValue
+        - none
+  HoverRefreshTokenBucketCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HoverRefreshTokenBucketValue
+        - none
+  HoverToHoverTopicCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HoverToHoverTopicValue
+        - none
+  
+  # HR Portal Conditions
+  HrPortalRolesCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HrPortalRolesValue
+        - none
+  
+  # HubSpot Conditions
+  HubspotApiKeyCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HubspotApiKeyValue
+        - none
+  HubspotDealStageCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HubspotDealStageValue
+        - none
+  HubspotApiKeyTempCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HubspotApiKeyTempValue
+        - none
+  HubspotDealCreateUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HubspotDealCreateUrlValue
+        - none
+  HubspotToQpDealTopicArnCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: HubspotToQpDealTopicArnValue
+        - none
+  
+  # Integration Conditions
+  IntegrationTokenCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: IntegrationTokenValue
+        - none
+  
+  # Location Conditions
+  LocationDataStreamCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: LocationDataStreamValue
+        - none
+  
+  # Media Conditions
+  MediaBucketCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: MediaBucketValue
+        - none
+  
+  # Measurement Service Conditions
+  MsIdentifierCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: MsIdentifierValue
+        - none
+  MsMeasurementServiceUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: MsMeasurementServiceUrlValue
+        - none
+  MsSnsDbTopicArnCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: MsSnsDbTopicArnValue
+        - none
+  MsSnsProviderTopicArnCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: MsSnsProviderTopicArnValue
+        - none
+  MsVendorApiKeyCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: MsVendorApiKeyValue
+        - none
+  MsVendorBucketNameCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: MsVendorBucketNameValue
+        - none
+  MsVendorFileNameCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: MsVendorFileNameValue
+        - none
+  
+  # Operations Portal Conditions
+  OperationsPortalRolesCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: OperationsPortalRolesValue
+        - none
+  
+  # Package Conditions
+  PackageApiUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: PackageApiUrlValue
+        - none
+  
+  # Password Conditions
+  PasswordLessLoginTokenExpiryCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: PasswordLessLoginTokenExpiryValue
+        - none
+  
+  # Pricing Conditions
+  PricingApiUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: PricingApiUrlValue
+        - none
+  
+  # Proposal Conditions
+  ProposalBucketNameCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ProposalBucketNameValue
+        - none
+  ProposalCallbackUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ProposalCallbackUrlValue
+        - none
+  ProposalAcceptUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ProposalAcceptUrlValue
+        - none
+  ProposalCallbackRedirectUrlCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ProposalCallbackRedirectUrlValue
+        - none
+  ProposalPreviewBucketNameCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ProposalPreviewBucketNameValue
+        - none
+  ProposalTemplateBucketNameCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: ProposalTemplateBucketNameValue
+        - none
+  
+  # QP2 Conditions
+  qp2ApiKeyCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: qp2ApiKeyValue
+        - none
+  
+  # Redis Conditions
+  RedisReadConnectionCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: RedisReadConnectionValue
+        - none
+  RedisWriteConnectionCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: RedisWriteConnectionValue
+        - none
+  
+  # Region Conditions
+  RegionCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: RegionValue
+        - none
+  
+  # Remote Conditions
+  RemoteBucketPathCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: RemoteBucketPathValue
+        - none
+  
+  # Role Conditions
+  RoleProjectManagerCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: RoleProjectManagerValue
+        - none
+  
+  # Sales Portal Conditions
+  SalesPortalRolesCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SalesPortalRolesValue
+        - none
+  
+  # SMTP Conditions
+  SmtpDetailsCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SmtpDetailsValue
+        - none
+  SmtpCoiDetailCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SmtpCoiDetailValue
+        - none
+  
+  # SNS Conditions
+  SnsArnCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnsArnValue
+        - none
+  SnsTopicDocumentCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnsTopicDocumentValue
+        - none
+  SnsTopicNotificationServiceCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnsTopicNotificationServiceValue
+        - none
+  SnsTopicProjectCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnsTopicProjectValue
+        - none
+  SnsTopicSnsPushNotificationCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnsTopicSnsPushNotificationValue
+        - none
+  
+  # Snowflake Conditions
+  SnowflakeAccountCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnowflakeAccountValue
+        - none
+  SnowflakeDatabaseCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnowflakeDatabaseValue
+        - none
+  SnowflakePasswordCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnowflakePasswordValue
+        - none
+  SnowflakeRoleCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnowflakeRoleValue
+        - none
+  SnowflakeSchemaCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnowflakeSchemaValue
+        - none
+  SnowflakeUsernameCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnowflakeUsernameValue
+        - none
+  SnowflakeWarehouseCondition:
+    Fn::And:
+    - Condition: IsCommonScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnowflakeWarehouseValue
+        - none
+  SnowflakeTableCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: SnowflakeTableValue
+        - none
+  
+  # Token Conditions
+  TokenValidateEndPointCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: TokenValidateEndPointValue
+        - none
+  
+  # Dispatch Conditions
+  DispatchNotificationCondition:
+    Fn::And:
+    - Condition: IsEnvScope
+    - Fn::Not:
+      - Fn::Equals:
+        - Ref: DispatchNotificationValue
+        - none
+
 Resources:
+  # Cognito Resources
   CognitoClientId:
     Type: Custom::SecureSSMParameter
     Condition: CognitoClientIdCondition
@@ -59,6 +1219,7 @@ Resources:
       Type: SecureString
       Value:
         Ref: CognitoClientIdValue
+  
   CognitoUserPoolId:
     Type: Custom::SecureSSMParameter
     Condition: CognitoUserPoolIdCondition
@@ -69,6 +1230,965 @@ Resources:
       Value:
         Ref: CognitoUserPoolIdValue
   
+  # DocuSign Resources
+  DocusignAccountId:
+    Type: Custom::SecureSSMParameter
+    Condition: DocusignAccountIdCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/ACCOUNT_ID
+      Type: SecureString
+      Value:
+        Ref: DocusignAccountIdValue
+  
+  DocusignAuthDomain:
+    Type: Custom::SecureSSMParameter
+    Condition: DocusignAuthDomainCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/AUTH_DOMAIN
+      Type: SecureString
+      Value:
+        Ref: DocusignAuthDomainValue
+  
+  DocusignIntegrationKey:
+    Type: Custom::SecureSSMParameter
+    Condition: DocusignIntegrationKeyCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/INTEGRATION_KEY
+      Type: SecureString
+      Value:
+        Ref: DocusignIntegrationKeyValue
+  
+  DocusignPrivateKey:
+    Type: Custom::SecureSSMParameter
+    Condition: DocusignPrivateKeyCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/PRIVATE_KEY
+      Type: SecureString
+      Value:
+        Ref: DocusignPrivateKeyValue
+  
+  DocusignUserGuid:
+    Type: Custom::SecureSSMParameter
+    Condition: DocusignUserGuidCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/USER_GUID
+      Type: SecureString
+      Value:
+        Ref: DocusignUserGuidValue
+  
+  DocusignBasePath:
+    Type: Custom::SecureSSMParameter
+    Condition: DocusignBasePathCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DOCUSIGN/BASE_PATH
+      Type: SecureString
+      Value:
+        Ref: DocusignBasePathValue
+  
+  DocusignAccountEmail:
+    Type: AWS::SSM::Parameter
+    Condition: DocusignAccountEmailCondition
+    Properties:
+      Name: /DOCUSIGN/ACCOUNT_EMAIL
+      Type: String
+      Value:
+        Ref: DocusignAccountEmailValue
+  
+  DocusignAccountName:
+    Type: AWS::SSM::Parameter
+    Condition: DocusignAccountNameCondition
+    Properties:
+      Name: /DOCUSIGN/ACCOUNT_NAME
+      Type: String
+      Value:
+        Ref: DocusignAccountNameValue
+  
+  DocusignCallbackRedirectUrl:
+    Type: AWS::SSM::Parameter
+    Condition: DocusignCallbackRedirectUrlCondition
+    Properties:
+      Name: /DOCUSIGN/CALLBACK_REDIRECT_URL
+      Type: String
+      Value:
+        Ref: DocusignCallbackRedirectUrlValue
+  
+  DocusignCallbackUrl:
+    Type: AWS::SSM::Parameter
+    Condition: DocusignCallbackUrlCondition
+    Properties:
+      Name: /DOCUSIGN/CALLBACK_URL
+      Type: String
+      Value:
+        Ref: DocusignCallbackUrlValue
+  
+  DocusignSecretKey:
+    Type: AWS::SSM::Parameter
+    Condition: DocusignSecretKeyCondition
+    Properties:
+      Name: /DOCUSIGN/SECRET_KEY
+      Type: String
+      Value:
+        Ref: DocusignSecretKeyValue
+  
+  DocusignSellerFullName:
+    Type: AWS::SSM::Parameter
+    Condition: DocusignSellerFullNameCondition
+    Properties:
+      Name: /DOCUSIGN/SELLER_FULLNAME
+      Type: String
+      Value:
+        Ref: DocusignSellerFullNameValue
+  
+  DocusignBaseUrl:
+    Type: AWS::SSM::Parameter
+    Condition: DocusignBaseUrlCondition
+    Properties:
+      Name: /DOCUSIGN/BASE_URL
+      Type: String
+      Value:
+        Ref: DocusignBaseUrlValue
+  
+  DocusignSellerEmail:
+    Type: AWS::SSM::Parameter
+    Condition: DocusignSellerEmailCondition
+    Properties:
+      Name: /DOCUSIGN/SELLER_EMAIL
+      Type: String
+      Value:
+        Ref: DocusignSellerEmailValue
+  
+  # Contract Resources
+  ContractPaymentScheduleApi:
+    Type: Custom::SecureSSMParameter
+    Condition: ContractPaymentScheduleApiCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: CONTRACT_PAYMENT_SCHEDULE_API
+      Type: SecureString
+      Value:
+        Ref: ContractPaymentScheduleApiValue
+  
+  ContractPortalHmacSecret:
+    Type: AWS::SSM::Parameter
+    Condition: ContractPortalHmacSecretCondition
+    Properties:
+      Name: CONTRACT_PORTAL_HMAC_SECRET
+      Type: String
+      Value:
+        Ref: ContractPortalHmacSecretValue
+  
+  ContractSendApi:
+    Type: Custom::SecureSSMParameter
+    Condition: ContractSendApiCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: CONTRACT_SEND_API
+      Type: SecureString
+      Value:
+        Ref: ContractSendApiValue
+  
+  ContractSowApi:
+    Type: Custom::SecureSSMParameter
+    Condition: ContractSowApiCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: CONTRACT_SOW_API
+      Type: SecureString
+      Value:
+        Ref: ContractSowApiValue
+  
+  ContractStorageBucketName:
+    Type: Custom::SecureSSMParameter
+    Condition: ContractStorageBucketNameCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: CONTRACT_STORAGE_BUCKET_NAME
+      Type: SecureString
+      Value:
+        Ref: ContractStorageBucketNameValue
+  
+  ContractTermApi:
+    Type: Custom::SecureSSMParameter
+    Condition: ContractTermApiCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: CONTRACT_TERM_API
+      Type: SecureString
+      Value:
+        Ref: ContractTermApiValue
+  
+  ContractPortalApi:
+    Type: AWS::SSM::Parameter
+    Condition: ContractPortalApiCondition
+    Properties:
+      Name: /CONTRACT/PORTAL_API
+      Type: String
+      Value:
+        Ref: ContractPortalApiValue
+  
+  ContractPreviewBucketName:
+    Type: AWS::SSM::Parameter
+    Condition: ContractPreviewBucketNameCondition
+    Properties:
+      Name: /CONTRACT/PREVIEW_BUCKET_NAME
+      Type: String
+      Value:
+        Ref: ContractPreviewBucketNameValue
+  
+  ContractSignatureUrl:
+    Type: AWS::SSM::Parameter
+    Condition: ContractSignatureUrlCondition
+    Properties:
+      Name: /CONTRACT/SIGNATURE_URL
+      Type: String
+      Value:
+        Ref: ContractSignatureUrlValue
+  
+  ContractTemplateBucketName:
+    Type: AWS::SSM::Parameter
+    Condition: ContractTemplateBucketNameCondition
+    Properties:
+      Name: /CONTRACT/TEMPLATE_BUCKET_NAME
+      Type: String
+      Value:
+        Ref: ContractTemplateBucketNameValue
+  
+  ContractApiUrl:
+    Type: AWS::SSM::Parameter
+    Condition: ContractApiUrlCondition
+    Properties:
+      Name: CONTRACT_API_URL
+      Type: String
+      Value:
+        Ref: ContractApiUrlValue
+  
+  # Database Resources
+  DbConnectionString:
+    Type: Custom::SecureSSMParameter
+    Condition: DbConnectionStringCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: DB_CONNECTION_STRING
+      Type: SecureString
+      Value:
+        Ref: DbConnectionStringValue
+  
+  DocumentDbTopicArn:
+    Type: Custom::SecureSSMParameter
+    Condition: DocumentDbTopicArnCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: DOCUMENT_DB_TOPIC_ARN
+      Type: SecureString
+      Value:
+        Ref: DocumentDbTopicArnValue
+  
+  # Default Resources
+  DefaultSalesAdminDetails:
+    Type: AWS::SSM::Parameter
+    Condition: DefaultSalesAdminDetailsCondition
+    Properties:
+      Name: DEFAULT_SALES_ADMIN_DETAILS
+      Type: String
+      Value:
+        Ref: DefaultSalesAdminDetailsValue
+  
+  DefaultOriginParam:
+    Type: Custom::SecureSSMParameter
+    Condition: DefaultOriginParamCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /DEFAULT/ORIGIN_PARAM
+      Type: SecureString
+      Value:
+        Ref: DefaultOriginParamValue
+  
+  # Email Resources
+  EmailFromEmail:
+    Type: Custom::SecureSSMParameter
+    Condition: EmailFromEmailCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /EMAIL/FROM_EMAIL
+      Type: SecureString
+      Value:
+        Ref: EmailFromEmailValue
+  
+  EmailTemplateGlobalVars:
+    Type: Custom::SecureSSMParameter
+    Condition: EmailTemplateGlobalVarsCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /EMAIL/TEMPLATE/GLOBAL_VARS
+      Type: SecureString
+      Value:
+        Ref: EmailTemplateGlobalVarsValue
+  
+  EmailFromCoiEmail:
+    Type: Custom::SecureSSMParameter
+    Condition: EmailFromCoiEmailCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /EMAIL/FROM_COI_EMAIL
+      Type: SecureString
+      Value:
+        Ref: EmailFromCoiEmailValue
+  
+  # Environment Resources
+  Environment:
+    Type: AWS::SSM::Parameter
+    Condition: EnvironmentCondition
+    Properties:
+      Name: /ENVIRONMENT
+      Type: String
+      Value:
+        Ref: EnvironmentValue
+  
+  Environement:
+    Type: AWS::SSM::Parameter
+    Condition: EnvironementCondition
+    Properties:
+      Name: /ENVIRONEMENT
+      Type: String
+      Value:
+        Ref: EnvironementValue
+  
+  Envromen:
+    Type: AWS::SSM::Parameter
+    Condition: EnvromenCondition
+    Properties:
+      Name: /ENVRONMENT
+      Type: String
+      Value:
+        Ref: EnvromenValue
+  
+  # Frontend Resources
+  FrontendUrl:
+    Type: AWS::SSM::Parameter
+    Condition: FrontendUrlCondition
+    Properties:
+      Name: FRONTEND_URL
+      Type: String
+      Value:
+        Ref: FrontendUrlValue
+  
+  # Gunner Resources
+  GunnerNonServiceState:
+    Type: Custom::SecureSSMParameter
+    Condition: GunnerNonServiceStateCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /GUNNER/NON_SERVICE_STATE
+      Type: SecureString
+      Value:
+        Ref: GunnerNonServiceStateValue
+  
+  GunnerJwtSecretKey:
+    Type: Custom::SecureSSMParameter
+    Condition: GunnerJwtSecretKeyCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /GUNNER/JWT_SECRET_KEY
+      Type: SecureString
+      Value:
+        Ref: GunnerJwtSecretKeyValue
+  
+  # Hover Resources
+  HoverCallbackApiUrl:
+    Type: Custom::SecureSSMParameter
+    Condition: HoverCallbackApiUrlCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/CALLBACK_API_URL
+      Type: SecureString
+      Value:
+        Ref: HoverCallbackApiUrlValue
+  
+  HoverMeasurementApiUrl:
+    Type: Custom::SecureSSMParameter
+    Condition: HoverMeasurementApiUrlCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/MEASUREMENT_API_URL
+      Type: SecureString
+      Value:
+        Ref: HoverMeasurementApiUrlValue
+  
+  HoverAuthTokenUrl:
+    Type: Custom::SecureSSMParameter
+    Condition: HoverAuthTokenUrlCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/AUTH_TOKEN_URL
+      Type: SecureString
+      Value:
+        Ref: HoverAuthTokenUrlValue
+  
+  HoverClientId:
+    Type: Custom::SecureSSMParameter
+    Condition: HoverClientIdCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/CLIENT_ID
+      Type: SecureString
+      Value:
+        Ref: HoverClientIdValue
+  
+  HoverClientSecret:
+    Type: Custom::SecureSSMParameter
+    Condition: HoverClientSecretCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/CLIENT_SECRET
+      Type: SecureString
+      Value:
+        Ref: HoverClientSecretValue
+  
+  HoverEventTopic:
+    Type: Custom::SecureSSMParameter
+    Condition: HoverEventTopicCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/EVENT_TOPIC
+      Type: SecureString
+      Value:
+        Ref: HoverEventTopicValue
+  
+  HoverIsEnabled:
+    Type: Custom::SecureSSMParameter
+    Condition: HoverIsEnabledCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/IS_ENABLED
+      Type: SecureString
+      Value:
+        Ref: HoverIsEnabledValue
+  
+  HoverRefreshTokenBucket:
+    Type: Custom::SecureSSMParameter
+    Condition: HoverRefreshTokenBucketCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/REFRESH_TOKEN_BUCKET
+      Type: SecureString
+      Value:
+        Ref: HoverRefreshTokenBucketValue
+  
+  HoverToHoverTopic:
+    Type: Custom::SecureSSMParameter
+    Condition: HoverToHoverTopicCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HOVER/TO_HOVER_TOPIC
+      Type: SecureString
+      Value:
+        Ref: HoverToHoverTopicValue
+  
+  # HR Portal Resources
+  HrPortalRoles:
+    Type: AWS::SSM::Parameter
+    Condition: HrPortalRolesCondition
+    Properties:
+      Name: HR_PORTAL_ROLES
+      Type: String
+      Value:
+        Ref: HrPortalRolesValue
+  
+  # HubSpot Resources
+  HubspotApiKey:
+    Type: Custom::SecureSSMParameter
+    Condition: HubspotApiKeyCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HUBSPOT/API_KEY
+      Type: SecureString
+      Value:
+        Ref: HubspotApiKeyValue
+  
+  HubspotDealStage:
+    Type: Custom::SecureSSMParameter
+    Condition: HubspotDealStageCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /HUBSPOT/DEALSTAGE
+      Type: SecureString
+      Value:
+        Ref: HubspotDealStageValue
+  
+  HubspotApiKeyTemp:
+    Type: AWS::SSM::Parameter
+    Condition: HubspotApiKeyTempCondition
+    Properties:
+      Name: /HUBSPOT/API_KEY_TEMP
+      Type: String
+      Value:
+        Ref: HubspotApiKeyTempValue
+  
+  HubspotDealCreateUrl:
+    Type: AWS::SSM::Parameter
+    Condition: HubspotDealCreateUrlCondition
+    Properties:
+      Name: /HUBSPOT/DEAL_CREATE_URL
+      Type: String
+      Value:
+        Ref: HubspotDealCreateUrlValue
+  
+  HubspotToQpDealTopicArn:
+    Type: AWS::SSM::Parameter
+    Condition: HubspotToQpDealTopicArnCondition
+    Properties:
+      Name: /HUBSPOT/TO_QP_DEAL_TOPIC_ARN
+      Type: String
+      Value:
+        Ref: HubspotToQpDealTopicArnValue
+  
+  # Integration Resources
+  IntegrationToken:
+    Type: AWS::SSM::Parameter
+    Condition: IntegrationTokenCondition
+    Properties:
+      Name: INTEGRATION_TOKEN
+      Type: String
+      Value:
+        Ref: IntegrationTokenValue
+  
+  # Location Resources
+  LocationDataStream:
+    Type: AWS::SSM::Parameter
+    Condition: LocationDataStreamCondition
+    Properties:
+      Name: LOCATION_DATASTREAM
+      Type: String
+      Value:
+        Ref: LocationDataStreamValue
+  
+  # Media Resources
+  MediaBucket:
+    Type: AWS::SSM::Parameter
+    Condition: MediaBucketCondition
+    Properties:
+      Name: MEDIA_BUCKET
+      Type: String
+      Value:
+        Ref: MediaBucketValue
+  
+  # Measurement Service Resources
+  MsIdentifier:
+    Type: Custom::SecureSSMParameter
+    Condition: MsIdentifierCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /MS/IDENTIFIER
+      Type: SecureString
+      Value:
+        Ref: MsIdentifierValue
+  
+  MsMeasurementServiceUrl:
+    Type: Custom::SecureSSMParameter
+    Condition: MsMeasurementServiceUrlCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /MS/MEASUREMENT_SERVICE_URL
+      Type: SecureString
+      Value:
+        Ref: MsMeasurementServiceUrlValue
+  
+  MsSnsDbTopicArn:
+    Type: AWS::SSM::Parameter
+    Condition: MsSnsDbTopicArnCondition
+    Properties:
+      Name: /MS/SNS_DB_TOPIC_ARN
+      Type: String
+      Value:
+        Ref: MsSnsDbTopicArnValue
+  
+  MsSnsProviderTopicArn:
+    Type: AWS::SSM::Parameter
+    Condition: MsSnsProviderTopicArnCondition
+    Properties:
+      Name: /MS/SNS_PROVIDER_TOPIC_ARN
+      Type: String
+      Value:
+        Ref: MsSnsProviderTopicArnValue
+  
+  MsVendorApiKey:
+    Type: Custom::SecureSSMParameter
+    Condition: MsVendorApiKeyCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /MS/VENDOR_API_KEY
+      Type: SecureString
+      Value:
+        Ref: MsVendorApiKeyValue
+  
+  MsVendorBucketName:
+    Type: AWS::SSM::Parameter
+    Condition: MsVendorBucketNameCondition
+    Properties:
+      Name: /MS/VENDOR_BUCKET_NAME
+      Type: String
+      Value:
+        Ref: MsVendorBucketNameValue
+  
+  MsVendorFileName:
+    Type: AWS::SSM::Parameter
+    Condition: MsVendorFileNameCondition
+    Properties:
+      Name: /MS/VENDOR_FILE_NAME
+      Type: String
+      Value:
+        Ref: MsVendorFileNameValue
+  
+  # Operations Portal Resources
+  OperationsPortalRoles:
+    Type: AWS::SSM::Parameter
+    Condition: OperationsPortalRolesCondition
+    Properties:
+      Name: OPERATIONS_PORTAL_ROLES
+      Type: String
+      Value:
+        Ref: OperationsPortalRolesValue
+  
+  # Package Resources
+  PackageApiUrl:
+    Type: AWS::SSM::Parameter
+    Condition: PackageApiUrlCondition
+    Properties:
+      Name: PACKAGE_API_URL
+      Type: String
+      Value:
+        Ref: PackageApiUrlValue
+  
+  # Password Resources
+  PasswordLessLoginTokenExpiry:
+    Type: Custom::SecureSSMParameter
+    Condition: PasswordLessLoginTokenExpiryCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: PASSWORD_LESS_LOGIN_TOKEN_EXPIRY
+      Type: SecureString
+      Value:
+        Ref: PasswordLessLoginTokenExpiryValue
+  
+  # Pricing Resources
+  PricingApiUrl:
+    Type: AWS::SSM::Parameter
+    Condition: PricingApiUrlCondition
+    Properties:
+      Name: PRICING_API_URL
+      Type: String
+      Value:
+        Ref: PricingApiUrlValue
+  
+  # Proposal Resources
+  ProposalBucketName:
+    Type: AWS::SSM::Parameter
+    Condition: ProposalBucketNameCondition
+    Properties:
+      Name: PROPOSAL_BUCKET_NAME
+      Type: String
+      Value:
+        Ref: ProposalBucketNameValue
+  
+  ProposalCallbackUrl:
+    Type: AWS::SSM::Parameter
+    Condition: ProposalCallbackUrlCondition
+    Properties:
+      Name: PROPOSAL_CALLBACK_URL
+      Type: String
+      Value:
+        Ref: ProposalCallbackUrlValue
+  
+  ProposalAcceptUrl:
+    Type: AWS::SSM::Parameter
+    Condition: ProposalAcceptUrlCondition
+    Properties:
+      Name: /PROPOSAL/ACCEPT_URL
+      Type: String
+      Value:
+        Ref: ProposalAcceptUrlValue
+  
+  ProposalCallbackRedirectUrl:
+    Type: AWS::SSM::Parameter
+    Condition: ProposalCallbackRedirectUrlCondition
+    Properties:
+      Name: /PROPOSAL/CALLBACK_REDIRECT_URL
+      Type: String
+      Value:
+        Ref: ProposalCallbackRedirectUrlValue
+  
+  ProposalPreviewBucketName:
+    Type: AWS::SSM::Parameter
+    Condition: ProposalPreviewBucketNameCondition
+    Properties:
+      Name: /PROPOSAL/PREVIEW_BUCKET_NAME
+      Type: String
+      Value:
+        Ref: ProposalPreviewBucketNameValue
+  
+  ProposalTemplateBucketName:
+    Type: AWS::SSM::Parameter
+    Condition: ProposalTemplateBucketNameCondition
+    Properties:
+      Name: /PROPOSAL/TEMPLATE_BUCKET_NAME
+      Type: String
+      Value:
+        Ref: ProposalTemplateBucketNameValue
+  
+  # QP2 Resources
+  qp2ApiKey:
+    Type: Custom::SecureSSMParameter
+    Condition: qp2ApiKeyCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /QP2/API_KEY
+      Type: SecureString
+      Value:
+        Ref: qp2ApiKeyValue
+  
+  # Redis Resources
+  RedisReadConnection:
+    Type: Custom::SecureSSMParameter
+    Condition: RedisReadConnectionCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /REDIS/READ_CONNECTION
+      Type: SecureString
+      Value:
+        Ref: RedisReadConnectionValue
+  
+  RedisWriteConnection:
+    Type: Custom::SecureSSMParameter
+    Condition: RedisWriteConnectionCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /REDIS/WRITE_CONNECTION
+      Type: SecureString
+      Value:
+        Ref: RedisWriteConnectionValue
+  
+  # Region Resources
+  Region:
+    Type: AWS::SSM::Parameter
+    Condition: RegionCondition
+    Properties:
+      Name: REGION
+      Type: String
+      Value:
+        Ref: RegionValue
+  
+  # Remote Resources
+  RemoteBucketPath:
+    Type: Custom::SecureSSMParameter
+    Condition: RemoteBucketPathCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /REMOTE/BUCKET_PATH
+      Type: SecureString
+      Value:
+        Ref: RemoteBucketPathValue
+  
+  # Role Resources
+  RoleProjectManager:
+    Type: Custom::SecureSSMParameter
+    Condition: RoleProjectManagerCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /ROLE/PROJECT_MANAGER
+      Type: SecureString
+      Value:
+        Ref: RoleProjectManagerValue
+  
+  # Sales Portal Resources
+  SalesPortalRoles:
+    Type: AWS::SSM::Parameter
+    Condition: SalesPortalRolesCondition
+    Properties:
+      Name: SALES_PORTAL_ROLES
+      Type: String
+      Value:
+        Ref: SalesPortalRolesValue
+  
+  # SMTP Resources
+  SmtpDetails:
+    Type: Custom::SecureSSMParameter
+    Condition: SmtpDetailsCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: SMTP_DETAILS
+      Type: SecureString
+      Value:
+        Ref: SmtpDetailsValue
+  
+  SmtpCoiDetail:
+    Type: Custom::SecureSSMParameter
+    Condition: SmtpCoiDetailCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SMTP/COI_DETAIL
+      Type: SecureString
+      Value:
+        Ref: SmtpCoiDetailValue
+  
+  # SNS Resources
+  SnsArn:
+    Type: Custom::SecureSSMParameter
+    Condition: SnsArnCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: SNS_ARN
+      Type: SecureString
+      Value:
+        Ref: SnsArnValue
+  
+  SnsTopicDocument:
+    Type: Custom::SecureSSMParameter
+    Condition: SnsTopicDocumentCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNS_TOPIC/DOCUMENT
+      Type: SecureString
+      Value:
+        Ref: SnsTopicDocumentValue
+  
+  SnsTopicNotificationService:
+    Type: Custom::SecureSSMParameter
+    Condition: SnsTopicNotificationServiceCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNS_TOPIC/NOTIFICATION_SERVICE
+      Type: SecureString
+      Value:
+        Ref: SnsTopicNotificationServiceValue
+  
+  SnsTopicProject:
+    Type: Custom::SecureSSMParameter
+    Condition: SnsTopicProjectCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNS_TOPIC/PROJECT
+      Type: SecureString
+      Value:
+        Ref: SnsTopicProjectValue
+  
+  SnsTopicSnsPushNotification:
+    Type: Custom::SecureSSMParameter
+    Condition: SnsTopicSnsPushNotificationCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNS_TOPIC/SNS_PUSH_NOTIFICATION
+      Type: SecureString
+      Value:
+        Ref: SnsTopicSnsPushNotificationValue
+  
+  # Snowflake Resources
+  SnowflakeAccount:
+    Type: Custom::SecureSSMParameter
+    Condition: SnowflakeAccountCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/ACCOUNT
+      Type: SecureString
+      Value:
+        Ref: SnowflakeAccountValue
+  
+  SnowflakeDatabase:
+    Type: Custom::SecureSSMParameter
+    Condition: SnowflakeDatabaseCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/DATABASE
+      Type: SecureString
+      Value:
+        Ref: SnowflakeDatabaseValue
+  
+  SnowflakePassword:
+    Type: Custom::SecureSSMParameter
+    Condition: SnowflakePasswordCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/PASSWORD
+      Type: SecureString
+      Value:
+        Ref: SnowflakePasswordValue
+  
+  SnowflakeRole:
+    Type: Custom::SecureSSMParameter
+    Condition: SnowflakeRoleCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/ROLE
+      Type: SecureString
+      Value:
+        Ref: SnowflakeRoleValue
+  
+  SnowflakeSchema:
+    Type: Custom::SecureSSMParameter
+    Condition: SnowflakeSchemaCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/SCHEMA
+      Type: SecureString
+      Value:
+        Ref: SnowflakeSchemaValue
+  
+  SnowflakeUsername:
+    Type: Custom::SecureSSMParameter
+    Condition: SnowflakeUsernameCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/USERNAME
+      Type: SecureString
+      Value:
+        Ref: SnowflakeUsernameValue
+  
+  SnowflakeWarehouse:
+    Type: Custom::SecureSSMParameter
+    Condition: SnowflakeWarehouseCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/WAREHOUSE
+      Type: SecureString
+      Value:
+        Ref: SnowflakeWarehouseValue
+  
+  SnowflakeTable:
+    Type: Custom::SecureSSMParameter
+    Condition: SnowflakeTableCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: /SNOWFLAKE/TABLE
+      Type: SecureString
+      Value:
+        Ref: SnowflakeTableValue
+  
+  # Token Resources
+  TokenValidateEndPoint:
+    Type: Custom::SecureSSMParameter
+    Condition: TokenValidateEndPointCondition
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-2:677496345545:function:ssm-parameter-manager
+      Name: TOKEN_VALIDATE_END_POINT
+      Type: SecureString
+      Value:
+        Ref: TokenValidateEndPointValue
+  
+  # Dispatch Resources
+  DispatchNotification:
+    Type: AWS::SSM::Parameter
+    Condition: DispatchNotificationCondition
+    Properties:
+      Name: /DISPATCH/NOTIFICATION
+      Type: String
+      Value:
+        Ref: DispatchNotificationValue
+
 Outputs:
   Status:
     Value: 'Parameters created successfully for scope: ${Scope}'

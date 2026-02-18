@@ -34,18 +34,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: ${{ secrets.IAM_ROLE }}
-          aws-region: ${{ env.AWS_REGION }}
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml ruamel.yaml
 
       - name: Build and Deploy Parameters
         shell: bash
@@ -81,4 +80,101 @@ jobs:
               Scope="$SCOPE" \
               environment="$DEPLOY_ENV" \
               CognitoClientIdValue="$(normalize '${{ secrets.COGNITO_CLIENT_ID }}')" \
-              CognitoUserPoolIdValue="$(normalize '${{ secrets.COGNITO_USER_POOL_ID }}')"
+              CognitoUserPoolIdValue="$(normalize '${{ secrets.COGNITO_USER_POOL_ID }}')" \
+              DocusignAccountIdValue="$(normalize '${{ secrets.DOCUSIGN_ACCOUNT_ID }}')" \
+              DocusignAuthDomainValue="$(normalize '${{ secrets.DOCUSIGN_AUTH_DOMAIN }}')" \
+              DocusignIntegrationKeyValue="$(normalize '${{ secrets.DOCUSIGN_INTEGRATION_KEY }}')" \
+              DocusignPrivateKeyValue="$(normalize '${{ secrets.DOCUSIGN_PRIVATE_KEY }}')" \
+              DocusignUserGuidValue="$(normalize '${{ secrets.DOCUSIGN_USER_GUID }}')" \
+              DocusignBasePathValue="$(normalize '${{ secrets.DOCUSIGN_BASE_PATH }}')" \
+              DocusignAccountEmailValue="$(normalize '${{ secrets.DOCUSIGN_ACCOUNT_EMAIL }}')" \
+              DocusignAccountNameValue="$(normalize '${{ secrets.DOCUSIGN_ACCOUNT_NAME }}')" \
+              DocusignCallbackRedirectUrlValue="$(normalize '${{ secrets.DOCUSIGN_CALLBACK_REDIRECT_URL }}')" \
+              DocusignCallbackUrlValue="$(normalize '${{ secrets.DOCUSIGN_CALLBACK_URL }}')" \
+              DocusignSecretKeyValue="$(normalize '${{ secrets.DOCUSIGN_SECRET_KEY }}')" \
+              DocusignSellerFullNameValue="$(normalize '${{ secrets.DOCUSIGN_SELLER_FULLNAME }}')" \
+              DocusignBaseUrlValue="$(normalize '${{ secrets.DOCUSIGN_BASE_URL }}')" \
+              DocusignSellerEmailValue="$(normalize '${{ secrets.DOCUSIGN_SELLER_EMAIL }}')" \
+              ContractPaymentScheduleApiValue="$(normalize '${{ secrets.CONTRACT_PAYMENT_SCHEDULE_API }}')" \
+              ContractPortalHmacSecretValue="$(normalize '${{ secrets.CONTRACT_PORTAL_HMAC_SECRET }}')" \
+              ContractSendApiValue="$(normalize '${{ secrets.CONTRACT_SEND_API }}')" \
+              ContractSowApiValue="$(normalize '${{ secrets.CONTRACT_SOW_API }}')" \
+              ContractStorageBucketNameValue="$(normalize '${{ secrets.CONTRACT_STORAGE_BUCKET_NAME }}')" \
+              ContractTermApiValue="$(normalize '${{ secrets.CONTRACT_TERM_API }}')" \
+              ContractPortalApiValue="$(normalize '${{ secrets.CONTRACT_PORTAL_API }}')" \
+              ContractPreviewBucketNameValue="$(normalize '${{ secrets.CONTRACT_PREVIEW_BUCKET_NAME }}')" \
+              ContractSignatureUrlValue="$(normalize '${{ secrets.CONTRACT_SIGNATURE_URL }}')" \
+              ContractTemplateBucketNameValue="$(normalize '${{ secrets.CONTRACT_TEMPLATE_BUCKET_NAME }}')" \
+              ContractApiUrlValue="$(normalize '${{ secrets.CONTRACT_API_URL }}')" \
+              DbConnectionStringValue="$(normalize '${{ secrets.DB_CONNECTION_STRING }}')" \
+              DocumentDbTopicArnValue="$(normalize '${{ secrets.DOCUMENT_DB_TOPIC_ARN }}')" \
+              DefaultSalesAdminDetailsValue="$(normalize '${{ secrets.DEFAULT_SALES_ADMIN_DETAILS }}')" \
+              DefaultOriginParamValue="$(normalize '${{ secrets.DEFAULT_ORIGIN_PARAM }}')" \
+              EmailFromEmailValue="$(normalize '${{ secrets.EMAIL_FROM_EMAIL }}')" \
+              EmailTemplateGlobalVarsValue="$(normalize '${{ secrets.EMAIL_TEMPLATE_GLOBAL_VARS }}')" \
+              EmailFromCoiEmailValue="$(normalize '${{ secrets.EMAIL_FROM_COI_EMAIL }}')" \
+              EnvironmentValue="$(normalize '${{ secrets.ENVIRONMENT }}')" \
+              EnvironementValue="$(normalize '${{ secrets.ENVIRONEMENT }}')" \
+              EnvromenValue="$(normalize '${{ secrets.ENVRONMENT }}')" \
+              FrontendUrlValue="$(normalize '${{ secrets.FRONTEND_URL }}')" \
+              GunnerNonServiceStateValue="$(normalize '${{ secrets.GUNNER_NON_SERVICE_STATE }}')" \
+              GunnerJwtSecretKeyValue="$(normalize '${{ secrets.GUNNER_JWT_SECRET_KEY }}')" \
+              HoverCallbackApiUrlValue="$(normalize '${{ secrets.HOVER_CALLBACK_API_URL }}')" \
+              HoverMeasurementApiUrlValue="$(normalize '${{ secrets.HOVER_MEASUREMENT_API_URL }}')" \
+              HoverAuthTokenUrlValue="$(normalize '${{ secrets.HOVER_AUTH_TOKEN_URL }}')" \
+              HoverClientIdValue="$(normalize '${{ secrets.HOVER_CLIENT_ID }}')" \
+              HoverClientSecretValue="$(normalize '${{ secrets.HOVER_CLIENT_SECRET }}')" \
+              HoverEventTopicValue="$(normalize '${{ secrets.HOVER_EVENT_TOPIC }}')" \
+              HoverIsEnabledValue="$(normalize '${{ secrets.HOVER_IS_ENABLED }}')" \
+              HoverRefreshTokenBucketValue="$(normalize '${{ secrets.HOVER_REFRESH_TOKEN_BUCKET }}')" \
+              HoverToHoverTopicValue="$(normalize '${{ secrets.HOVER_TO_HOVER_TOPIC }}')" \
+              HrPortalRolesValue="$(normalize '${{ secrets.HR_PORTAL_ROLES }}')" \
+              HubspotApiKeyValue="$(normalize '${{ secrets.HUBSPOT_API_KEY }}')" \
+              HubspotDealStageValue="$(normalize '${{ secrets.HUBSPOT_DEALSTAGE }}')" \
+              HubspotApiKeyTempValue="$(normalize '${{ secrets.HUBSPOT_API_KEY_TEMP }}')" \
+              HubspotDealCreateUrlValue="$(normalize '${{ secrets.HUBSPOT_DEAL_CREATE_URL }}')" \
+              HubspotToQpDealTopicArnValue="$(normalize '${{ secrets.HUBSPOT_TO_QP_DEAL_TOPIC_ARN }}')" \
+              IntegrationTokenValue="$(normalize '${{ secrets.INTEGRATION_TOKEN }}')" \
+              LocationDataStreamValue="$(normalize '${{ secrets.LOCATION_DATASTREAM }}')" \
+              MediaBucketValue="$(normalize '${{ secrets.MEDIA_BUCKET }}')" \
+              MsIdentifierValue="$(normalize '${{ secrets.MS_IDENTIFIER }}')" \
+              MsMeasurementServiceUrlValue="$(normalize '${{ secrets.MS_MEASUREMENT_SERVICE_URL }}')" \
+              MsSnsDbTopicArnValue="$(normalize '${{ secrets.MS_SNS_DB_TOPIC_ARN }}')" \
+              MsSnsProviderTopicArnValue="$(normalize '${{ secrets.MS_SNS_PROVIDER_TOPIC_ARN }}')" \
+              MsVendorApiKeyValue="$(normalize '${{ secrets.MS_VENDOR_API_KEY }}')" \
+              MsVendorBucketNameValue="$(normalize '${{ secrets.MS_VENDOR_BUCKET_NAME }}')" \
+              MsVendorFileNameValue="$(normalize '${{ secrets.MS_VENDOR_FILE_NAME }}')" \
+              OperationsPortalRolesValue="$(normalize '${{ secrets.OPERATIONS_PORTAL_ROLES }}')" \
+              PackageApiUrlValue="$(normalize '${{ secrets.PACKAGE_API_URL }}')" \
+              PasswordLessLoginTokenExpiryValue="$(normalize '${{ secrets.PASSWORD_LESS_LOGIN_TOKEN_EXPIRY }}')" \
+              PricingApiUrlValue="$(normalize '${{ secrets.PRICING_API_URL }}')" \
+              ProposalBucketNameValue="$(normalize '${{ secrets.PROPOSAL_BUCKET_NAME }}')" \
+              ProposalCallbackUrlValue="$(normalize '${{ secrets.PROPOSAL_CALLBACK_URL }}')" \
+              ProposalAcceptUrlValue="$(normalize '${{ secrets.PROPOSAL_ACCEPT_URL }}')" \
+              ProposalCallbackRedirectUrlValue="$(normalize '${{ secrets.PROPOSAL_CALLBACK_REDIRECT_URL }}')" \
+              ProposalPreviewBucketNameValue="$(normalize '${{ secrets.PROPOSAL_PREVIEW_BUCKET_NAME }}')" \
+              ProposalTemplateBucketNameValue="$(normalize '${{ secrets.PROPOSAL_TEMPLATE_BUCKET_NAME }}')" \
+              qp2ApiKeyValue="$(normalize '${{ secrets.QP2_API_KEY }}')" \
+              RedisReadConnectionValue="$(normalize '${{ secrets.REDIS_READ_CONNECTION }}')" \
+              RedisWriteConnectionValue="$(normalize '${{ secrets.REDIS_WRITE_CONNECTION }}')" \
+              RegionValue="$(normalize '${{ secrets.REGION }}')" \
+              RemoteBucketPathValue="$(normalize '${{ secrets.REMOTE_BUCKET_PATH }}')" \
+              RoleProjectManagerValue="$(normalize '${{ secrets.ROLE_PROJECT_MANAGER }}')" \
+              SalesPortalRolesValue="$(normalize '${{ secrets.SALES_PORTAL_ROLES }}')" \
+              SmtpDetailsValue="$(normalize '${{ secrets.SMTP_DETAILS }}')" \
+              SmtpCoiDetailValue="$(normalize '${{ secrets.SMTP_COI_DETAIL }}')" \
+              SnsArnValue="$(normalize '${{ secrets.SNS_ARN }}')" \
+              SnsTopicDocumentValue="$(normalize '${{ secrets.SNS_TOPIC_DOCUMENT }}')" \
+              SnsTopicNotificationServiceValue="$(normalize '${{ secrets.SNS_TOPIC_NOTIFICATION_SERVICE }}')" \
+              SnsTopicProjectValue="$(normalize '${{ secrets.SNS_TOPIC_PROJECT }}')" \
+              SnsTopicSnsPushNotificationValue="$(normalize '${{ secrets.SNS_TOPIC_SNS_PUSH_NOTIFICATION }}')" \
+              SnowflakeAccountValue="$(normalize '${{ secrets.SNOWFLAKE_ACCOUNT }}')" \
+              SnowflakeDatabaseValue="$(normalize '${{ secrets.SNOWFLAKE_DATABASE }}')" \
+              SnowflakePasswordValue="$(normalize '${{ secrets.SNOWFLAKE_PASSWORD }}')" \
+              SnowflakeRoleValue="$(normalize '${{ secrets.SNOWFLAKE_ROLE }}')" \
+              SnowflakeSchemaValue="$(normalize '${{ secrets.SNOWFLAKE_SCHEMA }}')" \
+              SnowflakeUsernameValue="$(normalize '${{ secrets.SNOWFLAKE_USERNAME }}')" \
+              SnowflakeWarehouseValue="$(normalize '${{ secrets.SNOWFLAKE_WAREHOUSE }}')" \
+              SnowflakeTableValue="$(normalize '${{ secrets.SNOWFLAKE_TABLE }}')" \
+              TokenValidateEndPointValue="$(normalize '${{ secrets.TOKEN_VALIDATE_END_POINT }}')" \
+              DispatchNotificationValue="$(normalize '${{ secrets.DISPATCH_NOTIFICATION }}')"
