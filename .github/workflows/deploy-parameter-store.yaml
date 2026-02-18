@@ -53,11 +53,6 @@ jobs:
           SCOPE="${{ github.event.inputs.scope }}"
           DEPLOY_ENV="${{ github.event.inputs.environment }}"
 
-          if [ "$SCOPE" == "env" ] && [ -z "$DEPLOY_ENV" ]; then
-            echo "ERROR: environment must be selected when scope=env"
-            exit 1
-          fi
-
           if [ "$SCOPE" == "common" ]; then
             STACK_NAME="parameter-store-common"
           else
