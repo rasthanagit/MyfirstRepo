@@ -51,11 +51,10 @@ jobs:
         shell: bash
         run: |
           SCOPE="${{ github.event.inputs.scope }}"
-          DEPLOY_ENV="${{ github.event.inputs.environment || 'qa' }}"
+          DEPLOY_ENV="${{ github.event.inputs.environment }}"
 
           if [ "$SCOPE" == "common" ]; then
             STACK_NAME="parameter-store-common"
-            DEPLOY_ENV="qa"
           else
             STACK_NAME="parameter-store-$DEPLOY_ENV"
           fi
